@@ -11,7 +11,7 @@
     /* color of browser-provided UI */
 
     --color-base-100: white;
-    --color-base-200: oklch(95% 0.03 240);
+    --color-base-200: #f8f8f8;
     --color-base-300: oklch(92% 0.04 240);
     --color-base-content: oklch(20% 0.05 240);
     --color-primary: #f05537;
@@ -44,6 +44,6 @@
     --border: 1px;
 
     /* effects */
-    --depth: 1;
+    --depth: 0;
     --noise: 0;
 }
