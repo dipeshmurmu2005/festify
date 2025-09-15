@@ -1,4 +1,4 @@
-<div class="2xl:px-46">
+<div class="px-46">
     <div class="grid grid-cols-4 gap-10 bg-gradient-to-r from-blue-50 to-white p-10 rounded-2xl">
         <div class="py-20">
             <h2

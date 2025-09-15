@@ -1,4 +1,4 @@
-<div class="grid grid-cols-8 gap-5 2xl:px-46 py-20">
+<div class="grid grid-cols-8 gap-5 px-46 py-20">
     <a href="#">
         <div class="flex flex-col items-center space-y-3 group">
             <div
