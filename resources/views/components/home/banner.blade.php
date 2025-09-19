@@ -15,7 +15,18 @@
             </a>
         </div>
         <div class="col-span-3 py-20">
-            <div class="swiper mySwiper">
+            <div class="swiper mySwiper" x-data="{
+                init() {
+                    var swiper = new Swiper('.mySwiper', {
+                        slidesPerView: 3.2,
+                        spaceBetween: 30,
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true,
+                        },
+                    });
+                }
+            }">
                 <div class="swiper-wrapper">
                     <x-home.banner-event />
                     <x-home.banner-event />
@@ -26,17 +37,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            var swiper = new Swiper(".mySwiper", {
-                slidesPerView: 3.2,
-                spaceBetween: 30,
-                pagination: {
-                    el: ".swiper-pagination",
-                    clickable: true,
-                },
-            });
-        });
-    </script>
 </div>

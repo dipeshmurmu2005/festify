@@ -17,8 +17,9 @@
             <a href="#"><button class="btn btn-ghost rounded-full">Find Events</button></a>
             <a href="#"><button class="btn btn-ghost rounded-full">Create Events</button></a>
             <a href="#"><button class="btn btn-ghost rounded-full">Find My Ticket</button></a>
-            <a href="#"><button class="btn btn-ghost rounded-full">Login</button></a>
-            <a href="#"><button class="btn btn-primary rounded-full">Signup</button></a>
+            <a href="{{ route('login') }}" wire:navigate><button class="btn btn-ghost rounded-full">Login</button></a>
+            <a href="{{ route('register') }}" wire:navigate><button
+                    class="btn btn-primary rounded-full">Signup</button></a>
         </div>
     </div>
 </div>
