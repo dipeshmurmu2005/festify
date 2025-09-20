@@ -16,6 +16,21 @@ class RegisterWire extends Component
 
     public $fullname;
 
+    private $verificationUrl;
+
+    public function mount()
+    {
+        session()->forget(['sent_email']);
+    }
+
+    public function rules()
+    {
+        return [
+            'email' => 'required|email|unique:users,email',
+            'fullname' => 'required|string'
+        ];
+    }
+
     public function render()
     {
         return view('livewire.register-wire');
@@ -23,7 +38,16 @@ class RegisterWire extends Component
 
     public function handleFirstStep()
     {
-        $verificationUrl = URL::temporarySignedRoute('register.verify', now()->addMinutes(60), ['name' => $this->fullname, 'email' => $this->email]);
-        Mail::to($this->email)->send(new EmailVerify($this->fullname, $verificationUrl));
+        $this->validate();
+        $this->verificationUrl =  URL::temporarySignedRoute('register.verify', now()->addMinutes(60), ['name' => $this->fullname, 'email' => $this->email]);
+        Mail::to($this->email)->send(new EmailVerify($this->fullname, $this->verificationUrl));
+        session(['sent_email' => true]);
+    }
+
+    public function resendVerificationEmail()
+    {
+        $this->validate();
+        $this->verificationUrl =  URL::temporarySignedRoute('register.verify', now()->addMinutes(60), ['name' => $this->fullname, 'email' => $this->email]);
+        Mail::to($this->email)->send(new EmailVerify($this->fullname, $this->verificationUrl));
     }
 }
