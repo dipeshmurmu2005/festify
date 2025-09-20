@@ -33,7 +33,15 @@ class PasswordSetupWire extends Component
     {
         $this->email = $request->email;
         $this->name = $request->name;
-        session(['setup_email' => $this->email, 'setup_name' => $this->name]);
+        $user = $this->checkIfUserExist($this->email);
+        if (!$user) {
+            session(['setup_email' => $this->email, 'setup_name' => $this->name]);
+        } else {
+            if ($user->id == auth()->user()->id) {
+                return redirect()->route('home');
+            }
+            return redirect()->route('login');
+        }
     }
     public function render()
     {
@@ -56,5 +64,14 @@ class PasswordSetupWire extends Component
             'role_id' => Role::where('name', 'user')->first()->id
         ]);
         session()->forget(['setup_email', 'setup_name']);
+        return redirect()->route('home');
+    }
+
+    private function checkIfUserExist($email)
+    {
+        $user = User::where('email', $email)->first();
+        if ($user)
+            return $user;
+        return false;
     }
 }
