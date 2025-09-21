@@ -60,14 +60,16 @@
                         <h2 class="font-semibold">Manage Account</h2>
                         <div class="mt-3">
                             <ul class="space-y-2">
-                                <li
-                                    class="btn border-none font-normal h-12 bg-transparent hover:bg-gray-100 px-3 rounded-sm cursor-pointer flex justify-between items-center">
-                                    <div class="flex gap-2 items-center">
-                                        <x-heroicon-o-user class="h-4 w-4" />
-                                        <h2>Personal Details</h2>
-                                    </div>
-                                    <x-heroicon-m-chevron-right class="h-4 w-4" />
-                                </li>
+                                <a href="{{ route('user.profile.setting') }}">
+                                    <li
+                                        class="btn border-none font-normal h-12 bg-transparent hover:bg-gray-100 px-3 rounded-sm cursor-pointer flex justify-between items-center">
+                                        <div class="flex gap-2 items-center">
+                                            <x-heroicon-o-user class="h-4 w-4" />
+                                            <h2>Personal Details</h2>
+                                        </div>
+                                        <x-heroicon-m-chevron-right class="h-4 w-4" />
+                                    </li>
+                                </a>
                                 <li
                                     class="btn border-none font-normal h-12 bg-transparent hover:bg-gray-100 px-3 rounded-sm cursor-pointer flex justify-between items-center">
                                     <div class="flex gap-2 items-center">
