@@ -13,7 +13,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-['inter'] text-sm">
+<body class="font-['inter'] md:text-xs 2xl:text-sm">
     {{ $slot }}
 </body>
 

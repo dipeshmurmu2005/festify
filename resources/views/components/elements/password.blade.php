@@ -1,6 +1,6 @@
 @props(['label' => 'Password', 'model' => 'password'])
 <div class="flex w-full flex-col gap-1 text-base-content">
-    <label for="passwordInput" class="w-fit pl-0.5 text-sm font-medium">{{ $label }}</label>
+    <label for="passwordInput" class="w-fit pl-0.5 md:text-xs 2xl:text-sm font-medium">{{ $label }}</label>
     <div x-data="{ showPassword: false }" class="relative">
         <input x-bind:type="showPassword ? 'text' : 'password'" id="passwordInput" wire:model="{{ $model }}"
             class="w-full rounded-radius border h-12 border-gray-300 rounded-sm bg-surface-alt px-2 py-2 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-75 dark:border-outline-dark dark:bg-surface-dark-alt/50 dark:focus-visible:outline-primary-dark"
@@ -22,6 +22,6 @@
         </button>
     </div>
     @error($model)
-        <p class="label text-error">{{ $message }}</p>
+        <p class="label text-error text-xs">{{ $message }}</p>
     @enderror
 </div>

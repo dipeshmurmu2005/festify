@@ -18,19 +18,20 @@
                 <img class="h-full w-full object-contain"
                     src="https://logosandtypes.com/wp-content/uploads/2022/03/Fxra.png" alt="">
             </div>
-            <h2 class="text-2xl mt-5 font-bold font-['poppins']">Get Started !</h2>
-            <p class="text-gray-600 text-center mt-3">Sign up to explore and book the best events around you.</p>
+            <h2 class="text-xl 2xl:text-2xl mt-5 font-bold font-['poppins']">Get Started !</h2>
+            <p class="text-gray-600 text-center mt-1 2xl:mt-3">Sign up to explore and book the best events around you.
+            </p>
             <div class="w-full mt-5 space-y-2">
                 <form class="space-y-2" wire:submit.prevent="handleFirstStep()">
                     <fieldset class="fieldset w-full">
-                        <legend class="fieldset-legend text-sm">Full Name</legend>
+                        <legend class="fieldset-legend md:text-xs 2xl:text-sm">Full Name</legend>
                         <input type="text" class="input w-full h-12" placeholder="John Doe" wire:model="fullname" />
                         @error('fullname')
                             <p class="label text-error">{{ $message }}</p>
                         @enderror
                     </fieldset>
                     <fieldset class="fieldset w-full">
-                        <legend class="fieldset-legend text-sm">Email</legend>
+                        <legend class="fieldset-legend md:text-xs 2xl:text-sm">Email</legend>
                         <input type="text" class="input w-full h-12" placeholder="john@doe.com" wire:model="email" />
                         @error('email')
                             <p class="label text-error">{{ $message }}</p>

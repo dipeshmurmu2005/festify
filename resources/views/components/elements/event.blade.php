@@ -20,19 +20,21 @@
             </div>
         </div>
         <div class="p-2">
-            <div class="flex p-5 divide-x divide-gray-300 divide-dashed">
-                <div class="pr-5 text-2xl">
+            <div class="flex md:p-3 2xl:p-5 divide-x divide-gray-300 divide-dashed">
+                <div class="pr-3 2xl:pr-5 md:text-lg 2xl:text-2xl">
                     <h3>DEC</h3>
-                    <h2 class="font-bold text-4xl">24</h2>
+                    <h2 class="font-bold md:text-3xl 2xl:text-4xl">24</h2>
                 </div>
-                <div class="pl-5 space-y-2">
+                <div class="pl-3 2xl:pl-5 space-y-2">
                     <div class="flex items-center text-gray-700 text-xs">
                         <x-heroicon-o-map-pin class="h-4 w-4" />
                         <h2>Birtamode</h2>
                     </div>
-                    <p>Going hard this December with your favourite artists</p>
+                    <p class="2xl:text-xs md:text-[0.65rem]">Going hard this December with your favourite artists</p>
                     <div class="flex justify-end mt-5">
-                        <button class="btn btn-primary rounded-full btn-sm">Get Ticket</button>
+                        <button
+                            class="btn btn-primary rounded-full md:btn-xs 2xl:btn-sm md:text-[0.6rem] 2xl:text-sm">Get
+                            Ticket</button>
                     </div>
                 </div>
             </div>

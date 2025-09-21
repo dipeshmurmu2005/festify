@@ -1,20 +1,21 @@
-<div class="px-46">
+<div class="md:px-32 2xl:px-46">
     <div class="grid grid-cols-4 gap-10 bg-gradient-to-r from-blue-50 to-white p-10 rounded-2xl">
-        <div class="py-20">
+        <div class="py-10 2xl:py-20">
             <h2
-                class="font-bold font-['poppins'] text-2xl text-primary after:h-1 after:rounded-full after:w-[100px] after:block after:bg-primary after:mt-2">
+                class="font-bold font-['poppins'] md:text-xl 2xl:text-2xl text-primary after:h-1 after:rounded-full after:w-[100px] after:block after:bg-primary after:mt-2">
                 Upcoming
                 Events</h2>
-            <p class="mt-5 text-gray-700 leading-7">Stay in the loop! Explore upcoming events, workshops, and meetups
+            <p class="mt-5 text-gray-700 leading-7 md:text-xs 2xl:text-sm">Stay in the loop! Explore upcoming events,
+                workshops, and meetups
                 happening
                 soon. Don’t
                 miss out—mark
                 your calendar today!</p>
             <a href="#">
-                <button class="mt-5 rounded-full font-bold btn btn-primary">Find More</button>
+                <button class="mt-5 rounded-full font-bold btn btn-primary 2xl:btn-md md:btn-sm">Find More</button>
             </a>
         </div>
-        <div class="col-span-3 py-20">
+        <div class="col-span-3 py-10 2xl:py-20">
             <div class="swiper mySwiper" x-data="{
                 init() {
                     var swiper = new Swiper('.mySwiper', {

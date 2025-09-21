@@ -7,7 +7,7 @@
             <h2 class="font-semibold w-fit border-b-3 border-transparent cursor-pointer pb-2">Today</h2>
         </div>
 
-        <div class="grid grid-cols-4 gap-10">
+        <div class="grid grid-cols-4 md:gap-5 2xl:gap-10">
             <x-elements.event />
             <x-elements.event />
             <x-elements.event />
