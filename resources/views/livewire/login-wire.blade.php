@@ -21,13 +21,15 @@
                 </div>
                 <button class="btn btn-primary w-full h-12">Sign in</button>
                 <div class="divider text-gray-500 font-bold">OR</div>
-                <button class="btn btn-secondary w-full h-12">
-                    <div class="h-6 w-6">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1200px-Google_%22G%22_logo.svg.png"
-                            alt="" class="h-full w-full object-contain">
-                    </div>
-                    Continue with Google
-                </button>
+                <a href="{{ route('auth.platform.redirect', ['platform' => 'google']) }}">
+                    <button class="btn btn-secondary w-full h-12" type="button">
+                        <div class="h-6 w-6">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1200px-Google_%22G%22_logo.svg.png"
+                                alt="" class="h-full w-full object-contain">
+                        </div>
+                        Continue with Google
+                    </button>
+                </a>
                 <p>Don't have account ? <a href="{{ route('register') }}" class="text-primary underline">Signup</a></p>
             </div>
         </form>

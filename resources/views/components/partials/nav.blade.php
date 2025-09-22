@@ -57,6 +57,12 @@
         <li><a class="md:py-5 2xl:py-3"><x-heroicon-m-cog class="h-5 w-5 text-primary" />Settings</a></li>
         <li><a class="md:py-5 2xl:py-3"><x-heroicon-m-arrows-right-left class="h-5 w-5 text-primary" />Switch to Service
                 Provider</a></li>
-        <li><a class="md:py-5 2xl:py-3"><x-heroicon-m-power class="h-5 w-5 text-primary" />Logout</a></li>
+        <li>
+            <form action="{{ route('user.logout') }}" method="POST">
+                @csrf
+                <button class="md:py-5 2xl:py-3 flex gap-2 cursor-pointer items-center"><x-heroicon-m-power
+                        class="h-5 w-5 text-primary" />Logout</button>
+            </form>
+        </li>
     </ul>
 </div>

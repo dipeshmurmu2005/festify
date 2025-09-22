@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\UserRole;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -64,6 +65,7 @@ class PasswordSetupWire extends Component
             'role_id' => Role::where('name', 'user')->first()->id
         ]);
         session()->forget(['setup_email', 'setup_name']);
+        Auth::login($user);
         return redirect()->route('home');
     }
 
