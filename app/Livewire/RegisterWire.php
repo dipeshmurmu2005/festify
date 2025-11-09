@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
 use Livewire\Attributes\Layout;
+use Livewire\Attributes\Locked;
 use Livewire\Component;
 
 #[Layout('components.layouts.clean')]
@@ -17,6 +18,9 @@ class RegisterWire extends Component
     public $fullname;
 
     private $verificationUrl;
+
+    #[Locked]
+    public $second_step;
 
     public function mount()
     {
@@ -37,6 +41,12 @@ class RegisterWire extends Component
     }
 
     public function handleFirstStep()
+    {
+        $this->validate();
+        $this->second_step = true;
+    }
+
+    public function handleSecondStep()
     {
         $this->validate();
         $this->verificationUrl =  URL::temporarySignedRoute('register.verify', now()->addMinutes(60), ['name' => $this->fullname, 'email' => $this->email]);

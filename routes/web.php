@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Livewire\HomeWire;
 use App\Livewire\LoginWire;
+use App\Livewire\OrganizerWire;
 use App\Livewire\PasswordSetupWire;
 use App\Livewire\RegisterWire;
 use App\Livewire\SecuritySettingWire;
@@ -18,6 +19,7 @@ Route::get('/register/verify', PasswordSetupWire::class)->name('register.verify'
 Route::get('/auth/{platform}/redirect', [AuthController::class, 'redirect'])->name('auth.platform.redirect');
 Route::get('api/auth/google/callback', [AuthController::class, 'googleCallback']);
 Route::get('/update/email/verify', UpdateEmail::class)->name('user.update.email')->middleware('signed', 'validatelink');
+Route::get('organizer/overview', OrganizerWire::class)->name('organizer.overview');
 Route::middleware('auth')->group(function () {
     Route::get('/user/profile', UserProfileWire::class)->name('user.profile');
     Route::get('/user/profile/settings', UserProfileSetting::class)->name('user.profile.setting');

@@ -20,7 +20,8 @@
         <div class="flex gap-5 items-center">
             <a href="#"><button class="btn btn-ghost rounded-full 2xl:text-sm md:text-xs">Find
                     Events</button></a>
-            <a href="#"><button class="btn btn-ghost rounded-full 2xl:text-sm md:text-xs">Create
+            <a href="{{ route('organizer.overview') }}"><button
+                    class="btn btn-ghost rounded-full 2xl:text-sm md:text-xs">Create
                     Events</button></a>
             <a href="#"><button class="btn btn-ghost rounded-full 2xl:text-sm md:text-xs">Find My
                     Ticket</button></a>
