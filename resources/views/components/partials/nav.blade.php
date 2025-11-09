@@ -54,7 +54,8 @@
         <li><a href="{{ route('user.profile') }}" wire:navigate class="md:py-5 2xl:py-3"><x-heroicon-m-user
                     class="h-5 w-5 text-primary" />
                 Profile</a></li>
-        <li><a class="md:py-5 2xl:py-3"><x-heroicon-m-cog class="h-5 w-5 text-primary" />Settings</a></li>
+        <li><a href="{{ route('user.profile.setting') }}" class="md:py-5 2xl:py-3"><x-heroicon-m-cog
+                    class="h-5 w-5 text-primary" />Settings</a></li>
         <li><a class="md:py-5 2xl:py-3"><x-heroicon-m-arrows-right-left class="h-5 w-5 text-primary" />Switch to Service
                 Provider</a></li>
         <li>

@@ -3,7 +3,7 @@
     <label for="passwordInput" class="w-fit pl-0.5 md:text-xs 2xl:text-sm font-medium">{{ $label }}</label>
     <div x-data="{ showPassword: false }" class="relative">
         <input x-bind:type="showPassword ? 'text' : 'password'" id="passwordInput" wire:model="{{ $model }}"
-            class="w-full rounded-radius border h-12 border-gray-300 rounded-sm bg-surface-alt px-2 py-2 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-75 dark:border-outline-dark dark:bg-surface-dark-alt/50 dark:focus-visible:outline-primary-dark"
+            class="w-full rounded-radius border h-12 2xl:h-10 border-gray-300 rounded-sm bg-surface-alt px-2 py-2 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-75 dark:border-outline-dark dark:bg-surface-dark-alt/50 dark:focus-visible:outline-primary-dark"
             name="password" autocomplete="current-password" placeholder="Enter your password" />
         <button type="button" x-on:click="showPassword = !showPassword"
             class="absolute right-2.5 top-1/2 -translate-y-1/2 text-on-surface dark:text-on-surface-dark"

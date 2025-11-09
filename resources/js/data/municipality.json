@@ -1,0 +1,37 @@
+{
+    "Sindhuli": [
+        "Kamalamai Municipality",
+        "Dudhouli Municipality",
+        "Golanjor Rural Municipality",
+        "Hariharpurgadhi Rural Municipality",
+        "Tinpatan Rural Municipality"
+    ],
+    "Ramechhap": [
+        "Manthali Municipality",
+        "Ramechhap Municipality",
+        "Umakunda Rural Municipality",
+        "Khandadevi Rural Municipality",
+        "Gokulganga Rural Municipality"
+    ],
+    "Dolakha": [
+        "Bhimeshwar Municipality",
+        "Jiri Municipality",
+        "Kalinchok Rural Municipality",
+        "Tamakoshi Rural Municipality",
+        "Baiteshwor Rural Municipality"
+    ],
+    "Bhaktapur": [
+        "Bhaktapur Municipality",
+        "Changunarayan Municipality",
+        "Suryabinayak Municipality",
+        "Madhyapur Thimi Municipality",
+        "Kulikot(some rural?)"
+    ],
+    "Dhading": [
+        "Dhunibeshi Municipality",
+        "Nilkantha Municipality",
+        "Thakre Rural Municipality",
+        "Galchhi Rural Municipality",
+        "Siddhalek Rural Municipality"
+    ]
+}

@@ -38,5 +38,44 @@
                     Name</p>
             </div>
         </div>
+        <div class="mt-10 space-y-10">
+            <div class="space-y-3 divide-y divide-gray-200">
+                <div class="pb-2">
+                    <h2 class="font-semibold text-base">Email Address</h2>
+                    <p class="text-gray-700">Keep your email up to date for security and communication.</p>
+                </div>
+                <div @click.outside="enable=false" x-data="{
+                    enable: @entangle('change_email')
+                }">
+                    <template x-if="!enable">
+                        <div>
+                            <div type="text" class="input !text-gray-800" disabled>
+                                {{ $this->email }}
+                            </div>
+                            <button class="btn btn-outline" @click="enable=true">Edit</button>
+                        </div>
+                    </template>
+                    <template x-if="enable">
+                        <div>
+                            <div>
+                                <input type="text" class="input" wire:model="email">
+                                <button class="btn btn-outline" wire:click="updateEmail()">
+                                    <span class="loading loading-spinner loading-xs" wire:loading
+                                        wire:target="updateEmail()"></span>
+                                    Save</button>
+                            </div>
+                            @error('email')
+                                <p class="label text-xs text-error">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </template>
+                    @if (session('update_email'))
+                        <p class="text-xs mt-2 text-success bg-green-100 w-fit px-3 py-2 rounded-sm">
+                            {{ session('update_email') }}
+                        </p>
+                    @endif
+                </div>
+            </div>
+            <livewire:k-y-c-verification-wire />
+        </div>
     </div>
-</div>

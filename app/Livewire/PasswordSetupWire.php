@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Enums\UserRole as EnumsUserRole;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\UserRole;
@@ -62,7 +63,7 @@ class PasswordSetupWire extends Component
         ]);
 
         $user->roles()->create([
-            'role_id' => Role::where('name', 'user')->first()->id
+            'role' => EnumsUserRole::User->value
         ]);
         session()->forget(['setup_email', 'setup_name']);
         Auth::login($user);

@@ -1,4 +1,10 @@
 @import "tailwindcss";
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
 @plugin "daisyui";
 
 @plugin "daisyui/theme" {
@@ -48,6 +54,11 @@
     --noise: 0;
 }
 
-input {
+input,
+select {
     @apply outline-none focus:border-neutral
+}
+
+@theme {
+    --color-danger: oklch(65% 0.3 30);
 }

@@ -3,12 +3,18 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Enums\UserRole;
+use App\Models\UserRole as ModelsUserRole;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -49,6 +55,25 @@ class User extends Authenticatable
 
     public function roles(): HasMany
     {
-        return $this->hasMany(UserRole::class, 'user_id');
+        return $this->hasMany(ModelsUserRole::class, 'user_id');
+    }
+
+    private function isAdmin()
+    {
+        if (ModelsUserRole::where('user_id', $this->id)->where('role', UserRole::Admin)->first()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->isAdmin();
+    }
+
+    public function kyc(): HasOne
+    {
+        return $this->hasOne(KYC::class, 'user_id');
     }
 }

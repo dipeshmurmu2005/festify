@@ -16,7 +16,11 @@ class AuthController extends Controller
     }
     public function googleCallback()
     {
-        $googleUser = Socialite::driver('google')->user();
+        $driver = Socialite::driver('google');
+        if (app()->environment('local')) {
+            $driver->stateless();
+        }
+        $googleUser = $driver->user();
         if ($googleUser) {
             $user = User::where('email', $googleUser->getEmail())->first();
             if (!$user) {
@@ -34,4 +38,6 @@ class AuthController extends Controller
         Auth::logout();
         return redirect()->back();
     }
+
+    public function updateEmail() {}
 }

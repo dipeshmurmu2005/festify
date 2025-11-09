@@ -7,7 +7,8 @@
             <div class="flex gap-10">
                 <a href="{{ route('user.profile.setting') }}" wire:current="text-primary"
                     class="font-medium cursor-pointer hover:text-primary duration-300">My Details</a>
-                <a href="#" class="font-medium cursor-pointer hover:text-primary duration-300">Security</a>
+                <a href="{{ route('user.security.setting') }}" wire:current="text-primary"
+                    class="font-medium cursor-pointer hover:text-primary duration-300">Security</a>
             </div>
         </div>
         <div class="py-10">
