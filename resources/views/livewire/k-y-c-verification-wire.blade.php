@@ -1,11 +1,13 @@
    <div class="space-y-3 divide-y divide-gray-200">
        <div class="pb-2">
            <h2 class="font-semibold text-base flex items-center gap-5 mb-2">KYC Verification
-               <div class="inline-flex text-white items-center gap-1 font-medium text-xs px-3 py-1 rounded-sm"
-                   style="background-color:var(--color-{{ $this->kyc_status->getColor() }})">
-                   <x-icon name="{{ $this->kyc_status->getIcon() }}" class="h-4 w-4" />
-                   {{ $this->kyc_status->getLabel() }}
-               </div>
+               @if ($this->kyc_status)
+                   <div class="inline-flex text-white items-center gap-1 font-medium text-xs px-3 py-1 rounded-sm"
+                       style="background-color:var(--color-{{ $this->kyc_status->getColor() }})">
+                       <x-icon name="{{ $this->kyc_status->getIcon() }}" class="h-4 w-4" />
+                       {{ $this->kyc_status->getLabel() }}
+                   </div>
+               @endif
            </h2>
            @if ($this->kyc_status == null)
                <p class="text-gray-700">Complete your identity verification to unlock full access and keep your
@@ -50,7 +52,8 @@
                        </div>
                        <div class="mt-2 grid grid-cols-5 gap-5">
                            <fieldset class="fieldset">
-                               <legend class="fieldset-legend">Date of Birth<span class="text-error">*</span></legend>
+                               <legend class="fieldset-legend">Date of Birth<span class="text-error">*</span>
+                               </legend>
                                <div class="flex gap-2">
                                    <select class="select w-16" wire:model="dob_date_type">
                                        <option value="BS">BS</option>
@@ -156,7 +159,8 @@
                                <select class="select" x-model="p_district" wire:model="permanent_address.district">
                                    <option value="">Select District</option>
                                    @foreach ($this->districts as $district)
-                                       <option value="{{ $district->value }}">{{ $district->getLabel() }}</option>
+                                       <option value="{{ $district->value }}">{{ $district->getLabel() }}
+                                       </option>
                                    @endforeach
                                </select>
                                @error('permanent_address.district')
@@ -164,7 +168,8 @@
                                @enderror
                            </fieldset>
                            <fieldset class="fieldset">
-                               <legend class="fieldset-legend">Municipality<span class="text-error">*</span></legend>
+                               <legend class="fieldset-legend">Municipality<span class="text-error">*</span>
+                               </legend>
                                <select class="select" wire:model="permanent_address.municipality">
                                    <option value="">Select Municipality</option>
                                    <template x-for="(municipality,index) in p_municipalities">
@@ -202,7 +207,8 @@
                                <select class="select" x-model="t_district" wire:model="temporary_address.district">
                                    <option value="">Select District</option>
                                    @foreach ($this->districts as $district)
-                                       <option value="{{ $district->value }}">{{ $district->getLabel() }}</option>
+                                       <option value="{{ $district->value }}">{{ $district->getLabel() }}
+                                       </option>
                                    @endforeach
                                </select>
                                @error('temporary_address.district')
@@ -210,7 +216,8 @@
                                @enderror
                            </fieldset>
                            <fieldset class="fieldset">
-                               <legend class="fieldset-legend">Municipality<span class="text-error">*</span></legend>
+                               <legend class="fieldset-legend">Municipality<span class="text-error">*</span>
+                               </legend>
                                <select class="select" wire:model="temporary_address.municipality">
                                    <option value="">Select Municipality</option>
                                    <template x-for="(municipality,index) in t_municipalities">
@@ -249,7 +256,8 @@
                                <select class="select" wire:model="issued_district">
                                    <option value="">Select District</option>
                                    @foreach ($this->districts as $district)
-                                       <option value="{{ $district->value }}">{{ $district->getLabel() }}</option>
+                                       <option value="{{ $district->value }}">{{ $district->getLabel() }}
+                                       </option>
                                    @endforeach
                                </select>
                                @error('issued_district')
@@ -286,7 +294,8 @@
                                                <img src="https://icons.veryicon.com/png/o/miscellaneous/former-building-people/front-of-id-card.png"
                                                    alt="" class="h-full w-full object-contain">
                                            </div>
-                                           <h2 class="text-center font-semibold text-gray-600">Citizenship Front</h2>
+                                           <h2 class="text-center font-semibold text-gray-600">Citizenship Front
+                                           </h2>
                                        </div>
                                        @if ($this->document_front)
                                            <div class="absolute left-0 top-0 h-full w-full">
@@ -319,7 +328,8 @@
                                                <img src="https://icons.veryicon.com/png/o/miscellaneous/former-building-people/back-of-id-card.png"
                                                    alt="" class="h-full w-full object-contain">
                                            </div>
-                                           <h2 class="text-center font-semibold text-gray-600">Citizenship Back</h2>
+                                           <h2 class="text-center font-semibold text-gray-600">Citizenship Back
+                                           </h2>
                                        </div>
                                        @if ($this->document_back)
                                            <div class="absolute left-0 top-0 h-full w-full">

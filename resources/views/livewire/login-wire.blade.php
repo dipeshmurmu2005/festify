@@ -1,4 +1,5 @@
-<div class="h-[100vh] flex justify-center items-center bg-gray-50">
+<div
+    class="h-[100vh] flex justify-center items-center bg-center bg-cover bg-[url('https://wallpapercat.com/w/full/3/3/1/1161176-3840x2160-desktop-4k-concert-background-photo.jpg')]">
     <div class="border border-gray-100 bg-white p-10 rounded-xl flex w-[480px] flex-col items-center justify-center">
         <div class="h-16 w-16 shadow-sm rounded-xl overflow-hidden">
             <img class="h-full w-full object-contain" src="https://logosandtypes.com/wp-content/uploads/2022/03/Fxra.png"
@@ -30,7 +31,8 @@
                         Continue with Google
                     </button>
                 </a>
-                <p>Don't have account ? <a href="{{ route('register') }}" class="text-primary underline">Signup</a></p>
+                <p class="mt-3">Don't have account ? <a href="{{ route('register') }}"
+                        class="text-primary underline">Signup</a></p>
             </div>
         </form>
     </div>

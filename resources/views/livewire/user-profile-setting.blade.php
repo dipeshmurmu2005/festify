@@ -76,6 +76,8 @@
                     @endif
                 </div>
             </div>
-            <livewire:k-y-c-verification-wire />
+            @if (auth()->user()->type->value == 'individual')
+                <livewire:k-y-c-verification-wire />
+            @endif
         </div>
     </div>

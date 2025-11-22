@@ -7,7 +7,13 @@ use Livewire\Component;
 
 class OrganizerWire extends Component
 {
-    public $kyc_verification_help = false;
+
+    public function mount()
+    {
+        if (auth()->user() && auth()->user()->isOrganizer()) {
+            $this->redirectRoute('filament.organizer.pages.dashboard', navigate: true);
+        }
+    }
 
     public function render()
     {
@@ -16,12 +22,6 @@ class OrganizerWire extends Component
 
     public function getStarted()
     {
-        if (auth()->user()) {
-            if (auth()->user()?->kyc?->status == KYCStatusEnum::Verified) {
-                dd('hello');
-            } else {
-                $this->kyc_verification_help = true;
-            }
-        }
+        $this->redirectRoute('register', navigate: true);
     }
 }

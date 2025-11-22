@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Enums\UserRole;
+use App\Enums\UserTypeEnum;
 use App\Models\UserRole as ModelsUserRole;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
@@ -28,6 +29,7 @@ class User extends Authenticatable implements FilamentUser
         'name',
         'email',
         'password',
+        'type'
     ];
 
     /**
@@ -50,6 +52,7 @@ class User extends Authenticatable implements FilamentUser
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'type' => UserTypeEnum::class,
         ];
     }
 
@@ -75,5 +78,19 @@ class User extends Authenticatable implements FilamentUser
     public function kyc(): HasOne
     {
         return $this->hasOne(KYC::class, 'user_id');
+    }
+
+    public function isOrganizer()
+    {
+        $organizerRole = ModelsUserRole::where('user_id', $this->id)->where('role', UserRole::EventManager->value)->first();
+        if ($organizerRole) {
+            return true;
+        }
+        return false;
+    }
+
+    public function organizerSetting(): HasOne
+    {
+        return $this->hasOne(OrganizerSetting::class, 'user_id');
     }
 }

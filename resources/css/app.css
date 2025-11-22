@@ -5,7 +5,10 @@
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
-@plugin "daisyui";
+
+@plugin "daisyui" {
+    themes: light --default;
+}
 
 @plugin "daisyui/theme" {
     name: "mytheme";

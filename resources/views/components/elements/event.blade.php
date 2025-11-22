@@ -1,4 +1,5 @@
-<a href="#" class="overflow-hidden flex justify-center items-center relative">
+@props(['id'])
+<a href="{{ route('event.view', ['event' => $id]) }}" class="overflow-hidden flex justify-center items-center relative">
     <div class="absolute w-full z-10 left-0 top-32">
         <div class="relative items-center">
             <div

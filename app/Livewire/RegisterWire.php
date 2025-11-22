@@ -3,7 +3,6 @@
 namespace App\Livewire;
 
 use App\Mail\EmailVerify;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
 use Livewire\Attributes\Layout;
@@ -17,14 +16,11 @@ class RegisterWire extends Component
 
     public $fullname;
 
-    private $verificationUrl;
-
-    #[Locked]
-    public $second_step;
+    private $onboardUrl;
 
     public function mount()
     {
-        session()->forget(['sent_email']);
+        session()->forget(['sent_email', 'email']);
     }
 
     public function rules()
@@ -43,21 +39,27 @@ class RegisterWire extends Component
     public function handleFirstStep()
     {
         $this->validate();
-        $this->second_step = true;
+        $this->sendVerification();
     }
 
-    public function handleSecondStep()
+
+    public function sendVerification()
     {
         $this->validate();
-        $this->verificationUrl =  URL::temporarySignedRoute('register.verify', now()->addMinutes(60), ['name' => $this->fullname, 'email' => $this->email]);
-        Mail::to($this->email)->send(new EmailVerify($this->fullname, $this->verificationUrl));
-        session(['sent_email' => true]);
+        $this->onboardUrl =  URL::temporarySignedRoute('onboard', now()->addMinutes(60), ['name' => $this->fullname, 'email' => $this->email]);
+        Mail::to($this->email)->send(new EmailVerify($this->fullname, $this->onboardUrl));
+        session(['sent_email' => true, 'email' => $this->email]);
     }
 
     public function resendVerificationEmail()
     {
         $this->validate();
-        $this->verificationUrl =  URL::temporarySignedRoute('register.verify', now()->addMinutes(60), ['name' => $this->fullname, 'email' => $this->email]);
-        Mail::to($this->email)->send(new EmailVerify($this->fullname, $this->verificationUrl));
+        $this->onboardUrl =  URL::temporarySignedRoute('onboard', now()->addMinutes(60), ['name' => $this->fullname, 'email' => $this->email]);
+        Mail::to($this->email)->send(new EmailVerify($this->fullname, $this->onboardUrl));
+    }
+
+    public function useDifferentEmail()
+    {
+        session()->forget(['sent_email', 'email']);
     }
 }

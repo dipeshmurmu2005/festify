@@ -8,10 +8,9 @@
         </div>
 
         <div class="grid grid-cols-4 md:gap-5 2xl:gap-10">
-            <x-elements.event />
-            <x-elements.event />
-            <x-elements.event />
-            <x-elements.event />
+            @foreach ($this->events as $event)
+                <x-elements.event :id="$event->id" />
+            @endforeach
         </div>
         <div class="mt-10 flex justify-center">
             <button class="btn btn-primary btn-outline rounded-full">Load More</button>
