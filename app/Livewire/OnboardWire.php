@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Enums\UserRole;
 use App\Enums\UserTypeEnum;
+use App\Models\Organizer;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -102,20 +103,29 @@ class OnboardWire extends Component
         }
         $email = session('setup_email');
         $name = session('setup_name');
-        $user = User::create([
-            'name' => $name,
-            'email' => $email,
-            'password' => $this->password,
-            'email_verified_at' => now(),
-            'type' => $this->individual == 'true' ? UserTypeEnum::Individual : UserTypeEnum::Company,
-        ]);
 
-        $user->roles()->create([
-            'role' => $this->is_organizer ? UserRole::EventManager : UserRole::User
-        ]);
+        if ($this->is_organizer) {
+            $organizer =   Organizer::create([
+                'name' => $name,
+                'email' => $email,
+                'password' => $this->password,
+                'email_verified_at' => now(),
+            ]);
+            Auth::guard('organizer')->login($organizer);
+            return redirect()->route('filament.organizer.pages.dashboard');
+        }
+        // $user = User::create([
+        //     'name' => $name,
+        //     'email' => $email,
+        //     'password' => $this->password,
+        //     'email_verified_at' => now(),
+        //     'type' => $this->individual == 'true' ? UserTypeEnum::Individual : UserTypeEnum::Company,
+        // ]);
+
+        // $user->roles()->create([
+        //     'role' => $this->is_organizer ? UserRole::EventManager : UserRole::User
+        // ]);
         session()->forget(['setup_email', 'setup_name']);
-        Auth::login($user);
-        return redirect()->route('home');
     }
 
     private function checkIfUserExist($email)

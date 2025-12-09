@@ -75,4 +75,16 @@ class Ticket extends Model
             return $this->event->venue_capacity_override - $this->totalReservedOrBookedTickets($date, $event_session);
         }
     }
+
+    public function verifyTicketSaleDate()
+    {
+        $start_date = $this->sales_starts_at;
+        $end_date = $this->sales_ends_at;
+
+        if (now()->between($start_date, $end_date)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

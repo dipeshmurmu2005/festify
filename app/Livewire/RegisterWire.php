@@ -6,7 +6,6 @@ use App\Mail\EmailVerify;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\URL;
 use Livewire\Attributes\Layout;
-use Livewire\Attributes\Locked;
 use Livewire\Component;
 
 #[Layout('components.layouts.clean')]

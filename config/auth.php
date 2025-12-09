@@ -36,11 +36,20 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'admin' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'admins',
+        ],
+        'organizer' => [
+            'driver' => 'session',
+            'provider' => 'organizers',
+        ],
+        'staff' => [
+            'driver' => 'session',
+            'provider' => 'staff',
         ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -60,9 +69,17 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'admins' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
+        'organizers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Organizer::class,
+        ],
+        'staff' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Staff::class,
         ],
 
         // 'users' => [

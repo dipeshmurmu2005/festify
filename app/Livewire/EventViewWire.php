@@ -78,7 +78,9 @@ class EventViewWire extends Component
     public function getAvailableTickets()
     {
         if ($this->date) {
-            $this->tickets = $this->event->tickets->map(function ($ticket) {
+            $this->tickets = $this->event->tickets->filter(function ($ticket) {
+                return $ticket->verifyTicketSaleDate();
+            })->map(function ($ticket) {
                 $availableQty = $this->getAvailableTicketQuantity($ticket);
                 return [
                     'id' => $ticket->id,
