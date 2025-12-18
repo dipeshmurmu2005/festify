@@ -7,37 +7,48 @@
 
 
 @plugin "daisyui" {
-    themes: light --default;
+    themes: dark --default;
+}
+
+@font-face {
+    font-family: 'Astonish';
+    src: url('../../../public/fonts/custom/Astonish.ttf');
+}
+
+@theme {
+    --font-astonish: 'Astonish';
+    --font-space: 'Space Grotesk';
+    --font-jakarta: 'Plus Jakarta Sans'
 }
 
 @plugin "daisyui/theme" {
     name: "mytheme";
     default: true;
     /* set as default */
-    prefersdark: false;
+    prefersdark: true;
     /* set as default dark mode (prefers-color-scheme:dark) */
-    color-scheme: light;
+    color-scheme: dark;
     /* color of browser-provided UI */
 
-    --color-base-100: white;
-    --color-base-200: #f8f8f8;
-    --color-base-300: oklch(92% 0.04 240);
-    --color-base-content: oklch(20% 0.05 240);
-    --color-primary: #f05537;
-    --color-primary-content: oklch(98% 0.01 240);
+    --color-base-100: #0e1112;
+    --color-base-200: white;
+    --color-base-300: black;
+    --color-base-content: white;
+    --color-primary: #d1fe17;
+    --color-primary-content: black;
     --color-secondary: oklch(20% 0.05 240);
     --color-secondary-content: oklch(98% 0.01 200);
     --color-accent: oklch(65% 0.25 160);
     --color-accent-content: oklch(98% 0.01 160);
-    --color-neutral: #f05537b3;
+    --color-neutral: #27292a;
     --color-neutral-content: oklch(98% 0.01 240);
-    --color-info: #161719;
-    --color-info-content: white;
-    --color-success: oklch(65% 0.25 140);
+    --color-info: white;
+    --color-info-content: black;
+    --color-success: #36e27b;
     --color-success-content: oklch(98% 0.01 140);
     --color-warning: oklch(80% 0.25 80);
     --color-warning-content: oklch(20% 0.05 80);
-    --color-error: oklch(65% 0.3 30);
+    --color-error: #CF6679;
     --color-error-content: oklch(98% 0.01 30);
 
     /* border radius */
@@ -59,7 +70,7 @@
 
 input,
 select {
-    @apply outline-none focus:border-neutral
+    @apply outline-none focus:border-primary/50 bg-[#191b1c];
 }
 
 @theme {

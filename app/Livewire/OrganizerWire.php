@@ -10,7 +10,7 @@ class OrganizerWire extends Component
 
     public function mount()
     {
-        if (auth()->user() && auth()->user()->isOrganizer()) {
+        if (auth()->user() && auth()->user()->organizer) {
             $this->redirectRoute('filament.organizer.pages.dashboard', navigate: true);
         }
     }

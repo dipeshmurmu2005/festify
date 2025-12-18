@@ -1,6 +1,6 @@
 <div>
     <x-home.banner />
-    <x-home.categories />
+    {{-- <x-home.categories />
     <div class="px-46 pb-20">
         <div class="mb-10 flex gap-5">
             <h2 class="font-semibold w-fit border-b-3 border-primary text-primary pb-2 cursor-pointer ">All</h2>
@@ -15,5 +15,5 @@
         <div class="mt-10 flex justify-center">
             <button class="btn btn-primary btn-outline rounded-full">Load More</button>
         </div>
-    </div>
+    </div> --}}
 </div>

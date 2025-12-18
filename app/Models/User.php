@@ -80,17 +80,8 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasOne(KYC::class, 'user_id');
     }
 
-    public function isOrganizer()
+    public function organizer()
     {
-        $organizerRole = ModelsUserRole::where('user_id', $this->id)->where('role', UserRole::EventManager->value)->first();
-        if ($organizerRole) {
-            return true;
-        }
-        return false;
-    }
-
-    public function organizerSetting(): HasOne
-    {
-        return $this->hasOne(OrganizerSetting::class, 'user_id');
+        return $this->hasOne(Organizer::class, 'user_id');
     }
 }

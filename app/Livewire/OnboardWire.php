@@ -13,23 +13,16 @@ use Livewire\Attributes\Locked;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
-#[Layout('components.layouts.clean')]
 class OnboardWire extends Component
 {
     #[Locked]
     public $password_setup = false;
 
     #[Locked]
-    public $is_organizer  = false;
+    public $email;
 
     #[Locked]
-    public $organizer_information = false;
-
-    public $individual;
-
-    protected $email;
-
-    protected $name;
+    public $name;
 
     public $password;
 
@@ -50,21 +43,12 @@ class OnboardWire extends Component
         ];
     }
 
-    public function organizerRules()
-    {
-        return [
-            'individual' => 'required|in:true,false'
-        ];
-    }
-
     public function mount(Request $request)
     {
         $this->email = $request->email;
         $this->name = $request->name;
         $user = $this->checkIfUserExist($this->email);
-        if (!$user) {
-            session(['setup_email' => $this->email, 'setup_name' => $this->name]);
-        } else {
+        if ($user) {
             if ($user->id == auth()->user()->id) {
                 return redirect()->route('home');
             }
@@ -77,55 +61,18 @@ class OnboardWire extends Component
         return view('livewire.onboard-wire');
     }
 
-    public function getStartedAsOrganizer()
-    {
-        $this->is_organizer = true;
-        $this->organizer_information = true;
-    }
-
-    public function getStartedAsUser()
-    {
-        $this->is_organizer = false;
-        $this->password_setup = true;
-    }
-
-    public function continueAsOrganizer()
-    {
-        $this->validate($this->organizerRules());
-        $this->password_setup = true;
-    }
-
     public function completeSetup()
     {
-        $this->validate();
-        if ($this->is_organizer) {
-            $this->validate($this->organizerRules());
-        }
-        $email = session('setup_email');
-        $name = session('setup_name');
+        $user = User::create([
+            'name' => $this->name,
+            'email' => $this->email,
+            'password' => $this->password,
+            'email_verified_at' => now(),
+        ]);
 
-        if ($this->is_organizer) {
-            $organizer =   Organizer::create([
-                'name' => $name,
-                'email' => $email,
-                'password' => $this->password,
-                'email_verified_at' => now(),
-            ]);
-            Auth::guard('organizer')->login($organizer);
-            return redirect()->route('filament.organizer.pages.dashboard');
-        }
-        // $user = User::create([
-        //     'name' => $name,
-        //     'email' => $email,
-        //     'password' => $this->password,
-        //     'email_verified_at' => now(),
-        //     'type' => $this->individual == 'true' ? UserTypeEnum::Individual : UserTypeEnum::Company,
-        // ]);
+        Auth::login($user);
 
-        // $user->roles()->create([
-        //     'role' => $this->is_organizer ? UserRole::EventManager : UserRole::User
-        // ]);
-        session()->forget(['setup_email', 'setup_name']);
+        return redirect()->route('home');
     }
 
     private function checkIfUserExist($email)

@@ -4,7 +4,7 @@
             <img class="h-full w-full object-contain" src="https://logosandtypes.com/wp-content/uploads/2022/03/Fxra.png"
                 alt="">
         </div>
-        <h2 class="text-2xl mt-5 font-bold font-['poppins']">Setup Your Credentials</h2>
+        <h2 class="text-2xl mt-5 font-bold">Setup Your Credentials</h2>
         <p class="text-gray-600 text-center mt-3">Add your credentials to keep everything safe.</p>
         <div class="w-full mt-5 space-y-5">
             <form wire:submit.prevent="completeSetup()" class="space-y-5">

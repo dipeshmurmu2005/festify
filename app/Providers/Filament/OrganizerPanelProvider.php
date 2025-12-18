@@ -28,9 +28,9 @@ class OrganizerPanelProvider extends PanelProvider
         return $panel
             ->id('organizer')
             ->path('organizer')
-            ->authGuard('organizer')
+            ->darkMode()
             ->colors([
-                'primary' => Color::Orange,
+                'primary' => Color::Green,
             ])
             ->topNavigation()
             ->maxContentWidth(Width::Full)
@@ -52,7 +52,7 @@ class OrganizerPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->authMiddleware([
-                Authenticate::class,
+                AuthenticateOrganizer::class
             ]);
     }
 }

@@ -9,10 +9,13 @@ use App\Livewire\OnboardWire;
 use App\Livewire\OrganizerWire;
 use App\Livewire\PasswordSetupWire;
 use App\Livewire\RegisterWire;
+use App\Livewire\Reservation;
 use App\Livewire\SecuritySettingWire;
+use App\Livewire\SetupOrganizer;
 use App\Livewire\UpdateEmail;
 use App\Livewire\UserProfileSetting;
 use App\Livewire\UserProfileWire;
+use App\Livewire\UserTicket;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', ComingSoon::class)->name('home');
@@ -31,4 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/profile/settings', UserProfileSetting::class)->name('user.profile.setting');
     Route::post('/user/logout', [AuthController::class, 'logout'])->name('user.logout');
     Route::get('/user/security/settings', SecuritySettingWire::class)->name('user.security.setting');
+    Route::get('/user/tickets', UserTicket::class)->name('user.tickets');
+    Route::get('/setup/organizer', SetupOrganizer::class)->name('setup.organizer');
+    Route::get('/reservation/view/{reservation_id}', Reservation::class);
 });

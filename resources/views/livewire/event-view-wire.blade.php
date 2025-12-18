@@ -7,17 +7,17 @@
         <div class="grid grid-cols-5 gap-20">
             <div class="col-span-3 py-5">
                 <div class="space-y-3">
-                    <h2 class="text-4xl font-bold leading-snug">Apex Masters Expos – Investment Summit in Kathmandu,
-                        Nepal</h2>
-                    <div class="text-lg">
-                        <div><span>Organized By</span> <span class="font-semibold text-primary">Apex Events</span></div>
+                    <h2 class="text-4xl font-bold leading-snug">{{ $event->title }}</h2>
+                    <div class="text-sm">
+                        <div><span>Organized By</span> <span
+                                class="font-semibold text-primary">{{ $event->organizer }}</span></div>
                     </div>
                     <div>
-                        <div class="space-y-1 mt-5 text-gray-600">
-                            <div class="flex gap-2 items-center text-lg">
-                                <x-heroicon-m-map-pin class="h-5 w-5" /> <span>Kathmandu</span>
+                        <div class="space-y-3 mt-5 text-white/50">
+                            <div class="flex gap-2 items-center text-md">
+                                <x-heroicon-m-map-pin class="h-5 w-5" /> <span>{{ $event->venue_address }}</span>
                             </div>
-                            <div class="flex gap-2 items-center text-lg">
+                            <div class="flex gap-2 items-center text-md">
                                 <x-heroicon-m-calendar class="h-5 w-5" /> <span>Dec 11 at 9am to Dec 14 at 5am
                                     GMT+5:45</span>
                             </div>
@@ -105,7 +105,7 @@
                     Livewire.dispatch('refresh-tickets');
                 }
             }">
-                <div class="p-5 border border-gray-200 rounded-xl">
+                <div class="p-5 border border-white/10 rounded-xl">
                     <div>
                         <h2 class="text-lg font-semibold">Select Date & Sessions</h2>
                         <div class="divide-y divide-gray-300 mt-2">
@@ -119,7 +119,7 @@
                                             class="font-semibold">{{ Carbon\Carbon::parse($this->event->event_date)->format('d M') }}</span>
                                         <span>{{ Carbon\Carbon::parse($this->event->event_date)->format('Y') }}</span>
                                         <div
-                                            class="absolute h-8 w-8 bg-primary right-0 rounded-bl-xl flex justify-center items-center text-white">
+                                            class="absolute h-8 w-8 bg-primary right-0 rounded-bl-xl flex justify-center items-center text-black">
                                             <x-heroicon-m-check-circle class="h-5 w-5" />
                                         </div>
                                     </div>
@@ -177,7 +177,7 @@
                     <div class="mt-5 space-y-5">
                         @foreach ($this->tickets as $ticket)
                             <div class="border-[2px] grid grid-cols-3 rounded-md {{ $ticket['available'] == 0 ? 'grayscale opacity-50' : '' }}"
-                                :class="getTicketQuantity({{ $ticket['id'] }}) > 0 ? 'border-primary' : 'border-black/50'"
+                                :class="getTicketQuantity({{ $ticket['id'] }}) > 0 ? 'border-primary' : 'border-white/10'"
                                 wire:key="{{ 'ticket-' . $ticket['id'] }}">
                                 <div class="col-span-2 flex justify-between">
                                     <div class="p-5 w-full">
@@ -188,14 +188,14 @@
                                         </div>
                                     </div>
                                     <div class="w-3 relative flex justify-center">
-                                        <div class="bg-white h-4 w-8 rounded-b-full absolute -top-[2px]  border-2 border-t-white"
+                                        <div class="bg-base-100 h-4 w-8 rounded-b-full absolute -top-[2px]  border-2 border-t-base-100"
                                             :class="getTicketQuantity({{ $ticket['id'] }}) > 0 ? 'border-primary' :
-                                                'border-black/50'">
+                                                'border-white/10'">
                                         </div>
                                         <div class="h-full border-l border-dashed border-gray-600"></div>
-                                        <div class="bg-white h-4 w-8 rounded-t-full absolute -bottom-[2px]  border-2 border-b-white"
+                                        <div class="bg-base-100 h-4 w-8 rounded-t-full absolute -bottom-[2px]  border-2 border-b-base-100"
                                             :class="getTicketQuantity({{ $ticket['id'] }}) > 0 ? 'border-primary' :
-                                                'border-black/50'">
+                                                'border-white/10'">
                                         </div>
                                     </div>
                                 </div>
@@ -251,24 +251,25 @@
                             <template x-if="ticket_reserved">
                                 <div class="flex flex-col justify-center items-center gap-2">
                                     <div
-                                        class="text-success flex justify-center items-center h-16 w-16 bg-success/10 rounded-full">
+                                        class="text-primary flex justify-center items-center h-16 w-16 bg-primary/10 rounded-full">
                                         <x-heroicon-m-check-badge class="h-10 w-10" />
                                     </div>
-                                    <h2 class="text-2xl font-semibold text-success">Reservation Successfull</h2>
-                                    <p class="text-center text-gray-600">Your reservation is completed! Check your
+                                    <h2 class="text-2xl font-semibold text-primary">Reservation Successfull</h2>
+                                    <p class="text-center text-white/50">Your reservation is completed! Check your
                                         profile to review
                                         your tickets and
                                         complete the payment to confirm your booking.</p>
                                 </div>
                             </template>
                             <template x-if="!ticket_reserved">
-                                <div class="flex justify-between items-center pb-5 border-b border-gray-200">
+                                <div class="flex justify-between items-center pb-5 border-b border-white/10">
                                     <div>
                                         <h3 class="text-lg font-bold">Confirm your Reservation</h3>
                                         <p class="text-gray-600">Please review your selected tickets below.</p>
                                     </div>
                                     <form method="dialog">
-                                        <button class="btn text-primary btn-circle"><x-heroicon-m-x-mark
+                                        <button
+                                            class="btn text-primary bg-white/5 border border-white/10 btn-circle"><x-heroicon-m-x-mark
                                                 class="h-6 w-6" /></button>
                                     </form>
                                 </div>
@@ -278,12 +279,12 @@
                                     <div class="flex justify-between items-center">
                                         <div class="flex gap-4 items-center">
                                             <div
-                                                class="h-12 w-16 rounded-sm bg-gray-100 flex justify-center items-center text-primary">
+                                                class="h-12 w-16 rounded-sm bg-white/5 flex justify-center items-center text-primary">
                                                 <x-heroicon-m-ticket class="h-6 w-6" />
                                             </div>
                                             <div>
                                                 <h2 class="font-semibold" x-text="ticket.title"></h2>
-                                                <p class="text-gray-600 text-sm"><span x-text="ticket.quantity"></span>
+                                                <p class="text-white/50 text-sm"><span x-text="ticket.quantity"></span>
                                                     x
                                                     <span>Rs. <span x-text="ticket.price"></span></span>
                                                 </p>
@@ -296,7 +297,7 @@
                                     </div>
                                 </template>
                             </div>
-                            <div class="space-y-5 pt-5 border-t border-gray-200">
+                            <div class="space-y-5 pt-5 border-t border-white/10">
                                 <div class="flex justify-between text-xl font-semibold">
                                     <span>Total</span>
                                     <span>Rs. <span x-text="getTotal()"></span></span>

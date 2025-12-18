@@ -9,8 +9,5 @@ export default defineConfig({
             refresh: true,
         }),
         tailwindcss(),
-    ],
-    server: {
-        'host': '192.168.18.3'
-    }
+    ]
 });

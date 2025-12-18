@@ -48,7 +48,7 @@ class EventForm
                                         TextInput::make('organizer_name')->label('Organizer Name')
                                             ->required()
                                             ->default(function () {
-                                                return auth()->user()->organizerSetting?->name ?? auth()->user()->name;
+                                                return auth()->user()->organizer->name;
                                             })
                                     ]),
                                     Grid::make('2')
