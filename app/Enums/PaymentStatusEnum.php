@@ -7,25 +7,25 @@ use Filament\Support\Contracts\HasLabel;
 
 enum PaymentStatusEnum: string implements HasLabel, HasColor
 {
-    case Paid = 'paid';
+    case Verified = 'verified';
     case Pending = 'pending';
-    case PartiallyPaid = 'paritally paid';
+    case Failed = 'failed';
 
     public function getLabel(): string
     {
         return match ($this) {
-            self::Paid => 'Paid',
+            self::Verified => 'Verified',
             self::Pending => 'Pending',
-            self::PartiallyPaid => 'Partially Paid'
+            self::Failed => 'Failed'
         };
     }
 
     public function getColor(): string
     {
         return match ($this) {
-            self::Paid => 'success',
-            self::Pending => 'danger',
-            self::PartiallyPaid => 'warning'
+            self::Verified => 'success',
+            self::Failed => 'danger',
+            self::Pending => 'warning'
         };
     }
 }

@@ -15,6 +15,10 @@ class TicketReservation extends Model
         'status' => TicketReservationStatusEnum::class
     ];
 
+    protected $appends = [
+        'payment'
+    ];
+
     public function reservedTickets(): HasMany
     {
         return $this->hasMany(ReservedTicket::class, 'reservation_id');
@@ -33,5 +37,20 @@ class TicketReservation extends Model
     public function eventSession(): BelongsTo
     {
         return $this->belongsTo(EventSession::class, 'event_session_id');
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class, 'reservation_id');
+    }
+
+    public function getPaymentAttribute()
+    {
+        return $this->payments()->first();
+    }
+
+    public function booking()
+    {
+        return $this->hasOne(Booking::class, 'reservation_id');
     }
 }

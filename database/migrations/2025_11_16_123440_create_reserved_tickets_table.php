@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('reservation_id');
             $table->unsignedBigInteger('ticket_id');
             $table->dateTime('event_date');
+            $table->unsignedBigInteger('event_id');
             $table->unsignedBigInteger('event_session_id')->nullable();
             $table->decimal('base_price', 12, 2)->nullable();
             $table->integer('quantity');

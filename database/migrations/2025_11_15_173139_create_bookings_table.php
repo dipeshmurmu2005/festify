@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('event_id');
+            $table->unsignedBigInteger('reservation_id');
             $table->timestamps();
         });
     }

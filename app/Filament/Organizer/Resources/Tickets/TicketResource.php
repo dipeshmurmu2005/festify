@@ -24,6 +24,8 @@ class TicketResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'ticket';
 
+    protected static bool $shouldRegisterNavigation = false;
+
     public static function form(Schema $schema): Schema
     {
         return TicketForm::configure($schema);

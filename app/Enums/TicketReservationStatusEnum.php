@@ -11,6 +11,7 @@ enum TicketReservationStatusEnum: string implements HasLabel, HasColor
     case EXPIRED = 'expired';
     case CONVERTED = 'converted';
     case CANCELLED = 'cancelled';
+    case PAYMENTSUBMITTED = 'payment submitted';
 
     public function getLabel(): ?string
     {

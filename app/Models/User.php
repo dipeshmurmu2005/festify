@@ -84,4 +84,9 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasOne(Organizer::class, 'user_id');
     }
+
+    public function reservations()
+    {
+        return $this->hasMany(TicketReservation::class, 'user_id');
+    }
 }

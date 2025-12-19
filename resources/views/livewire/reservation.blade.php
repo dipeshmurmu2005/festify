@@ -11,7 +11,7 @@
             </p>
         </div>
         <div class="mt-10">
-            <div class="grid grid-cols-4 gap-20">
+            <div class="grid grid-cols-4 gap-10">
                 <div class="col-span-2 border-2 rounded-xl border-white/10 h-fit">
                     <div class="rounded-2xl overflow-hidden">
                         <div class="h-[500px] relative">
@@ -67,12 +67,14 @@
                 <div class="col-span-2 space-y-10">
                     <div class="bg-white/5 border-2 border-white/10 p-10 rounded-2xl">
                         <div class="flex gap-2 items-center">
-                            <div
-                                class="h-14 w-14 bg-white/10 rounded-full flex justify-center text-primary items-center">
-                                <x-heroicon-m-wallet class="h-6 w-6" />
-                            </div>
                             <div>
-                                <h2 class="text-xl font-bold">Payment Verification</h2>
+                                <div
+                                    class="h-14 w-14 bg-white/10 rounded-full flex justify-center text-primary items-center">
+                                    <x-heroicon-m-wallet class="h-6 w-6" />
+                                </div>
+                            </div>
+                            <div class="w-full">
+                                <h2 class="text-xl font-bold flex justify-between w-full">Payment Verification</h2>
                                 <p class="text-white/50">Payment verification is required to finalize this reservation.
                                 </p>
                             </div>
@@ -87,30 +89,80 @@
                                     class="bg-primary/10 text-primary px-3 py-2 rounded-full font-semibold">eSewa</span>
                             </div>
                         </div>
-                        <div class="mt-5">
-                            <div class="rounded-xl overflow-hidden">
-                                <img src="https://images.ctfassets.net/txhaodyqr481/4b1eRtWildSd4ZJsmRXCoM/08c186e0ff890bc6c57f6090a077ca81/Group_1.png?q=85&w=800&h=800"
-                                    alt="">
+                        @if ($this->reservation->payment && $this->reservation->payment->status->value == 'failed')
+                            <div
+                                class="p-10 h-[150px] rounded-2xl overflow-hidden relative bg-white/5 border-2 border-white/5 mt-5 gap-2 flex justify-center items-center flex-col">
+                                <div>
+                                    <div
+                                        class="h-14 w-14 flex justify-center items-center rounded-full bg-error/10 text-error">
+                                        <x-heroicon-m-x-mark class="h-8 w-8" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <h2 class="text-xl font-semibold text-white/50">Verification Failed</h2>
+                                </div>
                             </div>
-                        </div>
-                        <div class="mt-5">
-                            <fieldset class="fieldset w-full">
-                                <legend class="fieldset-legend">eSewa Transaction ID</legend>
-                                <input type="text" class="input w-full h-16 rounded-full px-10"
-                                    placeholder="eg. 49034092" />
-                                <p class="label">Enter the 10 digit transaction code from customer's payment receipt
-                                </p>
-                            </fieldset>
-                        </div>
-                        <div class="mt-5 pt-5 border-t border-white/5">
-                            <div class="space-y-5">
-                                <button class="btn btn-primary h-16 px-5 rounded-full w-full"><x-heroicon-m-check-badge
-                                        class="h-6 w-6" /> Verify & Booked
-                                    Tickets</button>
-                                <button class="btn btn-neutral h-16 px-5 rounded-full w-full"><x-heroicon-m-check-badge
-                                        class="h-6 w-6" /> Cancel Reservation</button>
+                        @endif
+                        @if ($this->reservation->payment && $this->reservation->payment->status->value != 'failed')
+                            @if ($this->reservation->payment->status->value == 'verified')
+                                <div
+                                    class="p-10 h-[200px] rounded-2xl overflow-hidden relative bg-white/5 border-2 border-white/5 mt-10 gap-2 flex justify-center items-center flex-col">
+                                    <img src="https://cdn3d.iconscout.com/3d/premium/thumb/confetti-3d-icon-png-download-5326774.png"
+                                        alt="" class="h-full w-full object-cover absolute opacity-10">
+                                    <div
+                                        class="h-14 w-14 flex justify-center items-center rounded-full bg-primary/10 text-primary">
+                                        <x-heroicon-m-check-badge class="h-8 w-8" />
+                                    </div>
+                                    <div>
+                                        <h2 class="text-xl font-semibold">Verified 🎉</h2>
+                                    </div>
+                                </div>
+                            @else
+                                <div
+                                    class="p-10 rounded-2xl bg-white/5 mt-10 gap-2 flex justify-center items-center flex-col">
+                                    <div
+                                        class="h-14 w-14 flex justify-center items-center rounded-full bg-warning/10 text-warning">
+                                        <x-hugeicons-loading-01 class="h-8 w-8" />
+                                    </div>
+                                    <div>
+                                        <h2 class="text-xl font-semibold">Pending</h2>
+                                    </div>
+                                </div>
+                            @endif
+                        @else
+                            <div class="mt-5">
+                                <div class="rounded-xl overflow-hidden">
+                                    <img src="https://images.ctfassets.net/txhaodyqr481/4b1eRtWildSd4ZJsmRXCoM/08c186e0ff890bc6c57f6090a077ca81/Group_1.png?q=85&w=800&h=800"
+                                        alt="">
+                                </div>
                             </div>
-                        </div>
+                            <div class="mt-5">
+                                <fieldset class="fieldset w-full">
+                                    <legend class="fieldset-legend">Esewa ID</legend>
+                                    <input type="text" wire:model="payer_id"
+                                        class="input w-full h-16 rounded-full px-10" placeholder="eg. 9815937651" />
+                                    </p>
+                                </fieldset>
+                                <fieldset class="fieldset w-full">
+                                    <legend class="fieldset-legend">eSewa Transaction ID</legend>
+                                    <input type="text" wire:model="token"
+                                        class="input w-full h-16 rounded-full px-10" placeholder="eg. 49034092" />
+                                    <p class="label">Enter the 10 digit transaction code from customer's payment
+                                        receipt
+                                    </p>
+                                </fieldset>
+                            </div>
+                            <div class="mt-5 pt-5 border-t border-white/5">
+                                <div class="space-y-5">
+                                    <button wire:click="requestPayment()"
+                                        class="btn btn-primary h-16 px-5 rounded-full w-full"><x-heroicon-m-check-badge
+                                            class="h-6 w-6" /> Verify & Book
+                                        Ticket</button>
+                                    <button class="btn btn-neutral h-16 px-5 rounded-full w-full"><x-heroicon-m-x-mark
+                                            class="h-6 w-6" /> Cancel Reservation</button>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                     <div class="bg-white/5 border-2 border-white/10 p-10 rounded-2xl">
                         <div class="flex gap-2">

@@ -65,6 +65,7 @@ class ReservationAction
                 return [
                     'reservation_id' => $reservation->id,
                     'event_date' => $event_date,
+                    'event_id' => $reservation->event_id,
                     'ticket_id' => $ticket->id,
                     'event_session_id' => $this->eventSession ? $this->eventSession->id : null,
                     'base_price' => $ticket->base_price,
