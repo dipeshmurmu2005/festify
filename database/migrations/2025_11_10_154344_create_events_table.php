@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('organizer_id');
             $table->string('title');
             $table->string('organizer_name');
             $table->boolean('is_multi_session_event')->default(false);

@@ -3,7 +3,6 @@
 namespace App\Livewire;
 
 use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\Layout;
 use Livewire\Component;
 
 class LoginWire extends Component
@@ -34,8 +33,6 @@ class LoginWire extends Component
 
         if (Auth::attempt($credentials)) {
             return redirect()->route('home');
-        } else if (Auth::guard('organizer')->attempt($credentials)) {
-            return redirect()->route('filament.organizer.pages.dashboard');
         }
         $this->addError('email', 'Invalid email or password.');
     }

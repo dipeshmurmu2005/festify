@@ -3,12 +3,15 @@
 namespace App\Models;
 
 use App\Enums\TicketReservationStatusEnum;
+use App\Traits\BelongsToOrganizer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TicketReservation extends Model
 {
+    use BelongsToOrganizer;
+
     protected $guarded = [];
 
     protected $casts = [
@@ -52,5 +55,10 @@ class TicketReservation extends Model
     public function booking()
     {
         return $this->hasOne(Booking::class, 'reservation_id');
+    }
+
+    public function organizer()
+    {
+        return $this->belongsTo(Organizer::class);
     }
 }

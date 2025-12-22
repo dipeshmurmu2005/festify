@@ -17,6 +17,8 @@ return new class extends Migration
 
             $table->json('guest_user_info')->nullable();
 
+            $table->unsignedBigInteger('organizer_id');
+
             $table->unsignedBigInteger('user_id')->nullable();
 
             $table->string('reservation_code')->nullable()->unique();

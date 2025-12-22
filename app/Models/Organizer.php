@@ -9,6 +9,11 @@ class Organizer extends Authenticatable
 {
     protected $guarded = [];
 
+    public function owner()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function staff()
     {
         return $this->hasMany(Staff::class, 'organizer_id');

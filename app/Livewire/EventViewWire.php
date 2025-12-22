@@ -42,7 +42,6 @@ class EventViewWire extends Component
         $this->event = $event;
         if ($this->event->status == EventStatusEnum::Published) {
             $this->date = Carbon::parse($this->event->event_date)->format('m/d/Y');
-
             if ($this->event->eventSessions->count() > 0) {
                 $this->has_session = true;
                 $this->event_session = $this->event->eventSessions->first()->id;

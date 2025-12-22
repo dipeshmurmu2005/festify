@@ -14,14 +14,15 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('organizer_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('reservation_id');
             $table->unsignedBigInteger('event_id');
             $table->unsignedBigInteger('event_session_id')->nullable();
             $table->decimal('amount', 10, 2)->nullable();
             $table->string('payment_method');
-            $table->string('payer_id');
-            $table->string('token');
+            $table->string('transaction_uuid');
+            $table->string('ref_id');
             $table->string('status')->default(PaymentStatusEnum::Pending);
             $table->timestamps();
         });

@@ -5,17 +5,26 @@ namespace App\Models;
 use App\Enums\EventSessionTypeEnum;
 use App\Enums\EventStatusEnum;
 use App\Enums\EventTypeEnum;
+use App\Traits\BelongsToOrganizer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Event extends Model
 {
+    use BelongsToOrganizer;
+
     protected $guarded = [];
+
     protected $casts = [
         'schedule_type' => EventTypeEnum::class,
         'status' => EventStatusEnum::class,
         'session_type' => EventSessionTypeEnum::class,
     ];
+
+    public function organizer()
+    {
+        return $this->belongsTo(Organizer::class);
+    }
 
     public function tickets(): HasMany
     {

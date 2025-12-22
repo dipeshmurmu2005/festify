@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('organizer_settings', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('organizer_id');
             $table->unsignedBigInteger('user_id');
             $table->string('name')->nullable();
             $table->string('email')->nullable();

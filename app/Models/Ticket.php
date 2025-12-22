@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\TicketCapacityTypeEnum;
 use App\Enums\TicketStatusEnum;
 use App\Enums\TicketTypeEnum;
+use App\Traits\BelongsToOrganizer;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,6 +13,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Ticket extends Model
 {
+    use BelongsToOrganizer;
+
     protected $guarded = [];
 
     protected $casts = [
@@ -20,6 +23,11 @@ class Ticket extends Model
         'type' => TicketTypeEnum::class,
         'capacity_type' => TicketCapacityTypeEnum::class
     ];
+
+    public function organizer()
+    {
+        return $this->belongsTo(Organizer::class);
+    }
 
     public function event(): BelongsTo
     {
@@ -80,7 +88,6 @@ class Ticket extends Model
     {
         $start_date = $this->sales_starts_at;
         $end_date = $this->sales_ends_at;
-
         if (now()->between($start_date, $end_date)) {
             return true;
         } else {

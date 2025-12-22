@@ -2,15 +2,11 @@
 
 namespace App\Livewire;
 
-use App\Enums\UserRole;
-use App\Enums\UserTypeEnum;
-use App\Models\Organizer;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\Layout;
+use Illuminate\Support\Facades\Cookie;
 use Livewire\Attributes\Locked;
-use Livewire\Attributes\Url;
 use Livewire\Component;
 
 class OnboardWire extends Component
@@ -36,12 +32,6 @@ class OnboardWire extends Component
         ];
     }
 
-    public function messages()
-    {
-        return [
-            'individual.required' => 'Please provide are you an individual or a company ?'
-        ];
-    }
 
     public function mount(Request $request)
     {
@@ -49,7 +39,7 @@ class OnboardWire extends Component
         $this->name = $request->name;
         $user = $this->checkIfUserExist($this->email);
         if ($user) {
-            if ($user->id == auth()->user()->id) {
+            if (auth()->user() && $user->id == auth()->user()->id) {
                 return redirect()->route('home');
             }
             return redirect()->route('login');
@@ -70,7 +60,11 @@ class OnboardWire extends Component
             'email_verified_at' => now(),
         ]);
 
+        session()->flush();
+
         Auth::login($user);
+
+        $this->clearCookies();
 
         return redirect()->route('home');
     }
@@ -86,5 +80,12 @@ class OnboardWire extends Component
     public function goBack()
     {
         $this->password_setup = false;
+    }
+
+    public function clearCookies()
+    {
+        Cookie::queue(Cookie::forget('sent_email'));
+        Cookie::queue(Cookie::forget('email'));
+        Cookie::queue(Cookie::forget('fullname'));
     }
 }

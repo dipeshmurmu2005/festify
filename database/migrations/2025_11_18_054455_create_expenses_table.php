@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('expenses', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('organizer_id');
             $table->unsignedBigInteger('event_id');
             $table->string('title');
             $table->unsignedBigInteger('expense_category_id');

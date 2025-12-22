@@ -152,7 +152,26 @@
                                     </p>
                                 </fieldset>
                             </div>
-                            <div class="mt-5 pt-5 border-t border-white/5">
+                            <div x-data="{
+                                init() {
+                                        $wire.on('redirect-to-payment', () => {
+                                            this.submitPayment();
+                                        });
+                                    },
+                                    submitPayment() {
+                                        document.getElementById('payment').submit();
+                                    }
+                            }" class="mt-5 pt-5 border-t border-white/5">
+                                @if ($this->payment_params)
+                                    <form action="https://rc-epay.esewa.com.np/api/epay/main/v2/form" id="payment"
+                                        method="POST">
+                                        @csrf
+                                        @foreach ($this->payment_params as $key => $params)
+                                            <input type="text" id="amount" name="{{ $key }}"
+                                                value="{{ $params }}" required>
+                                        @endforeach
+                                    </form>
+                                @endif
                                 <div class="space-y-5">
                                     <button wire:click="requestPayment()"
                                         class="btn btn-primary h-16 px-5 rounded-full w-full"><x-heroicon-m-check-badge

@@ -9,17 +9,18 @@ enum TicketReservationStatusEnum: string implements HasLabel, HasColor
 {
     case ACTIVE = 'active';
     case EXPIRED = 'expired';
-    case CONVERTED = 'converted';
     case CANCELLED = 'cancelled';
-    case PAYMENTSUBMITTED = 'payment submitted';
+    case PAYMENT_INITIATED = 'payment initiated';
+    case PAYMENT_DONE = 'payment done';
 
     public function getLabel(): ?string
     {
         return match ($this) {
             self::ACTIVE => 'Active',
             self::EXPIRED => 'Expired',
-            self::CONVERTED => 'Converted',
+            self::PAYMENT_INITIATED => 'Payment Initiated',
             self::CANCELLED => 'Cancelled',
+            self::PAYMENT_DONE => 'Payment Done'
         };
     }
 
@@ -28,8 +29,9 @@ enum TicketReservationStatusEnum: string implements HasLabel, HasColor
         return match ($this) {
             self::ACTIVE    => 'success',
             self::EXPIRED   => 'gray',
-            self::CONVERTED => 'info',
+            self::PAYMENT_INITIATED => 'info',
             self::CANCELLED => 'danger',
+            self::PAYMENT_DONE => 'success',
         };
     }
 }

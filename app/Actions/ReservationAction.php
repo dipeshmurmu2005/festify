@@ -50,6 +50,7 @@ class ReservationAction
             DB::beginTransaction();
             $reservation = TicketReservation::create([
                 'event_id' => $this->event->id,
+                'organizer_id' => $this->event->organizer_id,
                 'event_session_id' => $this->eventSession ? $this->eventSession->id : null,
                 'user_id' => $this->user->id,
                 'expires_at' => Carbon::now()->addMinute(10),
@@ -63,6 +64,7 @@ class ReservationAction
                 $ticket = Ticket::find($ordered_ticket['id']);
                 $this->total_amount += $ticket->base_price * $ordered_ticket['quantity'];
                 return [
+                    'organizer_id' => $this->event->organizer_id,
                     'reservation_id' => $reservation->id,
                     'event_date' => $event_date,
                     'event_id' => $reservation->event_id,

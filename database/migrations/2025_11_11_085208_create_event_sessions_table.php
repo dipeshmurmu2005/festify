@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('event_sessions', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('organizer_id');
             $table->unsignedBigInteger('event_id');
             $table->date('date')->nullable();
             $table->string('time');
