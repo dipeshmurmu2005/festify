@@ -42,7 +42,7 @@ class PaymentSuccessWire extends Component
         $response = Http::get("https://rc.esewa.com.np/api/epay/transaction/status", $params);
         $data = json_decode($response->body(), true);
         if ($data['status'] == 'COMPLETE') {
-            $reservation = TicketReservation::where('reservation_code', $transaction_uuid)->first();
+            $reservation = TicketReservation::where('transaction_uuid', $transaction_uuid)->first();
             if ($reservation && $reservation->status == TicketReservationStatusEnum::PAYMENT_INITIATED) {
                 $payment = $reservation->payments()->create([
                     'user_id' => auth()->user()->id,

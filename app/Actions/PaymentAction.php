@@ -21,7 +21,7 @@ class PaymentAction
     public function initiatePayment($user_id, $reservation_id)
     {
         $reservation = TicketReservation::find($reservation_id);
-        $transaction_uuid = $reservation->reservation_code;
+        $transaction_uuid = $reservation->reservation_code . '-' . now()->timestamp;
         $total_amount = $reservation->total_amount;
         $dataToSign = "total_amount=$total_amount,transaction_uuid=$transaction_uuid,product_code=EPAYTEST";
         $s = hash_hmac('sha256', $dataToSign, $this->secret_key, true);

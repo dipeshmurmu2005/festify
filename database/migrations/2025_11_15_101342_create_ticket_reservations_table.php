@@ -23,6 +23,8 @@ return new class extends Migration
 
             $table->string('reservation_code')->nullable()->unique();
 
+            $table->string('transaction_uuid')->nullable()->unique();
+
             $table->unsignedBigInteger('event_id');
 
             $table->unsignedBigInteger('event_session_id')->nullable();

@@ -30,16 +30,21 @@ class SetupOrganizer extends Component
     {
         $user = auth()->user();
         if ($user->organizer) {
-            return redirect()->route('filament.organizer.pages.dashboard');
+            return redirect()->route('filament.organizer.pages.dashboard', ['tenant' => $user->organizer->id]);
         }
     }
 
     public function createOrganizer()
     {
         $this->validate();
-        $organizer = Organizer::create([
+        $organizer = Organizer::firstOrCreate([
+            'user_id' => auth()->id()
+        ], [
             'name' => $this->name,
             'user_id' => auth()->id()
         ]);
+        if ($organizer) {
+            return redirect()->route('filament.organizer.pages.dashboard', ['tenant' => $organizer->id]);
+        }
     }
 }

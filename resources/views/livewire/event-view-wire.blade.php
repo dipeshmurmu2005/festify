@@ -99,6 +99,7 @@
                     setTimeout(() => {
                         this.ticket_reserved = false;
                         this.refreshTickets();
+                        window.location.href = `{{ route('user.tickets') }}`;
                     }, 500);
                 },
                 refreshTickets() {
@@ -313,7 +314,7 @@
                                     </template>
                                     <template x-if="ticket_reserved">
                                         <button class="btn btn-primary w-full 2xl:h-16"
-                                            @click="closeReservation()">Done</button>
+                                            @click="closeReservation()">View Reservations</button>
                                     </template>
                                 </div>
                             </div>

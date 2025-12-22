@@ -130,28 +130,6 @@
                                 </div>
                             @endif
                         @else
-                            <div class="mt-5">
-                                <div class="rounded-xl overflow-hidden">
-                                    <img src="https://images.ctfassets.net/txhaodyqr481/4b1eRtWildSd4ZJsmRXCoM/08c186e0ff890bc6c57f6090a077ca81/Group_1.png?q=85&w=800&h=800"
-                                        alt="">
-                                </div>
-                            </div>
-                            <div class="mt-5">
-                                <fieldset class="fieldset w-full">
-                                    <legend class="fieldset-legend">Esewa ID</legend>
-                                    <input type="text" wire:model="payer_id"
-                                        class="input w-full h-16 rounded-full px-10" placeholder="eg. 9815937651" />
-                                    </p>
-                                </fieldset>
-                                <fieldset class="fieldset w-full">
-                                    <legend class="fieldset-legend">eSewa Transaction ID</legend>
-                                    <input type="text" wire:model="token"
-                                        class="input w-full h-16 rounded-full px-10" placeholder="eg. 49034092" />
-                                    <p class="label">Enter the 10 digit transaction code from customer's payment
-                                        receipt
-                                    </p>
-                                </fieldset>
-                            </div>
                             <div x-data="{
                                 init() {
                                         $wire.on('redirect-to-payment', () => {
@@ -164,7 +142,7 @@
                             }" class="mt-5 pt-5 border-t border-white/5">
                                 @if ($this->payment_params)
                                     <form action="https://rc-epay.esewa.com.np/api/epay/main/v2/form" id="payment"
-                                        method="POST">
+                                        method="POST" hidden>
                                         @csrf
                                         @foreach ($this->payment_params as $key => $params)
                                             <input type="text" id="amount" name="{{ $key }}"
