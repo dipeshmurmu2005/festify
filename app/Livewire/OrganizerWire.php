@@ -7,14 +7,6 @@ use Livewire\Component;
 
 class OrganizerWire extends Component
 {
-
-    public function mount()
-    {
-        if (auth()->user() && auth()->user()->organizer) {
-            $this->redirectRoute('filament.organizer.pages.dashboard', navigate: true);
-        }
-    }
-
     public function render()
     {
         return view('livewire.organizer-wire');

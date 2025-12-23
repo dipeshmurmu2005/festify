@@ -6,6 +6,7 @@ use App\Enums\EventSessionTypeEnum;
 use App\Enums\EventStatusEnum;
 use App\Enums\EventTypeEnum;
 use App\Traits\BelongsToOrganizer;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -39,5 +40,10 @@ class Event extends Model
     public function expenses(): HasMany
     {
         return $this->hasMany(Expense::class, 'event_id');
+    }
+
+    public function scopePublished(Builder $query): void
+    {
+        $query->where('status', EventStatusEnum::Published);
     }
 }

@@ -1,4 +1,4 @@
-<div class="px-5 py-5 flex justify-between items-center">
+<div class="px-5 py-5 flex justify-between items-center bg-base-100 border-b border-white/5">
     <div class="flex gap-5 items-center">
         <a href="{{ route('home') }}">
             <div class="bg-white/10 w-12 h-12 text-4xl text-primary pt-2 rounded-md flex justify-center items-center">
@@ -6,15 +6,22 @@
             </div>
         </a>
         <div class="text-sm font-semibold">
-            <a href="{{ route('home') }}"
+            <a href="{{ route('explore') }}"
                 class="text-white/80 w-fit px-4 py-2 rounded-full hover:bg-white/10 hover:text-primary duration-300">Explore</a>
             <a href="#"
                 class="text-white/80 w-fit px-4 py-2 rounded-full hover:bg-white/10 hover:text-primary duration-300">Events</a>
         </div>
+        {{-- <div class="relative">
+            <div class="absolute z-10 h-10 w-10 flex justify-center items-center text-white/50">
+                <x-heroicon-m-magnifying-glass class="h-4 w-4" />
+            </div>
+            <input type="text" class="input pl-10 rounded-md text-sm w-[350px]"
+                placeholder="Search Organizers, Events..">
+        </div> --}}
     </div>
     <div class="flex gap-2 items-center">
         @guest
-            <a href="{{ route('register') }}">
+            <a href="{{ route('organizer.overview') }}">
                 <button class="btn btn-md rounded-full btn-neutral border border-white/10">Become Organizer</button>
             </a>
             <a href="{{ route('login') }}">

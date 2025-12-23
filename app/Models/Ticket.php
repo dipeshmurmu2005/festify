@@ -7,6 +7,7 @@ use App\Enums\TicketStatusEnum;
 use App\Enums\TicketTypeEnum;
 use App\Traits\BelongsToOrganizer;
 use DateTime;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -82,6 +83,11 @@ class Ticket extends Model
         } else {
             return $this->event->venue_capacity_override - $this->totalReservedOrBookedTickets($date, $event_session);
         }
+    }
+
+    public function scopeActive(Builder $query): void
+    {
+        $query->where('status', TicketStatusEnum::ACTIVE);
     }
 
     public function verifyTicketSaleDate()

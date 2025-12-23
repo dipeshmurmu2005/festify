@@ -16,6 +16,7 @@
 <body class="!font-jakarta md:text-xs 2xl:text-sm">
     <x-partials.nav />
     {{ $slot }}
+    <x-partials.footer />
 </body>
 
 </html>
