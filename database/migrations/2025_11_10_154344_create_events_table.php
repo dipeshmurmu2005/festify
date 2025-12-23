@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('organizer_id');
             $table->string('title');
             $table->string('organizer_name');
+            $table->decimal('estimated_budget', 10, 2)->nullable();
             $table->boolean('is_multi_session_event')->default(false);
             $table->text('short_description')->nullable();
             $table->text('long_description')->nullable();

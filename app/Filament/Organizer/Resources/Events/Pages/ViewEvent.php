@@ -53,36 +53,42 @@ class ViewEvent extends ViewRecord
                                 TextInput::make('ticket_price')->dehydrated(false)->hidden(fn($get) => $get('type') == TicketTypeEnum::PAID)->disabled()->default('Free')->prefix('Rs '),
                                 TextInput::make('minimum_order_quantity')->required()->label('Minimum Order Quantity')->default(1),
                                 TextInput::make('maximum_order_quantity')->required()->label('Maximum Order Quantity')->default(10),
-                                Select::make('capacity_type')->required()->label('Capacity Type')->live()->default(function ($get, $record) {
-                                    if ($record->eventSessions->count() > 0 && $record->is_multi_session_event) {
-                                        return TicketCapacityTypeEnum::SHAREDWITHEVENT;
-                                    } else {
-                                        return TicketCapacityTypeEnum::SHAREDWITHEVENT;
-                                    }
-                                })->options(function ($get, $record) {
-                                    if (($record->is_multi_session_event && $record->eventSessions->count() == 0) || !$record->is_multi_session_event) {
-                                        return collect(TicketCapacityTypeEnum::cases())
-                                            ->reject(fn($case) => in_array($case, [
-                                                TicketCapacityTypeEnum::SHAREDWITHSESSION,
-                                            ]))
-                                            ->mapWithKeys(fn($case) => [
-                                                $case->value => $case->getLabel(),
-                                            ])
-                                            ->toArray();
-                                    } else {
-                                        return collect(TicketCapacityTypeEnum::cases())
-                                            ->mapWithKeys(fn($case) => [
-                                                $case->value => $case->getLabel(),
-                                            ])
-                                            ->toArray();
-                                    }
-                                }),
-                                TextInput::make('capacity')
+                                Select::make('capacity_type')
+                                    ->reactive()
                                     ->required()
+                                    ->label('Capacity Type')
+                                    ->live()
+                                    ->default(function ($get, $record) {
+                                        if ($record->eventSessions->count() > 0 && $record->is_multi_session_event) {
+                                            return TicketCapacityTypeEnum::SHAREDWITHEVENT;
+                                        } else {
+                                            return TicketCapacityTypeEnum::SHAREDWITHEVENT;
+                                        }
+                                    })->options(function ($get, $record) {
+                                        if (($record->is_multi_session_event && $record->eventSessions->count() == 0) || !$record->is_multi_session_event) {
+                                            return collect(TicketCapacityTypeEnum::cases())
+                                                ->reject(fn($case) => in_array($case, [
+                                                    TicketCapacityTypeEnum::SHAREDWITHSESSION,
+                                                ]))
+                                                ->mapWithKeys(fn($case) => [
+                                                    $case->value => $case->getLabel(),
+                                                ])
+                                                ->toArray();
+                                        } else {
+                                            return collect(TicketCapacityTypeEnum::cases())
+                                                ->mapWithKeys(fn($case) => [
+                                                    $case->value => $case->getLabel(),
+                                                ])
+                                                ->toArray();
+                                        }
+                                    }),
+                                TextInput::make('capacity')
                                     ->label('Capacity')
                                     ->requiredIf('capacity_type', TicketCapacityTypeEnum::INDIVIDUAL->value)
                                     ->default(1)
-                                    ->hidden(fn($get) => $get('capacity_type') == TicketCapacityTypeEnum::SHAREDWITHSESSION),
+                                    ->reactive()
+                                    ->hidden(fn($get) => $get('capacity_type') == TicketCapacityTypeEnum::SHAREDWITHEVENT->value || $get('capacity_type') == TicketCapacityTypeEnum::SHAREDWITHEVENT->value),
+
                                 Repeater::make('aminities')->schema([
                                     TextInput::make('title')
                                 ])->grid('4')->defaultItems(0)->columnSpanFull()->addActionAlignment(Alignment::Left)->addActionLabel('Add Aminities')->columnSpanFull(),
@@ -156,7 +162,7 @@ class ViewEvent extends ViewRecord
                 Notification::make()
                     ->success()
                     ->title('Successfully Created Expense');
-            })
+            })->slideOver()->modalWidth(Width::Large)
         ];
     }
 }

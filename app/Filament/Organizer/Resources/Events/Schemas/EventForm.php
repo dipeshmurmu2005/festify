@@ -55,11 +55,15 @@ class EventForm
                                         ->schema([
                                             Select::make('visibility_type')
                                                 ->label('Visibility Type')
+                                                ->required()
                                                 ->options(VisibilityTypeEnum::class),
                                             Select::make('event_category_id')
                                                 ->label('Category')
                                                 ->options(EventCategory::pluck('name', 'id'))
                                         ]),
+                                    Grid::make('4')->schema([
+                                        TextInput::make('estimated_budget')->numeric()->prefix('Rs')
+                                    ])->columnSpanFull(),
                                     RichEditor::make('short_description')
                                         ->label('Short Description')
                                         ->required()
