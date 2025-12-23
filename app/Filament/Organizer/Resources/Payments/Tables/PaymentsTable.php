@@ -25,10 +25,10 @@ class PaymentsTable
             ->columns([
                 TextColumn::make('event.title'),
                 TextColumn::make('reservation.reservation_code'),
+                TextColumn::make('transaction_uuid')->label('Transaction UUID'),
+                TextColumn::make('ref_id')->label('REF ID'),
                 TextColumn::make('user.name'),
-                TextColumn::make('payer_id')->label('Payer Id'),
                 TextColumn::make('payment_method')->badge(),
-                TextColumn::make('token'),
                 TextColumn::make('amount')->prefix('Rs. '),
                 TextColumn::make('status')->badge(),
             ])
