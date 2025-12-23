@@ -15,14 +15,17 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class BookedTicketResource extends Resource
 {
     protected static ?string $model = BookedTicket::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    // protected static string|BackedEnum|null $navigationIcon = Heroicon::Ticket;
 
     protected static ?string $recordTitleAttribute = 'Booked Tickets';
+
+    protected static string | UnitEnum | null $navigationGroup = 'Reservations & Bookings';
 
     public static function form(Schema $schema): Schema
     {

@@ -7,12 +7,15 @@ use App\Enums\PaymentStatusEnum;
 use App\Enums\TicketReservationStatusEnum;
 use App\Models\Booking;
 use App\Models\TicketReservation;
+use App\Traits\BookingCodeGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
 class PaymentSuccessWire extends Component
 {
+    use BookingCodeGenerator;
+
     public function mount(Request $request)
     {
         $data = $request->get('data');
@@ -65,6 +68,8 @@ class PaymentSuccessWire extends Component
                         'event_id' => $reservation->event_id,
                         'reservation_id' => $reservation->id
                     ]);
+                    $booking->booking_code = $this->generateBookingCode($booking->id);
+                    $booking->save();
                 }
             } else {
                 if ($reservation) {

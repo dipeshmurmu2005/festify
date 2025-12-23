@@ -13,16 +13,29 @@
         </div>
     </div>
     <div class="flex gap-2 items-center">
-        <button class="btn btn-md rounded-full btn-neutral border border-white/10">Become Organizer</button>
         @guest
+            <a href="{{ route('register') }}">
+                <button class="btn btn-md rounded-full btn-neutral border border-white/10">Become Organizer</button>
+            </a>
             <a href="{{ route('login') }}">
                 <button
                     class="btn btn-primary btn-outline btn-md rounded-full bg-primary/5 hover:text-primary">Login</button>
             </a>
-            <button class="btn btn-primary btn-md rounded-full">Sign up</button>
+            <a href="{{ route('register') }}">
+                <button class="btn btn-primary btn-md rounded-full">Sign up</button>
+            </a>
         @endguest
 
         @auth
+            @if (auth()->user()->organizer)
+                <a href="{{ route('filament.organizer.pages.dashboard', ['tenant' => auth()->user()->organizer->id]) }}">
+                    <button class="btn btn-md rounded-full btn-neutral border border-white/10">Switch to Organizer</button>
+                </a>
+            @else
+                <a href="{{ route('setup.organizer') }}">
+                    <button class="btn btn-md rounded-full btn-neutral border border-white/10">Become Organizer</button>
+                </a>
+            @endif
             <div class="dropdown dropdown-end">
                 <div tabindex="0" role="button" class="btn m-1 btn-circle overflow-hidden btn-primary">
                     <img src="https://variety.com/wp-content/uploads/2023/06/avatar-1.jpg?w=1000&h=563&crop=1"

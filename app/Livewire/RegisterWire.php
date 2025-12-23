@@ -19,11 +19,15 @@ class RegisterWire extends Component
     public $fullname;
 
     private $onboardUrl;
+
     public function mount()
     {
         $this->mail_sent = (bool) Cookie::get('sent_email');
         $this->email = Cookie::get('email');
         $this->fullname = Cookie::get('fullname');
+        if (auth()->user()) {
+            return redirect()->route('home');
+        }
     }
     public function rules()
     {

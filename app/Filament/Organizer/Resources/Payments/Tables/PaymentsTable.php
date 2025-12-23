@@ -4,6 +4,7 @@ namespace App\Filament\Organizer\Resources\Payments\Tables;
 
 use App\Enums\PaymentStatusEnum;
 use App\Models\Booking;
+use App\Traits\BookingCodeGenerator;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -16,6 +17,8 @@ use Filament\Tables\Table;
 
 class PaymentsTable
 {
+    use BookingCodeGenerator;
+
     public static function configure(Table $table): Table
     {
         return $table
@@ -47,11 +50,13 @@ class PaymentsTable
                     ->action(function ($data, $record) {
                         $record->status = $data['status'];
                         if ($record->status == PaymentStatusEnum::Verified) {
-                            Booking::create([
+                            $booking = Booking::create([
                                 'user_id' => $record->user_id,
                                 'event_id' => $record->event_id,
                                 'reservation_id' => $record->reservation_id
                             ]);
+                            $booking->booking_code = $this->generateBookingCode($booking->id);
+                            $booking->save();
                         }
                         $record->save();
                     })

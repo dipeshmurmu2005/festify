@@ -27,7 +27,7 @@ class ListStaff extends ListRecords
                     ->password()
                     ->autocomplete(false)
             ])->action(function ($data) {
-                $staff = auth('organizer')->user()->staff()->create([
+                $staff = auth()->user()->organizer->staff()->create([
                     'organizer_id' => auth('organizer')->user(),
                     'name' => $data['name'],
                     'email' => $data['email'],

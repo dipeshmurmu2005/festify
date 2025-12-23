@@ -1,5 +1,9 @@
-<div>
-    <div>
+<div class="relative">
+    <div class="absolute left-0 top-0 h-full w-full opacity-5">
+        <img src="https://cdn.gabb.com/wp-content/uploads/2025/10/kids-jumping-gabb.png" alt=""
+            class="h-full w-full object-cover">
+    </div>
+    <div class="relative z-30">
         @if ($this->mail_sent)
             <div class="flex justify-center items-center h-screen">
                 <div class="rounded-xl flex flex-col w-[280px] items-center justify-center">

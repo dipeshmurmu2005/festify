@@ -18,4 +18,9 @@ class Organizer extends Authenticatable
     {
         return $this->hasMany(Staff::class, 'organizer_id');
     }
+
+    public function settings()
+    {
+        return $this->hasOne(OrganizerSetting::class, 'organizer_id');
+    }
 }

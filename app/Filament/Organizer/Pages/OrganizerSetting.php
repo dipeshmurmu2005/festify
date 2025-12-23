@@ -39,7 +39,7 @@ class OrganizerSetting extends Page implements HasForms
 
     public function mount(): void
     {
-        $setting = auth()->user()->organizerSetting;
+        $setting = auth()->user()->organizer->settings;
         $this->form->fill([
             'logo' => $setting ? $setting->logo : null,
             'name' =>  $setting ? $setting->name  : auth()->user()->name,
@@ -67,7 +67,7 @@ class OrganizerSetting extends Page implements HasForms
     {
         $data = $this->form->getState();
         ModelsOrganizerSetting::updateOrCreate(
-            ['user_id' => auth()->user()->id],
+            ['organizer_id' => auth()->user()->organizer->id],
             $data
         );
         Notification::make()

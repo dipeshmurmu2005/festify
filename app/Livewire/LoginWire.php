@@ -10,6 +10,13 @@ class LoginWire extends Component
     public $email;
     public $password;
 
+    public function mount()
+    {
+        if (auth()->user()) {
+            return redirect()->route('home');
+        }
+    }
+
     public function rules(): array
     {
         return [

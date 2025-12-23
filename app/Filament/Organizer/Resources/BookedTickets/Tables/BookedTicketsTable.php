@@ -15,7 +15,10 @@ class BookedTicketsTable
     {
         return $table
             ->columns([
-                TextColumn::make('ticket_code')
+                TextColumn::make('ticket_code'),
+                TextColumn::make('booking.booking_code')->label('Booking Code'),
+                TextColumn::make('user.name')->label('User Name'),
+                TextColumn::make('event_date')
             ])
             ->filters([
                 //
