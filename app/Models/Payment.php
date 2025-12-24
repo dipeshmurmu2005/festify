@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Actions\WalletTransactionAction;
 use App\Enums\PaymentMethodEnum;
 use App\Enums\PaymentStatusEnum;
 use App\Enums\PaymentVerificationStatus;
@@ -19,6 +20,16 @@ class Payment extends Model
         'status' => PaymentStatusEnum::class,
         'payment_method' => PaymentMethodEnum::class
     ];
+
+    protected static function booted()
+    {
+        static::created(function ($model) {
+            if ($model->status == PaymentStatusEnum::Verified) {
+                $walletAction = new WalletTransactionAction();
+                $walletAction->credit($model->organizer_id, $model->amount, 'Ticket Payment');
+            }
+        });
+    }
 
 
     public function reservation()

@@ -37,7 +37,7 @@
                         <div>
                             <h2 class="font-semibold text-black/50">Expiry</h2>
                             <div>
-                                @if ($reservation->status->value != 'expired')
+                                @if ($reservation->status->value != 'expired' && $reservation->status->value == 'active')
                                     @php
                                         $diffInSeconds = abs(
                                             Carbon\Carbon::parse($reservation->expires_at)->diffInSeconds(),
@@ -83,6 +83,11 @@
                                     <div class="mt-2">
                                         <span
                                             class="mt-2 bg-warning w-fit px-4 py-2 text-xs `arning rounded-full border border-warning">Expired</span>
+                                    </div>
+                                @elseif($reservation->status->value == 'payment done')
+                                    <div class="mt-2">
+                                        <span
+                                            class="mt-2 bg-success w-fit px-4 py-2 text-xs `arning rounded-full border border-success">Converted</span>
                                     </div>
                                 @endif
                             </div>

@@ -23,4 +23,9 @@ class Organizer extends Authenticatable
     {
         return $this->hasOne(OrganizerSetting::class, 'organizer_id');
     }
+
+    public function wallet()
+    {
+        return $this->hasOne(Wallet::class, 'organizer_id');
+    }
 }

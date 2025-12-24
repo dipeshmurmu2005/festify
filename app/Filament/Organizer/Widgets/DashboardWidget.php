@@ -3,6 +3,7 @@
 namespace App\Filament\Organizer\Widgets;
 
 use App\Services\Organizer\OrganizerStatsService;
+use Filament\Support\Icons\Heroicon;
 use Filament\Widgets\ChartWidget;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -13,17 +14,14 @@ class DashboardWidget extends StatsOverviewWidget
     {
         $stats = app(OrganizerStatsService::class);
         return [
-            Stat::make('Total Revenue', $stats->ticketsSold())
-                ->description('32k increase')
-                ->descriptionIcon('heroicon-m-arrow-trending-up')
+            Stat::make('Total Revenue', 'Rs. ' . $stats->totalRevenue())
                 ->color('success'),
             Stat::make('Ticket Sold', $stats->ticketsSold())
-                ->description('32k increase')
-                ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->color('success'),
             Stat::make('Active Reservations', $stats->activeReservation())
-                ->description('32k increase')
-                ->descriptionIcon('heroicon-m-arrow-trending-up')
+                ->color('success'),
+            Stat::make('Wallet Balance', $stats->walletBalance())
+                ->icon(Heroicon::Wallet)
                 ->color('success'),
         ];
     }

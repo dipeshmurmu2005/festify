@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Filament\Organizer\Resources\FeaturedRequests\Schemas;
+namespace App\Filament\Organizer\Resources\WalletTransactions\Schemas;
 
 use Filament\Schemas\Schema;
 
-class FeaturedRequestForm
+class WalletTransactionForm
 {
     public static function configure(Schema $schema): Schema
     {

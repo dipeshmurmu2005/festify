@@ -2,6 +2,9 @@
 
 namespace App\Filament\Organizer\Widgets;
 
+use App\Models\BookedTicket;
+use App\Models\ReservedTicket;
+use Carbon\Carbon;
 use Filament\Widgets\ChartWidget;
 
 class TicketsSoldChart extends ChartWidget
@@ -10,16 +13,37 @@ class TicketsSoldChart extends ChartWidget
 
     protected function getData(): array
     {
+        $start = now()->startOfYear();
+        $end   = now()->endOfYear();
+
+        $months = collect(range(1, 12));
+
+        $bookings = BookedTicket::whereBetween('created_at', [$start, $end])
+            ->selectRaw('MONTH(created_at) as month, COUNT(*) as total')
+            ->groupBy('month')
+            ->pluck('total', 'month');
+
+        $reservations = ReservedTicket::whereBetween('created_at', [$start, $end])
+            ->selectRaw('MONTH(created_at) as month, COUNT(*) as total')
+            ->groupBy('month')
+            ->pluck('total', 'month');
+
         return [
             'datasets' => [
                 [
-                    'label' => 'Tickets Sold',
-                    'data' => [32, 32, 120, 80, 200, 150, 300],
+                    'label' => 'Tickets Booked',
+                    'data' => $months->map(fn($m) => $bookings[$m] ?? 0)->toArray(),
+                ],
+                [
+                    'label' => 'Ticket Reserved',
+                    'borderColor' => '#FFBF00',
+                    'data' => $months->map(fn($m) => $reservations[$m] ?? 0)->toArray(),
                 ],
             ],
-            'labels' => ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            'labels' => $months->map(fn($m) => Carbon::create()->month($m)->format('M'))->toArray(),
         ];
     }
+
 
     protected function getType(): string
     {
