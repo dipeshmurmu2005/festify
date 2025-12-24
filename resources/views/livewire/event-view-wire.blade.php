@@ -1,8 +1,7 @@
 <div>
     <div class="2xl:px-96 pt-10">
         <div class="h-125 rounded-2xl overflow-hidden relative">
-            <img src="https://wallpapers.com/images/featured/corporate-event-g6myc8i808y8llhh.jpg" alt=""
-                class="h-full w-full object-cover">
+            <img src="{{ Storage::url($event->cover_image) }}" alt="" class="h-full w-full object-cover">
         </div>
         <div class="grid grid-cols-5 gap-20">
             <div class="col-span-3 py-5">
@@ -10,7 +9,7 @@
                     <h2 class="text-4xl font-bold leading-snug">{{ $event->title }}</h2>
                     <div class="text-sm">
                         <div><span>Organized By</span> <span
-                                class="font-semibold text-primary">{{ $event->organizer }}</span></div>
+                                class="font-semibold text-primary">{{ $event->organizer_name }}</span></div>
                     </div>
                     <div>
                         <div class="space-y-3 mt-5 text-white/50">
@@ -23,6 +22,9 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="prose mt-10">
+                    {!! $event->long_description !!}
                 </div>
             </div>
             <div class="col-span-2 py-5 h-fit sticky" x-data="{
@@ -109,7 +111,7 @@
                 <div class="p-5 border border-white/10 rounded-xl">
                     <div>
                         <h2 class="text-lg font-semibold">Select Date & Sessions</h2>
-                        <div class="divide-y divide-gray-300 mt-2">
+                        <div class="divide-y divide-white/5 mt-2">
                             <div class="pb-5">
                                 @if ($this->event->schedule_type->value == 'single day')
                                     <div
@@ -328,6 +330,7 @@
         .air-datepicker {
             width: 100% !important;
             border: none;
+            background: #0e1112;
         }
 
         .air-datepicker-body--cells.-days- {
@@ -350,11 +353,12 @@
             font-weight: bold;
             font-family: Inter;
             transition: 0.2s ease;
-            color: #374151;
+            color: white;
         }
 
         .air-datepicker-cell:hover {
             background: white;
+            color: #f05537;
         }
 
         .air-datepicker-cell.-selected- {
@@ -362,15 +366,24 @@
         }
 
         .air-datepicker-cell.-current- {
-            color: black;
+            color: #f05537;
         }
 
         .air-datepicker-cell.-current-.-selected- {
             background-color: #f05537;
         }
 
+        .air-datepicker-cell.-disabled- {
+            color: #36454F !important;
+        }
+
         .air-datepicker-cell.-selected-.air-datepicker-cell.-focus-:hover {
             background-color: #f05537;
+            color: white;
+        }
+
+        .air-datepicker-nav {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
     </style>
 </div>
