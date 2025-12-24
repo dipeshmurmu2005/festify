@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Enums\EventsPriceSortEnum;
 use App\Models\Event;
 use App\Models\EventCategory;
 use Carbon\Carbon;
@@ -20,9 +21,18 @@ class ExploreWire extends Component
 
     public $date_filter_type;
 
+    public $min_price;
+
+    public $max_price;
+
+    public $sort;
+
+    public $sort_filters;
+
     public function mount()
     {
         $this->categories = EventCategory::all();
+        $this->sort_filters = EventsPriceSortEnum::cases();
     }
 
     public function render()
@@ -38,6 +48,9 @@ class ExploreWire extends Component
         $date_filter_type = $this->date_filter_type;
         $startDate = null;
         $endDate = null;
+        $max_price = $this->max_price;
+        $min_price = $this->min_price;
+        $sort = $this->sort;
         if ($this->date_filter_type == 'today') {
             $date_filter = Carbon::now()->startOfDay()->format('Y-m-d H:i:s');
         } else if ($this->date_filter_type == 'tomorrow') {
@@ -49,7 +62,25 @@ class ExploreWire extends Component
             $startDate = Carbon::now()->startOfWeek(Carbon::SUNDAY)->startOfDay()->addWeek();
             $endDate = Carbon::now()->endOfWeek(Carbon::SATURDAY)->endOfDay()->addWeek();
         }
-        return Event::latest()->where('title', 'LIKE', '%' . $this->search_query . '%')
+        return Event::when($max_price || $min_price, function ($q) use ($min_price, $max_price) {
+            $q->whereHas('tickets', function ($q) use ($max_price, $min_price) {
+                $q->when(!is_null($min_price) && $min_price >= 0, function ($q) use ($min_price) {
+                    $q->where('base_price', '>=', $min_price);
+                })->when(!is_null($max_price) && $max_price > 0, function ($q) use ($max_price) {
+                    $q->where('base_price', '<=', $max_price);
+                });
+            });
+        })
+            ->withMin('tickets', 'base_price')
+            ->withMax('tickets', 'base_price')
+            ->when($sort != null, function ($q) use ($sort) {
+                $q->when($sort == EventsPriceSortEnum::LOWTOHIGH->value, function ($q) {
+                    $q->orderBy('tickets_min_base_price');
+                })->when($sort == EventsPriceSortEnum::HIGHTOLOW->value, function ($q) {
+                    $q->orderByDesc('tickets_max_base_price');
+                });
+            })
+            ->latest()->where('title', 'LIKE', '%' . $this->search_query . '%')
             ->when((!empty($categories)), function ($query) use ($categories) {
                 $query->whereIn('event_category_id', $categories);
             })

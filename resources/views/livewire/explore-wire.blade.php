@@ -17,7 +17,8 @@
                                 रु
                             </div>
                         </div> <span>Min Price</span>
-                        <input type="text" class="bg-transparent! h-10 w-32 font-semibold" placeholder="0">
+                        <input type="text" wire:model="min_price" class="bg-transparent! h-10 w-32 font-semibold"
+                            placeholder="0">
                     </div>
                     <div class="flex gap-2 items-center pl-8">
                         <div>
@@ -26,7 +27,8 @@
                                 रु
                             </div>
                         </div> <span>Max Price</span>
-                        <input type="text" class="bg-transparent! h-10 w-32 font-semibold" placeholder="0">
+                        <input type="text" wire:model="max_price" class="bg-transparent! h-10 w-32 font-semibold"
+                            placeholder="0">
                     </div>
                 </div>
                 <div>
@@ -82,7 +84,7 @@
         </div>
         <div class="col-span-3">
             <div class="flex justify-between items-center pb-5">
-                <div class="flex gap-5 items-center">
+                {{-- <div class="flex gap-5 items-center">
                     <span class="font-semibold text-white/50">Active Filters</span>
                     <div>
                         <div
@@ -92,13 +94,13 @@
                                     class="h-4 w-4" /></button>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div>
-                    <select class="select">
-                        <option selected>Relevance</option>
-                        <option>Latest</option>
-                        <option>Price Low to High</option>
-                        <option>Price High to Low</option>
+                    <select class="select" wire:model.live="sort">
+                        <option>Relevence</option>
+                        @foreach ($this->sort_filters as $sort)
+                            <option value="{{ $sort->value }}">{{ $sort->getLabel() }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
