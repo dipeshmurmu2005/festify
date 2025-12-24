@@ -62,7 +62,7 @@ class ExploreWire extends Component
             $startDate = Carbon::now()->startOfWeek(Carbon::SUNDAY)->startOfDay()->addWeek();
             $endDate = Carbon::now()->endOfWeek(Carbon::SATURDAY)->endOfDay()->addWeek();
         }
-        return Event::when($max_price || $min_price, function ($q) use ($min_price, $max_price) {
+        $events =  Event::when($max_price || $min_price, function ($q) use ($min_price, $max_price) {
             $q->whereHas('tickets', function ($q) use ($max_price, $min_price) {
                 $q->when(!is_null($min_price) && $min_price >= 0, function ($q) use ($min_price) {
                     $q->where('base_price', '>=', $min_price);
@@ -102,6 +102,7 @@ class ExploreWire extends Component
                 })->get();
             })
             ->get();
+        return $events;
     }
 
     public function search()

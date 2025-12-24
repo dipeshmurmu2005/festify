@@ -72,12 +72,19 @@
             <div class="space-y-3">
                 <h2 class="font-semibold text-lg">Dates</h2>
                 <div class="grid grid-cols-2 gap-5">
-                    <button class="btn btn-neutral h-12 rounded-lg" wire:click="setDateFilter('today')">Today</button>
-                    <button class="btn btn-neutral h-12 rounded-lg"
+                    <button
+                        class="btn {{ $this->date_filter_type == 'today' ? 'btn-primary' : 'btn-neutral' }} h-12 rounded-lg"
+                        wire:click="setDateFilter('today')">Today</button>
+                    <button
+                        class="btn {{ $this->date_filter_type == 'tomorrow' ? 'btn-primary' : 'btn-neutral' }} h-12 rounded-lg"
                         wire:click="setDateFilter('tomorrow')">Tomorrow</button>
-                    <button class="btn btn-neutral h-12 rounded-lg" wire:click="setDateFilter('this week')">This
+                    <button
+                        class="btn {{ $this->date_filter_type == 'this week' ? 'btn-primary' : 'btn-neutral' }} h-12 rounded-lg"
+                        wire:click="setDateFilter('this week')">This
                         Weekend</button>
-                    <button class="btn btn-neutral h-12 rounded-lg" wire:click="setDateFilter('next week')">Next
+                    <button
+                        class="btn {{ $this->date_filter_type == 'next week' ? 'btn-primary' : 'btn-neutral' }} h-12 rounded-lg"
+                        wire:click="setDateFilter('next week')">Next
                         Week</button>
                 </div>
             </div>

@@ -13,6 +13,7 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Components\Toggle;
@@ -64,7 +65,7 @@ class EventForm
                                     Grid::make('4')->schema([
                                         TextInput::make('estimated_budget')->numeric()->prefix('Rs')
                                     ])->columnSpanFull(),
-                                    RichEditor::make('short_description')
+                                    Textarea::make('short_description')
                                         ->label('Short Description')
                                         ->required()
                                         ->placeholder('Tell attendees about your event'),

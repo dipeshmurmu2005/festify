@@ -107,9 +107,8 @@
         </div>
     </div>
     <div class="px-32 pt-18 h-[800px] overflow-hidden relative">
-        <div>
-            <img src="https://miro.medium.com/v2/resize:fit:1400/1*RI1NEIBa4XPS6-D1-uxZDw.png" alt=""
-                class="h-full w-full object-cover">
+        <div class="rounded-xl overflow-hidden">
+            <img src="{{ asset('images/dashboard.png') }}" alt="" class="h-full w-full object-cover">
         </div>
         <div class="absolute left-0 top-0 h-full w-full bg-gradient-to-t from-base-100 to-transparent">
 

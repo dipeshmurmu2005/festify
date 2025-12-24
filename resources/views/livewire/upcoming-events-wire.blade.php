@@ -16,15 +16,9 @@
             }
         }">
             <div class="swiper-wrapper">
-                <x-home.upcoming-event
-                    image="https://images.pexels.com/photos/2608517/pexels-photo-2608517.jpeg?cs=srgb&dl=pexels-bertellifotografia-2608517.jpg&fm=jpg" />
-                <x-home.upcoming-event
-                    image="https://applescoop.org/image/wallpapers/mac/official-apple-event-m4-chipset-processor-logo-october-2024-winking-finder-mac-28-10-2024-1730152446-hd-wallpaper.png" />
-                <x-home.upcoming-event image="https://wallpapercave.com/wp/wp8783355.jpg" />
-                <x-home.upcoming-event
-                    image="https://images.unsplash.com/photo-1531058020387-3be344556be6?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZXZlbnR8ZW58MHx8MHx8fDA%3D" />
-                <x-home.upcoming-event
-                    image="https://img.pastemagazine.com/wp-content/avuploads/2025/08/29095820/a-history-of-violence-header.jpg" />
+                @foreach ($this->events as $event)
+                    <x-home.upcoming-event :event="$event" />
+                @endforeach
             </div>
             <div class="swiper-pagination"></div>
         </div>

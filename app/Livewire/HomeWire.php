@@ -8,13 +8,13 @@ use Livewire\Component;
 
 class HomeWire extends Component
 {
-    public $events;
+    public $featured_events;
 
     public $categories;
 
     public function mount()
     {
-        $this->events = Event::latest()->get();
+        $this->featured_events = Event::latest()->take(10)->get();
 
         $this->categories = EventCategory::all();
     }
