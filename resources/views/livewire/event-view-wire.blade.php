@@ -2,6 +2,14 @@
     <div class="2xl:px-96 pt-10">
         <div class="h-125 rounded-2xl overflow-hidden relative">
             <img src="{{ Storage::url($event->cover_image) }}" alt="" class="h-full w-full object-cover">
+            @if ($this->isUpcoming())
+                <div
+                    class="absolute left-0 top-0 bg-linear-to-t from-base-100 to-transparent h-full w-full flex justify-center items-center text-[10rem]  italic font-astonish">
+                    <div class="bg-linear-to-r from-primary to-white bg-clip-text pr-10">
+                        <h2 class="text-center text-transparent">Upcoming</h2>
+                    </div>
+                </div>
+            @endif
         </div>
         <div class="grid grid-cols-5 gap-20">
             <div class="col-span-3 py-5">
@@ -17,8 +25,8 @@
                                 <x-heroicon-m-map-pin class="h-5 w-5" /> <span>{{ $event->venue_address }}</span>
                             </div>
                             <div class="flex gap-2 items-center text-md">
-                                <x-heroicon-m-calendar class="h-5 w-5" /> <span>Dec 11 at 9am to Dec 14 at 5am
-                                    GMT+5:45</span>
+                                <x-heroicon-m-calendar class="h-5 w-5" />
+                                <span>{{ Carbon\Carbon::parse($event->event_date)->format('M d, Y') }}</span>
                             </div>
                         </div>
                     </div>
@@ -287,7 +295,8 @@
                                             </div>
                                             <div>
                                                 <h2 class="font-semibold" x-text="ticket.title"></h2>
-                                                <p class="text-white/50 text-sm"><span x-text="ticket.quantity"></span>
+                                                <p class="text-white/50 text-sm"><span
+                                                        x-text="ticket.quantity"></span>
                                                     x
                                                     <span>Rs. <span x-text="ticket.price"></span></span>
                                                 </p>

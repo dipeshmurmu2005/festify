@@ -141,4 +141,13 @@ class EventViewWire extends Component
             $this->dispatch('ticket-reserved');
         }
     }
+
+    public function isUpcoming()
+    {
+        if (Carbon::parse($this->event->event_date) >= now()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
