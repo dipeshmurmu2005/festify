@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\BarCodeGenerator;
 use App\Traits\BelongsToOrganizer;
 use App\Traits\TicketCodeGenerator;
 use Illuminate\Database\Eloquent\Model;
 
 class BookedTicket extends Model
 {
-    use BelongsToOrganizer, TicketCodeGenerator;
+    use BelongsToOrganizer, TicketCodeGenerator, BarCodeGenerator;
 
     protected $guarded = [];
 
@@ -17,6 +18,7 @@ class BookedTicket extends Model
     {
         static::created(function ($model) {
             $model->ticket_code = $model->generateTicketCode($model->id);
+            $model->bar_code = $model->generateBarcode($model->ticket_code);
             $model->save();
         });
     }
@@ -34,5 +36,15 @@ class BookedTicket extends Model
     public function booking()
     {
         return $this->belongsTo(Booking::class, 'booking_id');
+    }
+
+    public function ticket()
+    {
+        return $this->belongsTo(Ticket::class, 'ticket_id');
+    }
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'event_id');
     }
 }

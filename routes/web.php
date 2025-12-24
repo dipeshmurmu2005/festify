@@ -12,12 +12,14 @@ use App\Livewire\PasswordSetupWire;
 use App\Livewire\PaymentSuccessWire;
 use App\Livewire\RegisterWire;
 use App\Livewire\Reservation;
+use App\Livewire\ReservationsWire;
 use App\Livewire\SecuritySettingWire;
 use App\Livewire\SetupOrganizer;
 use App\Livewire\UpdateEmail;
+use App\Livewire\UserBookings;
 use App\Livewire\UserProfileSetting;
 use App\Livewire\UserProfileWire;
-use App\Livewire\UserTicket;
+use App\Livewire\ViewBookingWire;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -38,7 +40,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/user/profile/settings', UserProfileSetting::class)->name('user.profile.setting');
     Route::post('/user/logout', [AuthController::class, 'logout'])->name('user.logout');
     Route::get('/user/security/settings', SecuritySettingWire::class)->name('user.security.setting');
-    Route::get('/user/tickets', UserTicket::class)->name('user.tickets');
+    Route::get('/user/reservations', ReservationsWire::class)->name('user.reservations');
+    Route::get('/user/bookings', UserBookings::class)->name('user.bookings');
+    Route::get('/user/view/booking/{booking_id}', ViewBookingWire::class)->name('user.booking.view');
     Route::get('/setup/organizer', SetupOrganizer::class)->name('setup.organizer');
     Route::get('/reservation/view/{reservation_id}', Reservation::class)->name('view.reservation');
 });

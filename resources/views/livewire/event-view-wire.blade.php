@@ -1,6 +1,6 @@
 <div>
     <div class="2xl:px-96 pt-10">
-        <div class="h-[500px] rounded-2xl overflow-hidden relative">
+        <div class="h-125 rounded-2xl overflow-hidden relative">
             <img src="https://wallpapers.com/images/featured/corporate-event-g6myc8i808y8llhh.jpg" alt=""
                 class="h-full w-full object-cover">
         </div>
@@ -99,7 +99,7 @@
                     setTimeout(() => {
                         this.ticket_reserved = false;
                         this.refreshTickets();
-                        window.location.href = `{{ route('user.tickets') }}`;
+                        window.location.href = `{{ route('user.reservations') }}`;
                     }, 500);
                 },
                 refreshTickets() {

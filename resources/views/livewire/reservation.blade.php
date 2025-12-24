@@ -1,12 +1,13 @@
 <div>
     <div class="px-80 py-10">
         <div class="flex gap-2 items-center text-white/50">
-            <a href="#">My Tickets</a>
+            <a href="{{ route('user.reservations') }}">My Reservations</a>
             <x-heroicon-m-chevron-right class="h-5 w-5" />
-            <a href="#" class="text-primary">Reservations</a>
+            <a href="#" class="text-primary">Reservation</a>
         </div>
         <div class="mt-5 space-y-2 w-[70%]">
-            <h2 class="font-bold text-5xl tracking-tight">Reservation #9302 Details</h2>
+            <h2 class="font-bold text-5xl tracking-tight">Reservation #{{ $this->reservation->reservation_code }} Details
+            </h2>
             <p class="text-xl text-white/50">View details and verify your payment for converting this to booking
             </p>
         </div>
@@ -14,51 +15,124 @@
             <div class="grid grid-cols-4 gap-10">
                 <div class="col-span-2 border-2 rounded-xl border-white/10 h-fit">
                     <div class="rounded-2xl overflow-hidden">
-                        <div class="h-[500px] relative">
-                            <img src="https://www.grandweddings.co.in/wp-content/uploads/2020/01/Top-Wedding-Event-Management-Companies-in-Hyderabad.jpg"
-                                alt="" class="h-full w-full object-cover">
+                        <div class="h-125 relative">
+                            <img src="{{ Storage::url($this->reservation->event->cover_image) }}" alt=""
+                                class="h-full w-full object-cover">
                             <div
-                                class="absolute left-0 top-0 bg-gradient-to-t h-full w-full from-black to-transparent flex items-end">
+                                class="absolute left-0 top-0 bg-linear-to-t h-full w-full from-black to-transparent flex items-end">
                                 <div class="p-10 space-y-2">
-                                    <h2 class="text-primary">Club</h2>
-                                    <h1 class="text-3xl font-bold">Summer Music Festival</h1>
+                                    <h2 class="text-primary">{{ $this->reservation->event->category->name }}</h2>
+                                    <h1 class="text-3xl font-bold">{{ $this->reservation->event->title }}</h1>
                                     <div class="flex items-center gap-2 text-white/50"><x-heroicon-m-map-pin
-                                            class="h-5 w-5" />
-                                        Birtamode 1 Jhapa, Nepal</div>
+                                            class="h-5 w-5" />{{ $this->reservation->event->venue_name }}</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="bg-white/5 py-8">
-                            <div class="px-10">
-                                <div class="flex gap-2 items-center font-semibold text-lg">
-                                    <div
-                                        class="h-12 w-12 rounded-full flex justify-center items-center text-primary bg-white/10">
-                                        <x-heroicon-m-ticket class="h-5 w-5" />
+                        <div class="bg-white/5 py-8 space-y-5">
+                            <div>
+                                <div class="px-10">
+                                    <div class="flex gap-2 items-center font-semibold text-lg">
+                                        <div
+                                            class="h-12 w-12 rounded-full flex justify-center items-center text-primary bg-white/10">
+                                            <x-heroicon-m-ticket class="h-5 w-5" />
+                                        </div>
+                                        Reservation
+                                        Information
                                     </div>
-                                    Ticket
-                                    Information
+                                </div>
+                                <div class="divide-y divide-white/5">
+                                    <div class="grid grid-cols-2 gap-5 px-10 py-5">
+                                        <div class="grid gap-2">
+                                            <span class="text-white/50">TOTAL AMOUNT</span>
+                                            <span class="font-semibold">Rs.
+                                                {{ $this->reservation->total_amount }}</span>
+                                        </div>
+                                        <div class="grid gap-2">
+                                            <span class="text-white/50">RESERVATION EXPIRY</span>
+                                            <div>
+                                                @if ($reservation->status->value != 'expired')
+                                                    @php
+                                                        $diffInSeconds = abs(
+                                                            Carbon\Carbon::parse(
+                                                                $reservation->expires_at,
+                                                            )->diffInSeconds(),
+                                                        );
+                                                    @endphp
+
+                                                    <span class="font-semibold text-lg">
+                                                        <div x-data="{
+                                                            totalSeconds: {{ $diffInSeconds }},
+                                                            interval: null,
+                                                            init() {
+                                                                this.start();
+                                                            },
+                                                            start() {
+                                                                if (this.totalSeconds <= 0) return;
+                                                        
+                                                                this.interval = setInterval(() => {
+                                                                    if (this.totalSeconds > 0) {
+                                                                        this.totalSeconds--;
+                                                                    } else {
+                                                                        clearInterval(this.interval);
+                                                                    }
+                                                                }, 1000);
+                                                            },
+                                                        
+                                                            get formattedTime() {
+                                                                const mins = Math.floor(this.totalSeconds / 60);
+                                                                const secs = this.totalSeconds % 60;
+                                                        
+                                                                return {
+                                                                    mins: mins,
+                                                                    secs: parseInt(secs)
+                                                                }
+                                                            }
+                                                        }">
+                                                            <span x-text="formattedTime.mins"></span>
+                                                            <span class="text-xs text-white/50">Mins</span>
+                                                            <span x-text="formattedTime.secs"></span>
+                                                            <span class="text-xs text-white/50">Secs</span>
+                                                        </div>
+                                                    </span>
+                                                @elseif($reservation->status->value == 'expired')
+                                                    <div class="mt-2">
+                                                        <span
+                                                            class="mt-2bg-warning/10 w-fit px-4 py-2 text-xs text-warning rounded-full border border-warning">Expired</span>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="divide-y divide-white/5">
-                                <div class="grid grid-cols-2 gap-5 px-10 py-5">
-                                    <div class="grid gap-2">
-                                        <span class="text-white/50">TICKET ID</span>
-                                        <span class="font-semibold">#R-382</span>
-                                    </div>
-                                    <div class="grid gap-2">
-                                        <span class="text-white/50">TICKET TYPE</span>
-                                        <span class="font-semibold">Early Bird</span>
+                            <div>
+                                <div class="px-10">
+                                    <div class="flex gap-2 items-center font-semibold text-lg">
+                                        <div
+                                            class="h-12 w-12 rounded-full flex justify-center items-center text-primary bg-white/10">
+                                            <x-heroicon-m-ticket class="h-5 w-5" />
+                                        </div>
+                                        Tickets
                                     </div>
                                 </div>
-                                <div class="grid grid-cols-2 gap-5 px-10 py-5">
-                                    <div class="grid gap-2">
-                                        <span class="text-white/50">TOTAL AMOUNT</span>
-                                        <span class="font-semibold">Rs. 5,000</span>
-                                    </div>
-                                    <div class="grid gap-2">
-                                        <span class="text-white/50">RESERVATION EXPIRY</span>
-                                        <span class="font-semibold">14:59</span>
-                                    </div>
+                                <div class="divide-y divide-white/5">
+                                    @foreach ($this->reservation->reservedTickets as $reservedTicket)
+                                        <div class="grid grid-cols-3 gap-5 px-10 py-5">
+                                            <div class="grid gap-2">
+                                                <span class="text-white/50">TICKET TYPE</span>
+                                                <span class="font-semibold">{{ $reservedTicket->ticket->title }}</span>
+                                            </div>
+                                            <div class="grid gap-2">
+                                                <span class="text-white/50">TICKET BASE PRICE</span>
+                                                <span class="font-semibold">Rs.
+                                                    {{ $reservedTicket->ticket->base_price }}</span>
+                                            </div>
+                                            <div class="grid gap-2">
+                                                <span class="text-white/50">TICKET QUANTITY</span>
+                                                <span class="font-semibold">{{ $reservedTicket->quantity }}</span>
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -82,7 +156,7 @@
                         <div class="mt-5 bg-black/30 p-5 rounded-xl flex justify-between items-center">
                             <div>
                                 <div class="text-sm font-semibold text-white/50">Payment Method</div>
-                                <h2 class="text-xl font-semibold">Summer Music Festival</h2>
+                                <h2 class="text-xl font-semibold">Rs. {{ $this->reservation->total_amount }}</h2>
                             </div>
                             <div>
                                 <span

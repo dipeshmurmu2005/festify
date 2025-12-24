@@ -1,4 +1,4 @@
-<a href="#" class="swiper-slide cursor-pointer">
+<a href="{{ route('event.view', ['event' => $event->id]) }}" class="swiper-slide cursor-pointer">
     <div class="space-y-2 group">
         <div class="rounded-2xl border-2 border-white/5 overflow-hidden relative h-95">
             <img src="{{ Storage::url($event->cover_image) }}" alt="" class="h-full w-full object-cover">

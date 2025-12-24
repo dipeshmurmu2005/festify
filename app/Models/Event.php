@@ -42,6 +42,11 @@ class Event extends Model
         return $this->hasMany(Expense::class, 'event_id');
     }
 
+    public function category()
+    {
+        return $this->belongsTo(EventCategory::class, 'event_category_id');
+    }
+
     public function scopePublished(Builder $query): void
     {
         $query->where('status', EventStatusEnum::Published);

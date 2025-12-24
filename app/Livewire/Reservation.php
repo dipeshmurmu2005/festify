@@ -46,11 +46,13 @@ class Reservation extends Component
     protected function createPayment()
     {
 
-        $payment = new PaymentAction();
-        $this->payment_params = $payment->initiatePayment(auth()->user()->id, $this->reservation->id);
-        $this->reservation->status = TicketReservationStatusEnum::PAYMENT_INITIATED;
-        $this->reservation->transaction_uuid = $this->payment_params['transaction_uuid'];
-        $this->reservation->save();
-        $this->dispatch('redirect-to-payment');
+        if ($this->reservation->status == TicketReservationStatusEnum::ACTIVE || $this->reservation->status == TicketReservationStatusEnum::PAYMENT_INITIATED) {
+            $payment = new PaymentAction();
+            $this->payment_params = $payment->initiatePayment(auth()->user()->id, $this->reservation->id);
+            $this->reservation->status = TicketReservationStatusEnum::PAYMENT_INITIATED;
+            $this->reservation->transaction_uuid = $this->payment_params['transaction_uuid'];
+            $this->reservation->save();
+            $this->dispatch('redirect-to-payment');
+        }
     }
 }

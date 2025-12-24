@@ -73,6 +73,7 @@ class EventForm
                                         ->required()
                                         ->placeholder('Tell attendees about your event'),
                                     FileUpload::make('cover_image')
+                                        ->disk('public')
                                         ->columnSpanFull()
                                         ->required()
                                 ])->columns(2),

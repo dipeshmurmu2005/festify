@@ -16,7 +16,7 @@ class EventsTable
     {
         return $table
             ->columns([
-                ImageColumn::make('cover_image')->square()->imageWidth(120)->imageHeight(120)->extraImgAttributes(['class' => '!hidden']),
+                ImageColumn::make('cover_image')->disk('public')->square()->imageWidth(120)->imageHeight(120)->extraImgAttributes(['class' => '!hidden']),
                 TextColumn::make('title'),
                 TextColumn::make('venue_name')->label('Venue'),
                 TextColumn::make('venue_address')->label('Venue Location'),

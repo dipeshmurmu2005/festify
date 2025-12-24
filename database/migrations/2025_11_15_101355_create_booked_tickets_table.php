@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger("ticket_id");
             $table->unsignedBigInteger('booking_id');
             $table->unsignedBigInteger('event_id');
+            $table->text('bar_code')->nullable();
             $table->string('event_session_id')->nullable();
             $table->string('event_date');
             $table->string('status');
