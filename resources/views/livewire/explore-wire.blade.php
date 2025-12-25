@@ -111,11 +111,21 @@
                     </select>
                 </div>
             </div>
-            <div class="grid grid-cols-4 gap-5">
-                @foreach ($this->events as $event)
-                    <x-elements.event :event="$event" />
-                @endforeach
-            </div>
+            @if ($this->events->count() > 0)
+                <div class="grid grid-cols-4 gap-5">
+                    @foreach ($this->events as $event)
+                        <x-elements.event :event="$event" />
+                    @endforeach
+                </div>
+            @else
+                <div class="flex flex-col justify-center gap-2 text-lg items-center h-[40vh] text-white/40">
+                    <div class="h-20 w-20 opacity-80">
+                        <img src="https://cdn3d.iconscout.com/3d/premium/thumb/no-event-3d-icon-png-download-11754228.png"
+                            alt="" class="h-full w-full grayscale">
+                    </div>
+                    <div class="font-space">Oops! No events available</div>
+                </div>
+            @endif
         </div>
     </div>
 </div>
