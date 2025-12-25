@@ -1,41 +1,29 @@
-<div class="md:px-32 2xl:px-46">
-    <div class="grid grid-cols-4 gap-10 bg-gradient-to-r from-blue-50 to-white p-10 rounded-2xl">
-        <div class="py-10 2xl:py-20">
-            <h2
-                class="font-bold font-['poppins'] md:text-xl 2xl:text-2xl text-primary after:h-1 after:rounded-full after:w-[100px] after:block after:bg-primary after:mt-2">
-                Upcoming
-                Events</h2>
-            <p class="mt-5 text-gray-700 leading-7 md:text-xs 2xl:text-sm">Stay in the loop! Explore upcoming events,
-                workshops, and meetups
-                happening
-                soon. Don’t
-                miss out—mark
-                your calendar today!</p>
-            <a href="#">
-                <button class="mt-5 rounded-full font-bold btn btn-primary 2xl:btn-md md:btn-sm">Find More</button>
-            </a>
-        </div>
-        <div class="col-span-3 py-10 2xl:py-20">
-            <div class="swiper mySwiper" x-data="{
-                init() {
-                    var swiper = new Swiper('.mySwiper', {
-                        slidesPerView: 3.2,
-                        spaceBetween: 30,
-                        pagination: {
-                            el: '.swiper-pagination',
-                            clickable: true,
-                        },
-                    });
-                }
-            }">
-                <div class="swiper-wrapper">
-                    <x-home.banner-event />
-                    <x-home.banner-event />
-                    <x-home.banner-event />
-                    <x-home.banner-event />
-                </div>
-                <div class="swiper-pagination"></div>
+<div class="px-5 py-5">
+    <div>
+        <div class="swiper banner" x-cloak x-data="{
+            init() {
+                var swiper = new Swiper('.banner', {
+                    slidesPerView: 5,
+                    spaceBetween: 30,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                });
+            }
+        }">
+            <div class="swiper-wrapper">
+                <x-home.banner-event
+                    image="https://images.pexels.com/photos/2608517/pexels-photo-2608517.jpeg?cs=srgb&dl=pexels-bertellifotografia-2608517.jpg&fm=jpg" />
+                <x-home.banner-event
+                    image="https://applescoop.org/image/wallpapers/mac/official-apple-event-m4-chipset-processor-logo-october-2024-winking-finder-mac-28-10-2024-1730152446-hd-wallpaper.png" />
+                <x-home.banner-event image="https://wallpapercave.com/wp/wp8783355.jpg" />
+                <x-home.banner-event
+                    image="https://images.unsplash.com/photo-1531058020387-3be344556be6?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZXZlbnR8ZW58MHx8MHx8fDA%3D" />
+                <x-home.banner-event
+                    image="https://img.pastemagazine.com/wp-content/avuploads/2025/08/29095820/a-history-of-violence-header.jpg" />
             </div>
+            <div class="swiper-pagination"></div>
         </div>
     </div>
 </div>

@@ -1,71 +1,63 @@
-<div class="h-[100vh] flex justify-center items-center bg-gray-50">
-    @if ($this->second_step == false)
-        <div class="grid grid-cols-2 gap-10 w-[50%]">
-            <div class="border border-gray-200 p-10 rounded-xl flex flex-col items-center gap-2">
-                <div class="h-48 w-48">
-                    <img src="{{ asset('images/illustrations/ticketing.svg') }}" alt="">
+<div class="relative">
+    <div class="absolute left-0 top-0 h-full w-full opacity-5">
+        <img src="https://cdn.gabb.com/wp-content/uploads/2025/10/kids-jumping-gabb.png" alt=""
+            class="h-full w-full object-cover">
+    </div>
+    <div class="relative z-30">
+        @if ($this->mail_sent)
+            <div class="flex justify-center items-center h-screen">
+                <div class="rounded-xl flex flex-col w-[280px] items-center justify-center">
+                    <h2 class="text-xl mb-2 font-black">Check your inbox</h2>
+                    <p class="text-white/50 text-center">
+                        We have sent an activation link to <span
+                            class="font-semibold">{{ $this->email ?? session('email') }}</span>. Please be sure to check
+                        your
+                        spam folder too.
+                    </p>
+                    <div class="flex justify-center mt-5 gap-2">
+                        <button class="btn btn-primary" @click="resendVerificationEmail()">Resend email</button>
+                        <button class="btn btn-neutral" type="button" wire:click="useDifferentEmail()">Use
+                            Different Email</button>
+                    </div>
                 </div>
-                <h2 class="font-semibold text-2xl">Find an Experience</h2>
-                <button class="btn btn-primary">Get Started</button>
             </div>
-            <div class="border border-gray-200 p-10"></div>
-        </div>
-        {{-- @else
-        <div class="border border-gray-100 bg-white p-10 rounded-xl flex w-[480px] flex-col items-center justify-center">
-            @if (session()->has('sent_email'))
-                <div class="h-16 w-16 overflow-hidden">
-                    <img class="h-full w-full object-contain"
-                        src="https://cdn-icons-png.flaticon.com/512/8743/8743964.png" alt="">
-                </div>
-                <h2 class="text-xl mt-5 font-bold font-['poppins']">Please verify your email</h2>
-                <p class="text-gray-600 text-center mt-3">
-                    We just sent an email to <span class="font-semibold">{{ $this->email }}</span>. Click the link in
-                    the
-                    email to verify your account.
-                </p>
-                <form wire:submit.prevent="resendVerificationEmail()" class="flex justify-center mt-5">
-                    <button class="btn btn-primary">Resend email</button>
-                </form>
-            @else
-                <div class="h-16 w-16 shadow-sm rounded-xl overflow-hidden">
-                    <img class="h-full w-full object-contain"
-                        src="https://logosandtypes.com/wp-content/uploads/2022/03/Fxra.png" alt="">
-                </div>
-                <h2 class="text-xl 2xl:text-2xl mt-5 font-bold font-['poppins']">Get Started !</h2>
-                <p class="text-gray-600 text-center mt-1 2xl:mt-3">Sign up to explore and book the best events around
-                    you.
-                </p>
-                <div class="w-full mt-5 space-y-2">
-                    <form class="space-y-2" wire:submit.prevent="handleFirstStep()">
-                        <fieldset class="fieldset w-full">
-                            <legend class="fieldset-legend md:text-xs 2xl:text-sm">Full Name</legend>
-                            <input type="text" class="input w-full h-12" placeholder="John Doe"
+        @else
+            <div class="flex justify-center items-center h-screen">
+                <div class="space-y-5">
+                    <div class="flex justify-center">
+                        <div
+                            class="font-astonish text-5xl flex justify-center items-center pt-2 text-primary h-16 w-16 rounded-md bg-white/10">
+                            F
+                        </div>
+                    </div>
+                    <div class="text-center font-black text-2xl">
+                        <div>Welcome to Festify</div>
+                        <div class="text-white/50">Start Exploring Now</div>
+                    </div>
+                    <form class="space-y-2 w-full" wire:submit.prevent="handleFirstStep()">
+                        <fieldset class="fieldset w-[280px]">
+                            <input type="text" class="input w-full h-10" placeholder="Full Name"
                                 wire:model="fullname" />
                             @error('fullname')
                                 <p class="label text-error">{{ $message }}</p>
                             @enderror
                         </fieldset>
-                        <fieldset class="fieldset w-full">
-                            <legend class="fieldset-legend md:text-xs 2xl:text-sm">Email</legend>
-                            <input type="text" class="input w-full h-12" placeholder="john@doe.com"
+                        <fieldset class="fieldset w-[280px]">
+                            <input type="text" class="input w-full h-10" placeholder="john@doe.com"
                                 wire:model="email" />
                             @error('email')
                                 <p class="label text-error">{{ $message }}</p>
                             @enderror
                         </fieldset>
-                        <button class="btn btn-primary w-full h-12">Register</button>
+                        <button class="btn btn-primary w-full h-10">Register</button>
                     </form>
-                    <div class="divider text-gray-500 font-bold">OR</div>
-                    <button class="btn btn-secondary w-full h-12">
-                        <div class="h-6 w-6">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/1200px-Google_%22G%22_logo.svg.png"
-                                alt="" class="h-full w-full object-contain">
-                        </div>
-                        Continue with Google
-                    </button>
+                    <div class="divider">Or</div>
+                    <a href="{{ route('auth.platform.redirect', ['platform' => 'google']) }}">
+                        <button class="btn btn-neutral w-full h-10"><x-fab-google class="h-4 w-4" /> Sign up with
+                            Google</button>
+                    </a>
                 </div>
-            @endif
-        </div> --}}
-    @endif
-</div>
+            </div>
+        @endif
+    </div>
 </div>

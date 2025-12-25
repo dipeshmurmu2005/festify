@@ -4,7 +4,7 @@
             <img class="h-full w-full object-contain" src="https://logosandtypes.com/wp-content/uploads/2022/03/Fxra.png"
                 alt="">
         </div>
-        <h2 class="text-2xl mt-5 font-bold font-['poppins']">Verify to Change Email</h2>
+        <h2 class="text-2xl mt-5 font-bold">Verify to Change Email</h2>
         <p class="text-gray-600 text-center mt-3">Enter your password to confirm.</p>
         <div class="w-full mt-5 space-y-5">
             <form wire:submit.prevent="updateEmail()" class="space-y-5">

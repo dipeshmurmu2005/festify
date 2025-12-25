@@ -1,21 +1,23 @@
-   <div class="space-y-3 divide-y divide-gray-200">
+   <div class="space-y-3 divide-y divide-white/5">
        <div class="pb-2">
            <h2 class="font-semibold text-base flex items-center gap-5 mb-2">KYC Verification
-               <div class="inline-flex text-white items-center gap-1 font-medium text-xs px-3 py-1 rounded-sm"
-                   style="background-color:var(--color-{{ $this->kyc_status->getColor() }})">
-                   <x-icon name="{{ $this->kyc_status->getIcon() }}" class="h-4 w-4" />
-                   {{ $this->kyc_status->getLabel() }}
-               </div>
+               @if ($this->kyc_status)
+                   <div class="inline-flex text-black items-center gap-1 font-medium text-xs px-3 py-1 rounded-sm"
+                       style="background-color:var(--color-{{ $this->kyc_status->getColor() }})">
+                       <x-icon name="{{ $this->kyc_status->getIcon() }}" class="h-4 w-4" />
+                       {{ $this->kyc_status->getLabel() }}
+                   </div>
+               @endif
            </h2>
            @if ($this->kyc_status == null)
-               <p class="text-gray-700">Complete your identity verification to unlock full access and keep your
+               <p class="text-white/50">Complete your identity verification to unlock full access and keep your
                    account secure.</p>
            @elseif($this->kyc_status->value == 'pending')
-               <p class="text-gray-700">Your verification is under review. Please wait for approval.</p>
+               <p class="text-white/50">Your verification is under review. Please wait for approval.</p>
            @elseif($this->kyc_status->value == 'failed')
-               <p class="text-gray-700">Your verification is under review. Please wait for approval.</p>
+               <p class="text-white/50">Your verification is under review. Please wait for approval.</p>
            @else
-               <p class="text-gray-700">Your identity is confirmed and your account is fully unlocked.</p>
+               <p class="text-white/50">Your identity is confirmed and your account is fully unlocked.</p>
            @endif
 
        </div>
@@ -23,7 +25,7 @@
            @if ($this->kyc_status == null || $this->kyc_status->value == 'failed')
                <form wire:submit.prevent="submit()" class="mt-5 space-y-5" x-data="kyc">
                    <div>
-                       <h2 class="font-semibold text-gray-700">Personal Information</h2>
+                       <h2 class="font-semibold text-w\hite/50">Personal Information</h2>
                        <div class="grid grid-cols-5 gap-5">
                            <fieldset class="fieldset">
                                <legend class="fieldset-legend">First Name<span class="text-error">*</span></legend>
@@ -50,7 +52,8 @@
                        </div>
                        <div class="mt-2 grid grid-cols-5 gap-5">
                            <fieldset class="fieldset">
-                               <legend class="fieldset-legend">Date of Birth<span class="text-error">*</span></legend>
+                               <legend class="fieldset-legend">Date of Birth<span class="text-error">*</span>
+                               </legend>
                                <div class="flex gap-2">
                                    <select class="select w-16" wire:model="dob_date_type">
                                        <option value="BS">BS</option>
@@ -79,14 +82,14 @@
                                    x-model="gender" hidden>
                                <div>
                                    <label for="male" :class="gender == 'male' ? 'btn-primary' : ''"
-                                       class="btn"><x-hugeicons-male-symbol class="h-5 w-5" />
+                                       class="btn btn-neutral"><x-hugeicons-male-symbol class="h-5 w-5" />
                                        Male</label>
-                                   <label for="female" class="btn"
+                                   <label for="female" class="btn btn-neutral"
                                        :class="gender == 'female' ? 'btn-primary' : ''"><x-hugeicons-female-symbol
                                            class="h-5 w-5" />
                                        Female</label>
                                    <label for="other" :class="gender == 'other' ? 'btn-primary' : ''"
-                                       class="btn">Other</label>
+                                       class="btn btn-neutral">Other</label>
                                </div>
                                @error('gender')
                                    <p class="label text-error">{{ $message }}</p>
@@ -95,7 +98,7 @@
                        </div>
                    </div>
                    <div>
-                       <h2 class="font-semibold text-gray-700">Family Information</h2>
+                       <h2 class="font-semibold text-w\hite/50">Family Information</h2>
                        <div class="grid grid-cols-5 gap-5">
                            <fieldset class="fieldset">
                                <legend class="fieldset-legend">Father's / Husband's Name<span
@@ -120,13 +123,13 @@
                                <legend class="fieldset-legend">Marital Status<span class="text-error">*</span>
                                </legend>
                                <div>
-                                   <label for="single" class="btn justify-start">
+                                   <label for="single" class="btn btn-neutral justify-start">
                                        <input type="radio" id="single" name="radio-1"
                                            class="radio radio-xs radio-primary" value="single"
                                            wire:model="marital_status" />
                                        <span class="text-xs font-medium">Single</span>
                                    </label>
-                                   <label for="married" class="btn justify-start">
+                                   <label for="married" class="btn btn-neutral justify-start">
                                        <input type="radio" id="married" name="radio-1"
                                            class="radio radio-xs radio-primary" value="married"
                                            wire:model="marital_status" />
@@ -140,7 +143,7 @@
                        </div>
                    </div>
                    <div>
-                       <h2 class="font-semibold text-gray-700">Permanent Address Details</h2>
+                       <h2 class="font-semibold">Permanent Address Details</h2>
                        <div class="grid grid-cols-5 gap-5">
                            <fieldset class="fieldset">
                                <legend class="fieldset-legend">Permanent Address<span class="text-error">*</span>
@@ -156,7 +159,8 @@
                                <select class="select" x-model="p_district" wire:model="permanent_address.district">
                                    <option value="">Select District</option>
                                    @foreach ($this->districts as $district)
-                                       <option value="{{ $district->value }}">{{ $district->getLabel() }}</option>
+                                       <option value="{{ $district->value }}">{{ $district->getLabel() }}
+                                       </option>
                                    @endforeach
                                </select>
                                @error('permanent_address.district')
@@ -164,7 +168,8 @@
                                @enderror
                            </fieldset>
                            <fieldset class="fieldset">
-                               <legend class="fieldset-legend">Municipality<span class="text-error">*</span></legend>
+                               <legend class="fieldset-legend">Municipality<span class="text-error">*</span>
+                               </legend>
                                <select class="select" wire:model="permanent_address.municipality">
                                    <option value="">Select Municipality</option>
                                    <template x-for="(municipality,index) in p_municipalities">
@@ -186,7 +191,7 @@
                        </div>
                    </div>
                    <div>
-                       <h2 class="font-semibold text-gray-700">Temporary Address Details</h2>
+                       <h2 class="font-semibold">Temporary Address Details</h2>
                        <div class="grid grid-cols-5 gap-5">
                            <fieldset class="fieldset">
                                <legend class="fieldset-legend">Temporary Address<span class="text-error">*</span>
@@ -202,7 +207,8 @@
                                <select class="select" x-model="t_district" wire:model="temporary_address.district">
                                    <option value="">Select District</option>
                                    @foreach ($this->districts as $district)
-                                       <option value="{{ $district->value }}">{{ $district->getLabel() }}</option>
+                                       <option value="{{ $district->value }}">{{ $district->getLabel() }}
+                                       </option>
                                    @endforeach
                                </select>
                                @error('temporary_address.district')
@@ -210,7 +216,8 @@
                                @enderror
                            </fieldset>
                            <fieldset class="fieldset">
-                               <legend class="fieldset-legend">Municipality<span class="text-error">*</span></legend>
+                               <legend class="fieldset-legend">Municipality<span class="text-error">*</span>
+                               </legend>
                                <select class="select" wire:model="temporary_address.municipality">
                                    <option value="">Select Municipality</option>
                                    <template x-for="(municipality,index) in t_municipalities">
@@ -232,7 +239,7 @@
                        </div>
                    </div>
                    <div>
-                       <h2 class="font-semibold text-gray-700">Identification Documents</h2>
+                       <h2 class="font-semibold">Identification Documents</h2>
                        <div class="grid grid-cols-5 gap-5">
                            <fieldset class="fieldset">
                                <legend class="fieldset-legend">Citzenship Number<span class="text-error">*</span>
@@ -249,7 +256,8 @@
                                <select class="select" wire:model="issued_district">
                                    <option value="">Select District</option>
                                    @foreach ($this->districts as $district)
-                                       <option value="{{ $district->value }}">{{ $district->getLabel() }}</option>
+                                       <option value="{{ $district->value }}">{{ $district->getLabel() }}
+                                       </option>
                                    @endforeach
                                </select>
                                @error('issued_district')
@@ -280,13 +288,14 @@
                                    wire:model="document_front" hidden>
                                <div>
                                    <label for="document_front"
-                                       class="h-[300px] overflow-hidden group border relative  cursor-pointer group border-gray-300 rounded-xl text-gray-6 flex flex-col gap-2 justify-center items-center">
+                                       class="h-75 overflow-hidden group border relative  cursor-pointer group border-white/5 rounded-xl text-gray-6 flex flex-col gap-2 justify-center items-center">
                                        <div class="h-full w-full">
                                            <div class="h-[85%] w-full opacity-50">
                                                <img src="https://icons.veryicon.com/png/o/miscellaneous/former-building-people/front-of-id-card.png"
-                                                   alt="" class="h-full w-full object-contain">
+                                                   alt="" class="h-full w-full invert object-contain">
                                            </div>
-                                           <h2 class="text-center font-semibold text-gray-600">Citizenship Front</h2>
+                                           <h2 class="text-center font-semibold text-white/50">Citizenship Front
+                                           </h2>
                                        </div>
                                        @if ($this->document_front)
                                            <div class="absolute left-0 top-0 h-full w-full">
@@ -313,13 +322,14 @@
                                    wire:model="document_back" hidden>
                                <div>
                                    <label for="document_back"
-                                       class="h-[300px] overflow-hidden border group relative  cursor-pointer group border-gray-300 rounded-xl text-gray-6 flex flex-col gap-2 justify-center items-center">
+                                       class="h-75 overflow-hidden border group relative  cursor-pointer group border-white/5 rounded-xl text-gray-6 flex flex-col gap-2 justify-center items-center">
                                        <div class="h-full w-full">
                                            <div class="h-[85%] w-full opacity-50">
                                                <img src="https://icons.veryicon.com/png/o/miscellaneous/former-building-people/back-of-id-card.png"
-                                                   alt="" class="h-full w-full object-contain">
+                                                   alt="" class="h-full w-full invert object-contain">
                                            </div>
-                                           <h2 class="text-center font-semibold text-gray-600">Citizenship Back</h2>
+                                           <h2 class="text-center font-semibold text-white/50">Citizenship Back
+                                           </h2>
                                        </div>
                                        @if ($this->document_back)
                                            <div class="absolute left-0 top-0 h-full w-full">

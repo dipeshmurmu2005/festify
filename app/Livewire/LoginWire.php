@@ -3,14 +3,19 @@
 namespace App\Livewire;
 
 use Illuminate\Support\Facades\Auth;
-use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-#[Layout('components.layouts.clean')]
 class LoginWire extends Component
 {
     public $email;
     public $password;
+
+    public function mount()
+    {
+        if (auth()->user()) {
+            return redirect()->route('home');
+        }
+    }
 
     public function rules(): array
     {
@@ -34,9 +39,8 @@ class LoginWire extends Component
         ];
 
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('/');
-        } else {
-            $this->addError('email', 'Invalid email or password.');
+            return redirect()->route('home');
         }
+        $this->addError('email', 'Invalid email or password.');
     }
 }
