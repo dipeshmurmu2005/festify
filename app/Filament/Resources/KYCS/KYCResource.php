@@ -20,9 +20,13 @@ class KYCResource extends Resource
 {
     protected static ?string $model = KYC::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::DocumentCheck;
 
-    protected static ?string $recordTitleAttribute = 'KYC';
+    public static function getNavigationLabel(): string
+    {
+        return 'Customer KYC';
+    }
+
 
     public static function form(Schema $schema): Schema
     {

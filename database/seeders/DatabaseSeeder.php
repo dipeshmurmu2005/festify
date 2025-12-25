@@ -17,5 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call(EventSeeder::class);
         $this->call(EventSessionSeeder::class);
         $this->call(TicketSeeder::class);
+        $this->call(FullBookingFlowSeeder::class);
+        $this->call(ExpenseCategorySeeder::class);
+        $this->call(ExpenseSeeder::class);
     }
 }

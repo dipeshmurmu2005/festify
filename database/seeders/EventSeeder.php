@@ -65,8 +65,8 @@ class EventSeeder extends Seeder
             DB::table('events')->updateOrInsert(
                 ['title' => "Event {$i} {$titles[array_rand($titles)]}"],
                 [
-                    'user_id' => rand(1, 5),
-                    'organizer_id' => rand(1, 5),
+                    'user_id' => 1,
+                    'organizer_id' => 1,
                     'organizer_name' => 'Organizer ' . rand(1, 5),
                     'estimated_budget' => rand(50000, 1000000),
                     'is_multi_session_event' => $isMultiSession,

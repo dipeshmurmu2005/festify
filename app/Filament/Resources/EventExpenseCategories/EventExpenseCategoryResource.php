@@ -20,7 +20,7 @@ class EventExpenseCategoryResource extends Resource
 {
     protected static ?string $model = EventExpenseCategory::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::Squares2x2;
 
     protected static ?string $recordTitleAttribute = 'expense-category';
 

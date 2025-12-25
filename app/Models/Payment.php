@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Actions\PlatformTransactionAction;
 use App\Actions\WalletTransactionAction;
 use App\Enums\PaymentMethodEnum;
 use App\Enums\PaymentStatusEnum;
 use App\Enums\PaymentVerificationStatus;
+use App\Enums\PlatformTransactionSourceEnum;
 use App\Traits\BelongsToOrganizer;
 use Filament\Facades\Filament;
 use Illuminate\Database\Eloquent\Model;
@@ -25,8 +27,8 @@ class Payment extends Model
     {
         static::created(function ($model) {
             if ($model->status == PaymentStatusEnum::Verified) {
-                $walletAction = new WalletTransactionAction();
-                $walletAction->credit($model->organizer_id, $model->amount, 'Ticket Payment');
+                $platformTransaction = new PlatformTransactionAction();
+                $platformTransaction->credit($model->organizer->id, $model->user_id, $model->amount, PlatformTransactionSourceEnum::TICKET_PURCHASE, 'Ticket Payment');
             }
         });
     }
