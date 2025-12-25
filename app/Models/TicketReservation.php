@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\TicketReservationStatusEnum;
 use App\Traits\BelongsToOrganizer;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -19,7 +20,8 @@ class TicketReservation extends Model
     ];
 
     protected $appends = [
-        'payment'
+        'payment',
+        'is_expired'
     ];
 
     public function reservedTickets(): HasMany
@@ -60,5 +62,10 @@ class TicketReservation extends Model
     public function organizer()
     {
         return $this->belongsTo(Organizer::class);
+    }
+
+    public function getIsExpiredAttribute()
+    {
+        return Carbon::parse($this->expires_at) < now();
     }
 }

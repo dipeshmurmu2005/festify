@@ -38,7 +38,7 @@ class ExpireReservationsJob implements ShouldQueue
 
         TicketReservation::where('status', TicketReservationStatusEnum::PAYMENT_INITIATED->value)
             ->whereNotNull('expires_at')
-            ->where('expires_at', '<=', Carbon::now()->subMinute(5))
+            ->where('expires_at', '<=', Carbon::now()->subMinute(1))
             ->chunkById(100, function ($reservations) {
                 foreach ($reservations as $reservation) {
                     $reservation->update([

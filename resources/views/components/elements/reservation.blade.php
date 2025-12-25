@@ -82,12 +82,23 @@
                                 @elseif($reservation->status->value == 'expired')
                                     <div class="mt-2">
                                         <span
-                                            class="mt-2 bg-warning w-fit px-4 py-2 text-xs `arning rounded-full border border-warning">Expired</span>
+                                            class="mt-2 bg-warning w-fit px-4 py-2 text-xs rounded-full border border-warning">Expired</span>
                                     </div>
                                 @elseif($reservation->status->value == 'payment done')
                                     <div class="mt-2">
                                         <span
-                                            class="mt-2 bg-success w-fit px-4 py-2 text-xs `arning rounded-full border border-success">Converted</span>
+                                            class="mt-2 bg-success w-fit px-4 py-2 text-xs rounded-full border border-success">Converted</span>
+                                    </div>
+                                @elseif($reservation->status->value == 'cancelled')
+                                    <div class="mt-2">
+                                        <span
+                                            class="mt-2 bg-error w-fit px-4 py-2 text-xs rounded-full border border-error text-white">Cancelled</span>
+                                    </div>
+                                @elseif ($reservation->is_expired)
+                                    <div class="mt-2">
+                                        <span
+                                            class="mt-2 bg-warning/10 w-fit px-4 py-2 text-xs text-warning rounded-full border border-warning">About
+                                            to Expire</span>
                                     </div>
                                 @endif
                             </div>

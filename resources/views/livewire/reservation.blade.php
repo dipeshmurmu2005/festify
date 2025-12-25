@@ -50,7 +50,7 @@
                                         <div class="grid gap-2">
                                             <span class="text-white/50">RESERVATION EXPIRY</span>
                                             <div>
-                                                @if ($reservation->status->value != 'expired')
+                                                @if ($reservation->status->value != 'expired' && $reservation->status->value != 'cancelled')
                                                     @php
                                                         $diffInSeconds = abs(
                                                             Carbon\Carbon::parse(
@@ -98,6 +98,12 @@
                                                     <div class="mt-2">
                                                         <span
                                                             class="mt-2bg-warning/10 w-fit px-4 py-2 text-xs text-warning rounded-full border border-warning">Expired</span>
+                                                    </div>
+                                                @elseif($reservation->status->value == 'cancelled')
+                                                    <div class="mt-2">
+                                                        <span
+                                                            class="mt-2 bg-error w-fit px-4 py-2 text-xs rounded-full border border-error text-white">Reservation
+                                                            Cancelled</span>
                                                     </div>
                                                 @endif
                                             </div>
@@ -231,7 +237,7 @@
                                         <button class="btn btn-primary h-16 px-5 rounded-full w-full"
                                             wire:click="requestPayment()"><x-heroicon-m-check-badge class="h-6 w-6" />
                                             Do Payment </button>
-                                        <button
+                                        <button wire:click="cancelReservation()"
                                             class="btn btn-neutral h-16 px-5 rounded-full w-full"><x-heroicon-m-x-mark
                                                 class="h-6 w-6" /> Cancel Reservation</button>
                                     @else

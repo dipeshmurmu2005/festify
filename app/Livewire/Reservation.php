@@ -71,4 +71,10 @@ class Reservation extends Component
             return false;
         }
     }
+
+    public function cancelReservation()
+    {
+        $this->reservation->status = TicketReservationStatusEnum::CANCELLED;
+        $this->reservation->save();
+    }
 }
