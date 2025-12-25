@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Livewire\ComingSoon;
 use App\Livewire\EventViewWire;
 use App\Livewire\ExploreWire;
 use App\Livewire\HomeWire;
@@ -20,17 +19,17 @@ use App\Livewire\UserBookings;
 use App\Livewire\UserProfileSetting;
 use App\Livewire\UserProfileWire;
 use App\Livewire\ViewBookingWire;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', ComingSoon::class)->name('home');
 Route::get('/', HomeWire::class)->name('home');
 Route::get('/login', LoginWire::class)->name('login');
 Route::get('/register', RegisterWire::class)->name('register');
 Route::get('/register/verify', PasswordSetupWire::class)->name('register.verify')->middleware('signed');
 Route::get('onboard', OnboardWire::class)->name('onboard')->middleware('signed');
+
 Route::get('/auth/{platform}/redirect', [AuthController::class, 'redirect'])->name('auth.platform.redirect');
 Route::get('api/auth/google/callback', [AuthController::class, 'googleCallback']);
+
 Route::get('/update/email/verify', UpdateEmail::class)->name('user.update.email')->middleware('signed', 'validatelink');
 Route::get('organizers/overview', OrganizerWire::class)->name('organizer.overview');
 Route::get('event/view/{event}', EventViewWire::class)->name('event.view');

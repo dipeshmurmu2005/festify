@@ -26,16 +26,11 @@ class AuthController extends Controller
         if ($googleUser) {
             $user = User::where('email', $googleUser->getEmail())->first();
             $organizer = Organizer::where('email', $googleUser->getEmail())->first();
-            if ($organizer) {
-                Auth::guard('organizer')->login($organizer);
-                return redirect()->route('filament.organizer.pages.dashboard');
+            if ($user) {
+                Auth::login($user);
             } else {
-                if (!$user) {
-                    $onboardUrl =  URL::temporarySignedRoute('onboard', now()->addMinutes(60), ['name' => $googleUser->getName(), 'email' => $googleUser->getEmail()]);
-                    return redirect()->to($onboardUrl);
-                } else {
-                    Auth::login($user);
-                }
+                $onboardUrl =  URL::temporarySignedRoute('onboard', now()->addMinutes(60), ['name' => $googleUser->getName(), 'email' => $googleUser->getEmail()]);
+                return redirect()->to($onboardUrl);
             }
 
             session()->regenerate();

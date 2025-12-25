@@ -13,6 +13,7 @@ use Filament\Pages\Page;
 use Filament\Schemas\Components\Section;
 use Filament\Support\Enums\Width;
 use Filament\Support\Icons\Heroicon;
+use Illuminate\Support\Arr;
 
 class OrganizerSetting extends Page implements HasForms
 {
@@ -42,8 +43,7 @@ class OrganizerSetting extends Page implements HasForms
         $setting = auth()->user()->organizer->settings;
         $this->form->fill([
             'logo' => $setting ? $setting->logo : null,
-            'name' =>  $setting ? $setting->name  : auth()->user()->name,
-            'email' => $setting ? $setting->email  : auth()->user()->email,
+            'name' =>  $setting ? $setting->name  : auth()->user()->organizer->name,
             'website' => $setting ? $setting->website : null,
             'phone' => $setting ? $setting->phone : null
         ]);
@@ -56,7 +56,6 @@ class OrganizerSetting extends Page implements HasForms
                 FileUpload::make('logo')->avatar()->maxFiles(1)->columnSpanFull(),
                 TextInput::make('name')
                     ->label('Display Name'),
-                TextInput::make('email')->label('Email')->placeholder('john@doe.com'),
                 TextInput::make('phone')->label('Phone')->mask('9999999999'),
                 TextInput::make('website')->prefix('https://'),
             ])->columns(3),
@@ -66,6 +65,10 @@ class OrganizerSetting extends Page implements HasForms
     public function create()
     {
         $data = $this->form->getState();
+        $organizer = auth()->user()->organizer;
+        $organizer->name = $data['name'];
+        $organizer->save();
+        $data = Arr::except($data, ['name']);
         ModelsOrganizerSetting::updateOrCreate(
             ['organizer_id' => auth()->user()->organizer->id],
             $data

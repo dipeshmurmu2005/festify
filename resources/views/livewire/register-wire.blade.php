@@ -51,6 +51,11 @@
                         </fieldset>
                         <button class="btn btn-primary w-full h-10">Register</button>
                     </form>
+                    <div class="divider">Or</div>
+                    <a href="{{ route('auth.platform.redirect', ['platform' => 'google']) }}">
+                        <button class="btn btn-neutral w-full h-10"><x-fab-google class="h-4 w-4" /> Sign up with
+                            Google</button>
+                    </a>
                 </div>
             </div>
         @endif

@@ -8,16 +8,7 @@
         <div class="text-sm font-semibold">
             <a href="{{ route('explore') }}"
                 class="text-white/80 w-fit px-4 py-2 rounded-full hover:bg-white/10 hover:text-primary duration-300">Explore</a>
-            <a href="#"
-                class="text-white/80 w-fit px-4 py-2 rounded-full hover:bg-white/10 hover:text-primary duration-300">Events</a>
         </div>
-        {{-- <div class="relative">
-            <div class="absolute z-10 h-10 w-10 flex justify-center items-center text-white/50">
-                <x-heroicon-m-magnifying-glass class="h-4 w-4" />
-            </div>
-            <input type="text" class="input pl-10 rounded-md text-sm w-[350px]"
-                placeholder="Search Organizers, Events..">
-        </div> --}}
     </div>
     <div class="flex gap-2 items-center">
         @guest
@@ -50,7 +41,13 @@
                 </div>
                 <ul tabindex="-1"
                     class="dropdown-content menu bg-neutral border border-white/10 rounded-box z-1 w-52 p-2 shadow-sm">
-                    <li><a>Profile</a></li>
+                    <li><a href="{{ route('user.profile') }}">Profile</a></li>
+                    <li class="cursor-pointer">
+                        <form action="{{ route('user.logout') }}" method="POST">
+                            @csrf
+                            <button class="cursor-pointer">Logout</button>
+                        </form>
+                    </li>
                 </ul>
             </div>
         @endauth

@@ -7,7 +7,7 @@
     }">
         <div>
             <h2 class="font-bold text-lg">Password</h2>
-            <p class="text-gray-600">Keep your account secure by using a strong password.</p>
+            <p class="text-white/50">Keep your account secure by using a strong password.</p>
         </div>
         <div class="mt-2 w-fit" @click.outside="enable=false;">
             <button class="btn btn-primary btn-sm" @click="toggle()">Change Password</button>
