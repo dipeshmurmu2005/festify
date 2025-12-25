@@ -3,7 +3,7 @@
     <x-home.categories />
     <livewire:trending-events-wire />
     <livewire:upcoming-events-wire />
-    <div class="relative h-[700px]">
+    <div class="relative h-175">
         <video src="{{ asset('images/usingfestifyf.mp4') }}" autoplay muted loop
             class="h-full w-full object-cover"></video>
         <div class="h-full w-full absolute left-0 top-0 bg-black/90 flex items-center px-5">

@@ -186,8 +186,8 @@
                         </div>
                     </div>
                     <div class="mt-5 space-y-5">
-                        @foreach ($this->tickets as $ticket)
-                            <div class="border-[2px] grid grid-cols-3 rounded-md {{ $ticket['available'] == 0 ? 'grayscale opacity-50' : '' }}"
+                        @forelse ($this->tickets as $ticket)
+                            <div class="border-2 grid grid-cols-3 rounded-md {{ $ticket['available'] == 0 ? 'grayscale opacity-50' : '' }}"
                                 :class="getTicketQuantity({{ $ticket['id'] }}) > 0 ? 'border-primary' : 'border-white/10'"
                                 wire:key="{{ 'ticket-' . $ticket['id'] }}">
                                 <div class="col-span-2 flex justify-between">
@@ -221,7 +221,15 @@
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        @empty
+                            <div class="flex flex-col items-center justify-center gap-1 text-white/40 py-10">
+                                <div class="h-14 w-14 opacity-60">
+                                    <img src="https://cdn3d.iconscout.com/3d/premium/thumb/no-voucher-3d-icon-png-download-11627250.png"
+                                        alt="" class="grayscale" class="h-full w-full object-contain">
+                                </div>
+                                <h2>No Tickets Available Currently</h2>
+                            </div>
+                        @endforelse
                         @if (count($errors) > 0)
                             <div class="bg-error/10 p-8 text-sm text-error rounded-xl border border-error/50">
                                 <ul class="list-disc">
@@ -236,23 +244,26 @@
                                 </ul>
                             </div>
                         @endif
-                        <div>
-                            <template x-if="booked_tickets.length > 0">
-                                <button @click="bookTickets()" class="btn btn-primary w-full rounded-full h-12 text-lg">
-                                    <div><span>रु</span> <span x-text="getTotal()"></span></div>
-                                    | Get
-                                </button>
-                            </template>
-                            <template x-if="booked_tickets.length == 0">
-                                <button class="btn tex-sm btn-primary w-full rounded-full h-12">
-                                    @if ($this->date)
-                                        Select Ticket To Proceed
-                                    @else
-                                        Select Date To Find Ticket
-                                    @endif
-                                </button>
-                            </template>
-                        </div>
+                        @if ($this->tickets->count() > 0)
+                            <div>
+                                <template x-if="booked_tickets.length > 0">
+                                    <button @click="bookTickets()"
+                                        class="btn btn-primary w-full rounded-full h-12 text-lg">
+                                        <div><span>रु</span> <span x-text="getTotal()"></span></div>
+                                        | Get
+                                    </button>
+                                </template>
+                                <template x-if="booked_tickets.length == 0">
+                                    <button class="btn tex-sm btn-primary w-full rounded-full h-12">
+                                        @if ($this->date)
+                                            Select Ticket To Proceed
+                                        @else
+                                            Select Date To Find Ticket
+                                        @endif
+                                    </button>
+                                </template>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <dialog id="reservation_confirmation_modal" class="modal" wire:ignore.self

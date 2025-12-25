@@ -43,6 +43,7 @@ class SetupOrganizer extends Component
             'name' => $this->name,
             'user_id' => auth()->id()
         ]);
+        $organizer->create();
         if ($organizer) {
             return redirect()->route('filament.organizer.pages.dashboard', ['tenant' => $organizer->id]);
         }

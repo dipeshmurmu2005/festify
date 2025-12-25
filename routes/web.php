@@ -34,7 +34,7 @@ Route::get('api/auth/google/callback', [AuthController::class, 'googleCallback']
 Route::get('/update/email/verify', UpdateEmail::class)->name('user.update.email')->middleware('signed', 'validatelink');
 Route::get('organizers/overview', OrganizerWire::class)->name('organizer.overview');
 Route::get('event/view/{event}', EventViewWire::class)->name('event.view');
-Route::get('explore', ExploreWire::class)->name('explore');
+Route::get('explore/{category?}', ExploreWire::class)->name('explore');
 Route::middleware('auth')->group(function () {
     Route::get('/user/profile', UserProfileWire::class)->name('user.profile');
     Route::get('/user/profile/settings', UserProfileSetting::class)->name('user.profile.setting');

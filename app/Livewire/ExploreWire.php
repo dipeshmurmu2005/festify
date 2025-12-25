@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Models\EventCategory;
 use Carbon\Carbon;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 
 use function Symfony\Component\Clock\now;
@@ -14,6 +15,9 @@ use function Symfony\Component\Clock\now;
 class ExploreWire extends Component
 {
     public $categories;
+
+    #[Url()]
+    public $category;
 
     public $selected_categories = [];
 
@@ -33,6 +37,9 @@ class ExploreWire extends Component
     {
         $this->categories = EventCategory::all();
         $this->sort_filters = EventsPriceSortEnum::cases();
+        if ($this->category) {
+            $this->selected_categories = [$this->category];
+        }
     }
 
     public function render()
@@ -62,15 +69,18 @@ class ExploreWire extends Component
             $startDate = Carbon::now()->startOfWeek(Carbon::SUNDAY)->startOfDay()->addWeek();
             $endDate = Carbon::now()->endOfWeek(Carbon::SATURDAY)->endOfDay()->addWeek();
         }
-        $events =  Event::when($max_price || $min_price, function ($q) use ($min_price, $max_price) {
-            $q->whereHas('tickets', function ($q) use ($max_price, $min_price) {
-                $q->when(!is_null($min_price) && $min_price >= 0, function ($q) use ($min_price) {
-                    $q->where('base_price', '>=', $min_price);
-                })->when(!is_null($max_price) && $max_price > 0, function ($q) use ($max_price) {
-                    $q->where('base_price', '<=', $max_price);
+        $events =  Event::published()
+            ->when($max_price || $min_price, function ($q) use ($min_price, $max_price) {
+                $q->whereHas('tickets', function ($q) use ($max_price, $min_price) {
+                    $q->when(!is_null($min_price) && $min_price >= 0, function ($q) use ($min_price) {
+                        $q->where('base_price', '>=', $min_price);
+                    })->when(!is_null($max_price) && $max_price > 0, function ($q) use ($max_price) {
+                        $q->where('base_price', '<=', $max_price);
+                    });
                 });
-            });
-        })
+            })->withCount(['tickets as active_tickets_count' => function ($q) {
+                $q->where('status', 'active')->whereDate('sales_starts_at', '<=', now());
+            }])
             ->withMin('tickets', 'base_price')
             ->withMax('tickets', 'base_price')
             ->when($sort != null, function ($q) use ($sort) {

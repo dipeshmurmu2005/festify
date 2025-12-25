@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Actions\BookingAction;
 use App\Actions\PaymentAction;
 use App\Enums\PaymentMethodEnum;
 use App\Enums\PaymentStatusEnum;
@@ -47,12 +48,27 @@ class Reservation extends Component
     {
 
         if ($this->reservation->status == TicketReservationStatusEnum::ACTIVE || $this->reservation->status == TicketReservationStatusEnum::PAYMENT_INITIATED) {
-            $payment = new PaymentAction();
-            $this->payment_params = $payment->initiatePayment(auth()->user()->id, $this->reservation->id);
-            $this->reservation->status = TicketReservationStatusEnum::PAYMENT_INITIATED;
-            $this->reservation->transaction_uuid = $this->payment_params['transaction_uuid'];
-            $this->reservation->save();
-            $this->dispatch('redirect-to-payment');
+            if ($this->reservation->total_amount > 0) {
+                $payment = new PaymentAction();
+                $this->payment_params = $payment->initiatePayment(auth()->user()->id, $this->reservation->id);
+                $this->reservation->status = TicketReservationStatusEnum::PAYMENT_INITIATED;
+                $this->reservation->transaction_uuid = $this->payment_params['transaction_uuid'];
+                $this->reservation->save();
+                $this->dispatch('redirect-to-payment');
+            } else {
+                $bookingAction = new BookingAction();
+                $booking = $bookingAction->initiateBooking($this->reservation->id);
+                $this->reservation = auth()->user()->reservations()->find($this->reservation_id);
+            }
+        }
+    }
+
+    public function canInitiatePayment()
+    {
+        if ($this->reservation->status == TicketReservationStatusEnum::ACTIVE || $this->reservation->status == TicketReservationStatusEnum::PAYMENT_INITIATED) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

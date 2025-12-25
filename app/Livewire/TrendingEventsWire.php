@@ -11,8 +11,14 @@ class TrendingEventsWire extends Component
 
     public function mount()
     {
-        $this->events = Event::withMin('tickets', 'base_price')
+        $this->events = Event::published()->withMin('tickets', 'base_price')
             ->withMax('tickets', 'base_price')
+            ->whereHas('tickets', function ($q) {
+                $q->whereDate('sales_starts_at', '<=', now());
+            })
+            ->withCount(['tickets as active_tickets_count' => function ($q) {
+                $q->where('status', 'active')->whereDate('sales_starts_at', '<=', now());
+            }])
             ->withCount('bookedTickets')->orderByDesc('booked_tickets_count')->take(10)->get();
     }
 

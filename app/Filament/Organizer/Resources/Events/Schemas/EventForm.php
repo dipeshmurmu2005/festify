@@ -60,6 +60,7 @@ class EventForm
                                                 ->options(VisibilityTypeEnum::class),
                                             Select::make('event_category_id')
                                                 ->label('Category')
+                                                ->required()
                                                 ->options(EventCategory::pluck('name', 'id'))
                                         ]),
                                     Grid::make('4')->schema([

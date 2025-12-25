@@ -177,8 +177,10 @@
                                 </div>
                             </div>
                         @endif
-                        @if ($this->reservation->payment && $this->reservation->payment->status->value != 'failed')
-                            @if ($this->reservation->payment->status->value == 'verified')
+                        @if (
+                            ($this->reservation->payment && $this->reservation->payment->status->value != 'failed') ||
+                                $this->reservation->status->value == 'payment done')
+                            @if ($this->reservation->payment?->status->value == 'verified' || $this->reservation->status->value == 'payment done')
                                 <div
                                     class="p-10 h-[200px] rounded-2xl overflow-hidden relative bg-white/5 border-2 border-white/5 mt-10 gap-2 flex justify-center items-center flex-col">
                                     <img src="https://cdn3d.iconscout.com/3d/premium/thumb/confetti-3d-icon-png-download-5326774.png"
@@ -225,12 +227,19 @@
                                     </form>
                                 @endif
                                 <div class="space-y-5">
-                                    <button wire:click="requestPayment()"
-                                        class="btn btn-primary h-16 px-5 rounded-full w-full"><x-heroicon-m-check-badge
-                                            class="h-6 w-6" /> Verify & Book
-                                        Ticket</button>
-                                    <button class="btn btn-neutral h-16 px-5 rounded-full w-full"><x-heroicon-m-x-mark
-                                            class="h-6 w-6" /> Cancel Reservation</button>
+                                    @if ($this->canInitiatePayment())
+                                        <button class="btn btn-primary h-16 px-5 rounded-full w-full"
+                                            wire:click="requestPayment()"><x-heroicon-m-check-badge class="h-6 w-6" />
+                                            Do Payment </button>
+                                        <button
+                                            class="btn btn-neutral h-16 px-5 rounded-full w-full"><x-heroicon-m-x-mark
+                                                class="h-6 w-6" /> Cancel Reservation</button>
+                                    @else
+                                        <button
+                                            class="btn btn-warning h-16 px-5 rounded-full w-full"><x-heroicon-m-x-mark
+                                                class="h-6 w-6" /> Reservation
+                                            {{ $this->reservation->status->getLabel() }} </button>
+                                    @endif
                                 </div>
                             </div>
                         @endif

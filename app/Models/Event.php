@@ -61,6 +61,7 @@ class Event extends Model
     public function scopeUpcoming(Builder $query)
     {
         $query
+            ->published()
             ->whereDate('event_date', '>=', now());
     }
 }

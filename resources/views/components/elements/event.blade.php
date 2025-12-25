@@ -4,11 +4,11 @@
             <img src="{{ Storage::url($event->cover_image) }}" alt="" class="h-full w-full object-cover">
             <div class="absolute bottom-2 right-2">
                 <div class="bg-black/90 px-5 py-2 text-primary font-black font-space text-sm rounded-full">
-                    @if ($event->tickets_min_base_price > 0)
-                        Rs. {{ $event->tickets_min_base_price ?? 0 }}
+                    @if ($event->active_tickets_count > 0)
+                        Rs. {{ $event->tickets_min_base_price > 0 ? $event->tickets_min_base_price : 'Free' }}
                         {{ $event->tickets_max_base_price > $event->tickets_min_base_price ? '- Rs. ' . $event->tickets_max_base_price : null }}
                     @else
-                        <span>No Tickets</span>
+                        <span>Tickets Unavailable</span>
                     @endif
                 </div>
             </div>
