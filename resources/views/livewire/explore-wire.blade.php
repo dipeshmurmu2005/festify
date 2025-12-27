@@ -1,5 +1,5 @@
 <div>
-    <div class="px-5 flex justify-between py-5 border-b border-white/5 sticky top-0 bg-base-100 z-50">
+    <div class="px-5 flex justify-between py-5 border-b border-white/5 sticky top-22 bg-base-100 z-30">
         <div class="bg-white/5 rounded-xl border border-white/10 p-2 w-fit">
             <form wire:submit="search()" class="flex gap-2 h-full">
                 <div class="flex gap-2 h-full border-r-2 border-white/10">
@@ -42,7 +42,7 @@
         </div>
     </div>
     <div class="grid grid-cols-4 gap-20 px-5 py-5 pb-20">
-        <div class="h-fit sticky top-32 space-y-10">
+        <div class="h-fit sticky top-48 space-y-10">
             <div class="space-y-3">
                 <h2 class="font-semibold text-lg">Categories</h2>
                 <div class="space-y-3" x-data="{

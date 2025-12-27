@@ -1,4 +1,4 @@
-<div>
+<div class="min-h-screen" x-cloak>
     <x-home.banner />
     <x-home.categories />
     <livewire:trending-events-wire />
@@ -18,8 +18,7 @@
                     <p class="text-white/50 text-lg">Festify is the modern and intuitive way to model, plan, Lorem,
                         ipsum dolor
                         sit amet consectetur
-                        adipisicing elit. Modi, dignissimos tenetur veniam esse quo commodi nam in ipsa assumenda non.
-                        and
+                        adipisicing elit. Modi, dignissimos tenetur veniam esse quo commodi nam in ipsa assumen
                         align your business for everyone on your
                         team </p>
                     <div class="flex gap-4 text-lg">

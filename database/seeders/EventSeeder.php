@@ -73,7 +73,7 @@ class EventSeeder extends Seeder
                     'short_description' => 'Short description for event ' . $i,
                     'long_description' => 'Detailed description for event ' . $i . ' including agenda, speakers, and highlights.',
                     'event_category_id' => rand(1, 10),
-                    'cover_image' => 'events/event-' . rand(1, 6) . '.jpg',
+                    'cover_image' => 'event-' . rand(1, 20) . '.jpg',
                     'venue_name' => $venue['name'],
                     'venue_address' => $venue['address'],
                     'venue_capacity_override' => rand(100, 20000),

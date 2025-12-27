@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Organizer;
+use App\Models\Wallet;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -43,7 +44,10 @@ class SetupOrganizer extends Component
             'name' => $this->name,
             'user_id' => auth()->id()
         ]);
-        $organizer->create();
+        $wallet = Wallet::firstOrCreate([
+            'organizer_id' => $organizer->id
+        ]);
+
         if ($organizer) {
             return redirect()->route('filament.organizer.pages.dashboard', ['tenant' => $organizer->id]);
         }

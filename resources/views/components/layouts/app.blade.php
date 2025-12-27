@@ -14,7 +14,7 @@
 </head>
 
 <body class="!font-jakarta md:text-xs 2xl:text-sm">
-    <x-partials.nav />
+    <livewire:nav-wire />
     {{ $slot }}
     <x-partials.footer />
 </body>

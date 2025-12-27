@@ -25,7 +25,6 @@ class AuthController extends Controller
         $googleUser = $driver->user();
         if ($googleUser) {
             $user = User::where('email', $googleUser->getEmail())->first();
-            $organizer = Organizer::where('email', $googleUser->getEmail())->first();
             if ($user) {
                 Auth::login($user);
             } else {

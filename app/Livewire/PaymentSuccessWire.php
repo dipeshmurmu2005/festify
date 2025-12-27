@@ -50,30 +50,7 @@ class PaymentSuccessWire extends Component
             if ($reservation && $reservation->status == TicketReservationStatusEnum::PAYMENT_INITIATED) {
                 $bookingAction = new BookingAction();
                 $bookingAction->initiateBooking($reservation->id, $data);
-                // $payment = $reservation->payments()->create([
-                //     'user_id' => auth()->user()->id,
-                //     'organizer_id' => $reservation->organizer_id,
-                //     'reservation_id' => $reservation->id,
-                //     'event_id' => $reservation->event_id,
-                //     'event_session_id' => $reservation->event_session_id,
-                //     'amount' => $reservation->total_amount,
-                //     'transaction_uuid' => $data['transaction_uuid'],
-                //     'ref_id' => $data['ref_id'],
-                //     'payment_method' =>  PaymentMethodEnum::Esewa,
-                //     'status' => PaymentStatusEnum::Verified
-                // ]);
-                // $reservation->status = TicketReservationStatusEnum::PAYMENT_DONE;
-                // $reservation->save();
-                // if ($payment) {
-                //     $booking = Booking::create([
-                //         'organizer_id' => $reservation->organizer_id,
-                //         'user_id' => auth()->user()->id,
-                //         'event_id' => $reservation->event_id,
-                //         'reservation_id' => $reservation->id
-                //     ]);
-                //     $booking->booking_code = $this->generateBookingCode($booking->id);
-                //     $booking->save();
-                // }
+                $this->redirect(route('view.reservation', ['reservation_id' => $reservation->id]), navigate: true);
             } else {
                 if ($reservation) {
                     $this->redirect(route('view.reservation', ['reservation_id' => $reservation->id]), navigate: true);

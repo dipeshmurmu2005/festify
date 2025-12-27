@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class PlatformTransaction extends Model
 {
+    protected $guarded = [];
+
     protected $casts = [
         'type' => PlatformTransactionTypeEnum::class,
         'source' => PlatformTransactionSourceEnum::class,

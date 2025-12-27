@@ -114,9 +114,100 @@
 
         </div>
     </div>
-    <div class="px-32 pt-32">
-        <div class="bg-white/5 p-10">
+    <div class="px-32 pt-32 pb-20">
+        <div class="bg-white/5 p-16 rounded-xl">
+            <div class="grid grid-cols-5 gap-10">
+                <div class="space-y-2">
+                    <div
+                        class="h-14 w-14 rounded-xl border border-white/5 text-white/70 flex justify-center items-center bg-white/5">
+                        <x-hugeicons-calendar-02 class="h-6 w-6" />
+                    </div>
+                    <div>
+                        <h2 class="font-semibold text-lg">Event Management</h2>
+                        <p class="text-white/50">Create, manage, and publish events with full control over schedules,
+                            venues, and visibility.
+                        </p>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div
+                        class="h-14 w-14 rounded-xl border border-white/5 text-white/70 flex justify-center items-center bg-white/5">
+                        <x-heroicon-o-ticket class="h-6 w-6" />
+                    </div>
+                    <div>
+                        <h2 class="font-semibold text-lg">Smart Ticketing</h2>
+                        <p class="text-white/50">Multiple ticket types, QR-based tickets, discounts, and real-time
+                            availability tracking.
+                        </p>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div
+                        class="h-14 w-14 rounded-xl border border-white/5 text-white/70 flex justify-center items-center bg-white/5">
+                        <x-hugeicons-lock-password class="h-6 w-6" />
 
+                    </div>
+                    <div>
+                        <h2 class="font-semibold text-lg">Secure Payments</h2>
+                        <p class="text-white/50">Accept online payments, track revenue, and manage payouts from a single
+                            dashboard.
+                        </p>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div
+                        class="h-14 w-14 rounded-xl border border-white/5 text-white/70 flex justify-center items-center bg-white/5">
+                        <x-hugeicons-presentation-bar-chart-01 class="h-6 w-6" />
+                    </div>
+                    <div>
+                        <h2 class="font-semibold text-lg">Insights & Analytics</h2>
+                        <p class="text-white/50">Understand your event performance with real-time sales, attendance, and
+                            revenue insights.
+                        </p>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div
+                        class="h-14 w-14 rounded-xl border border-white/5 text-white/70 flex justify-center items-center bg-white/5">
+                        <x-hugeicons-location-user-02 class="h-6 w-6" />
+                    </div>
+                    <div>
+                        <h2 class="font-semibold text-lg">Attendee Control</h2>
+                        <p class="text-white/50">Manage attendees, scan tickets, and monitor check-ins seamlessly
+                            during
+                            events.
+                        </p>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div
+                        class="h-14 w-14 rounded-xl border border-white/5 text-white/70 flex justify-center items-center bg-white/5 relative">
+                        <div
+                            class="absolute -top-2 -right-12 bg-primary p-1 text-xs text-black font-space italic rounded-md font-semibold">
+                            Upcoming
+                        </div>
+                        <x-hugeicons-promotion class="h-6 w-6" />
+                    </div>
+                    <div>
+                        <h2 class="font-semibold text-lg">Promotion Tools</h2>
+                        <p class="text-white/50">Boost reach with promo codes, featured events, and shareable event
+                            links.
+                        </p>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div
+                        class="h-14 w-14 rounded-xl border border-white/5 text-white/70 flex justify-center items-center bg-white/5">
+                        <x-heroicon-o-sparkles class="h-6 w-6" />
+                    </div>
+                    <div>
+                        <h2 class="font-semibold text-lg">Full Control</h2>
+                        <p class="text-white/50">Set refund rules, ticket visibility, and organizer preferences your
+                            way.
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

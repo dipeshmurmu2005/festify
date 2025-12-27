@@ -66,7 +66,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants
 
     private function isAdmin()
     {
-        if ($this->email == 'kschmitt@example.org') {
+        if ($this->email == User::first()->email) {
             return true;
         }
         return false;

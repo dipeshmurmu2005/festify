@@ -32,14 +32,7 @@ class TicketSeeder extends Seeder
                     'base_price' => rand(800, 1500),
                     'capacity_type' => 'shared with venue',
                     'capacity' => null,
-                ],
-                [
-                    'type' => 'free',
-                    'title' => 'VIP / Invite',
-                    'base_price' => 0,
-                    'capacity_type' => 'shared with session',
-                    'capacity' => null,
-                ],
+                ]
             ];
 
             foreach ($tickets as $ticket) {
