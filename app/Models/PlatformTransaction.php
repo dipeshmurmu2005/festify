@@ -6,6 +6,7 @@ use App\Actions\WalletTransactionAction;
 use App\Enums\PlatformTransactionSourceEnum;
 use App\Enums\PlatformTransactionStatusEnum;
 use App\Enums\PlatformTransactionTypeEnum;
+use App\Enums\TransactionPurposeEnum;
 use Illuminate\Database\Eloquent\Model;
 
 class PlatformTransaction extends Model
@@ -14,27 +15,33 @@ class PlatformTransaction extends Model
 
     protected $casts = [
         'type' => PlatformTransactionTypeEnum::class,
-        'source' => PlatformTransactionSourceEnum::class,
+        'purpose' => TransactionPurposeEnum::class,
         'status' => PlatformTransactionStatusEnum::class,
         'meta' => 'array',
     ];
-
-    protected static function booted()
-    {
-        static::created(function ($model) {
-            if ($model->organizer_id && $model->type == PlatformTransactionTypeEnum::CREDIT && $model->source == PlatformTransactionSourceEnum::TICKET_PURCHASE) {
-                $walletAction = new WalletTransactionAction();
-                $walletAction->credit($model->organizer_id, $model->amount, 'Ticket Payment');
-            }
-        });
-    }
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+
     public function organizer()
     {
         return $this->belongsTo(Organizer::class);
+    }
+
+    public function referenceable()
+    {
+        return $this->morphTo();
+    }
+
+    public function initiator()
+    {
+        return $this->morphTo();
+    }
+
+    public function beneficiary()
+    {
+        return $this->morphTo();
     }
 }

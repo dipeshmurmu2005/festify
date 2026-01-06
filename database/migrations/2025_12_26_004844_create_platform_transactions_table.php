@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\PlatformTransactionStatusEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,13 +13,29 @@ return new class extends Migration
     {
         Schema::create('platform_transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
-            $table->string('source');
-            $table->decimal('amount', 15, 2);
-            $table->unsignedBigInteger('user_id')->nullable();
+
+            $table->morphs('initiator');
+
             $table->unsignedBigInteger('organizer_id')->nullable();
-            $table->text('description')->nullable();
-            $table->string('status')->default(PlatformTransactionStatusEnum::PENDING);
+
+            $table->morphs('beneficiary');
+
+            $table->unsignedBigInteger('payment_id')->nullable();
+
+            $table->string('type');
+
+            $table->decimal('amount', 12, 2);
+
+            $table->string('purpose');
+
+            $table->string('status');
+
+            $table->string('origin');
+
+            $table->morphs('referenceable');
+
+            $table->text('note')->nullable();
+
             $table->timestamps();
         });
     }

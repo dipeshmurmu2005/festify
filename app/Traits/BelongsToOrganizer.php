@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use Filament\Facades\Filament;
+use Illuminate\Database\Eloquent\Builder;
 
 trait BelongsToOrganizer
 {
@@ -33,5 +34,9 @@ trait BelongsToOrganizer
                 $model->organizer_id = Filament::getTenant()->id;
             }
         });
+
+        // static::addGlobalScope('latest', function (Builder $builder) {
+        //     $builder->latest();
+        // });
     }
 }

@@ -106,4 +106,9 @@ class User extends Authenticatable implements FilamentUser, HasTenants
     {
         return $this->hasMany(Booking::class, 'user_id');
     }
+
+    public function platformTransactions()
+    {
+        return $this->morphMany(PlatformTransaction::class, 'initiator');
+    }
 }

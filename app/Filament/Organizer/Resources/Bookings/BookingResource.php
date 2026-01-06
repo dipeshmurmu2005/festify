@@ -15,6 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use UnitEnum;
 
 class BookingResource extends Resource
@@ -24,6 +25,12 @@ class BookingResource extends Resource
     protected static ?string $recordTitleAttribute = 'Booking Resource';
 
     protected static string | UnitEnum | null $navigationGroup = 'Reservations & Bookings';
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->latest();
+    }
+
 
     public static function form(Schema $schema): Schema
     {

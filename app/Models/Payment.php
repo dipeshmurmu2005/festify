@@ -3,13 +3,12 @@
 namespace App\Models;
 
 use App\Actions\PlatformTransactionAction;
-use App\Actions\WalletTransactionAction;
 use App\Enums\PaymentMethodEnum;
+use App\Enums\PaymentOriginTypeEnum;
 use App\Enums\PaymentStatusEnum;
-use App\Enums\PaymentVerificationStatus;
 use App\Enums\PlatformTransactionSourceEnum;
+use App\Enums\TransactionPurposeEnum;
 use App\Traits\BelongsToOrganizer;
-use Filament\Facades\Filament;
 use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
@@ -20,6 +19,7 @@ class Payment extends Model
 
     protected $casts = [
         'status' => PaymentStatusEnum::class,
+        'origin' => PaymentOriginTypeEnum::class,
         'payment_method' => PaymentMethodEnum::class
     ];
 
@@ -28,7 +28,19 @@ class Payment extends Model
         static::created(function ($model) {
             if ($model->status == PaymentStatusEnum::Verified) {
                 $platformTransaction = new PlatformTransactionAction();
-                $platformTransaction->credit($model->organizer->id, $model->user_id, $model->amount, PlatformTransactionSourceEnum::TICKET_PURCHASE, 'Ticket Payment');
+                $platformTransactionData = [
+                    'beneficiary_type' => $model->beneficiary_type,
+                    'beneficiary_id' => $model->beneficiary_id,
+                    'purpose' => TransactionPurposeEnum::TICKET_PURCHASE,
+                    'origin' => $model->origin,
+                    'amount' => $model->amount,
+                    'referenceable_type' =>  $model->referenceable_type,
+                    'referenceable_id' => $model->referenceable_id,
+                    'initiator_type' => User::class,
+                    'initiator_id' => $model->user_id,
+                    'organizer_id' => $model->organizer_id,
+                ];
+                $platformTransaction->credit($platformTransactionData);
             }
         });
     }
@@ -52,5 +64,10 @@ class Payment extends Model
     public function organizer()
     {
         return $this->belongsTo(Organizer::class);
+    }
+
+    public function beneficiary()
+    {
+        return $this->morphTo();
     }
 }

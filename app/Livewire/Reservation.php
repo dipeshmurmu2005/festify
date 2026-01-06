@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Actions\BookingAction;
 use App\Actions\PaymentAction;
 use App\Enums\PaymentMethodEnum;
+use App\Enums\PaymentOriginTypeEnum;
 use App\Enums\PaymentStatusEnum;
 use App\Enums\TicketReservationStatusEnum;
 use Livewire\Attributes\Url;
@@ -59,6 +60,14 @@ class Reservation extends Component
                 $bookingAction = new BookingAction();
                 $booking = $bookingAction->initiateBooking($this->reservation->id);
                 $this->reservation = auth()->user()->reservations()->find($this->reservation_id);
+                $this->reservation->payments()->create([
+                    'organizer_id' => $this->reservation->organizer_id,
+                    'user_id' => auth()->user()->id,
+                    'event_id' => $this->reservation->event_id,
+                    'amount' => $this->reservation->total_amount,
+                    'origin' => PaymentOriginTypeEnum::System,
+                    'status' => PaymentStatusEnum::Verified
+                ]);
             }
         }
     }

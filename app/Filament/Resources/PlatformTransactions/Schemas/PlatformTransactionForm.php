@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\PlatformTransactions\Schemas;
 
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
 class PlatformTransactionForm
@@ -9,6 +10,8 @@ class PlatformTransactionForm
     public static function configure(Schema $schema): Schema
     {
         return $schema
-            ->components([]);
+            ->components([
+                // TextInput::make('')
+            ]);
     }
 }

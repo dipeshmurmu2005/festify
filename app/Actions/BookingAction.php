@@ -3,9 +3,11 @@
 namespace App\Actions;
 
 use App\Enums\PaymentMethodEnum;
+use App\Enums\PaymentOriginTypeEnum;
 use App\Enums\PaymentStatusEnum;
 use App\Enums\TicketReservationStatusEnum;
 use App\Models\Booking;
+use App\Models\PlatformAccount;
 use App\Models\TicketReservation;
 use App\Traits\BookingCodeGenerator;
 
@@ -53,7 +55,12 @@ class BookingAction
             'transaction_uuid' => $transaction_data['transaction_uuid'],
             'ref_id' => $transaction_data['ref_id'],
             'payment_method' =>  PaymentMethodEnum::Esewa,
-            'status' => PaymentStatusEnum::Verified
+            'status' => PaymentStatusEnum::Verified,
+            'beneficiary_type' => PlatformAccount::class,
+            'beneficiary_id' => PlatformAccount::first()->id,
+            'origin' => $reservation->total_amount > 0 ? PaymentOriginTypeEnum::Gateway : PaymentOriginTypeEnum::System,
+            'referenceable_type' =>  TicketReservation::class,
+            'referenceable_id' => $reservation->id,
         ]);
         $reservation->status = TicketReservationStatusEnum::PAYMENT_DONE;
         $reservation->save();

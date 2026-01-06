@@ -3,7 +3,6 @@
 namespace App\Actions;
 
 use App\Models\TicketReservation;
-use Illuminate\Support\Facades\Http;
 
 class PaymentAction
 {

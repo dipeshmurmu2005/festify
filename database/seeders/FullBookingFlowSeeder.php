@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\PaymentOriginTypeEnum;
 use App\Enums\PaymentStatusEnum;
 use App\Enums\TicketReservationStatusEnum;
 use App\Models\{
@@ -10,6 +11,7 @@ use App\Models\{
     TicketReservation,
     Booking,
     Payment,
+    PlatformAccount,
     User
 };
 use Carbon\Carbon;
@@ -69,13 +71,10 @@ class FullBookingFlowSeeder extends Seeder
                     'organizer_id'     => $organizer->id,
                     'user_id'          => $user->id,
                     'guest_user_info'  => null,
-
                     'reservation_code' => 'RSV-' . strtoupper(Str::random(10)),
                     'transaction_uuid' => (string) Str::uuid(),
-
                     'event_id'         => $event->id,
                     'event_session_id' => null,
-
                     'status'           => $status,
                     'expires_at'       => $expiresAt,
                     'total_amount'     => 0,
@@ -121,11 +120,15 @@ class FullBookingFlowSeeder extends Seeder
                         'user_id'          => $user->id,
                         'reservation_id'   => $reservation->id,
                         'event_id'         => $event->id,
-                        'event_session_id' => null,
                         'amount'           => $totalAmount,
                         'payment_method'   => 'esewa',
+                        'beneficiary_type' => PlatformAccount::class,
+                        'beneficiary_id' => PlatformAccount::first()->id,
                         'transaction_uuid' => (string) Str::uuid(),
                         'ref_id'           => 'PAY-' . strtoupper(Str::random(8)),
+                        'origin' => $totalAmount > 0 ? PaymentOriginTypeEnum::Gateway : PaymentOriginTypeEnum::System,
+                        'referenceable_type' =>  TicketReservation::class,
+                        'referenceable_id' => $reservation->id,
                         'status'           => PaymentStatusEnum::Verified,
                         'created_at'       => $now,
                         'updated_at'       => $now,

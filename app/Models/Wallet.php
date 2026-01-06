@@ -17,6 +17,11 @@ class Wallet extends Model
         'credit_amount'
     ];
 
+    public function organizer()
+    {
+        return $this->belongsTo(Organizer::class);
+    }
+
     public function transactions()
     {
         return $this->hasMany(WalletTransaction::class, 'wallet_id');

@@ -1,5 +1,5 @@
-<div class="flex justify-center items-center pt-20">
-    <div class="bg-white/10 p-8 rounded-xl min-w-[350px]">
+<div class="flex justify-center items-center pt-20 pb-20">
+    <div class="bg-white/10 p-8 rounded-xl min-w-87.5">
         <div>
             <div class="flex justify-center mb-5">
                 <label for="image"

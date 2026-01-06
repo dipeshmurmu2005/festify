@@ -15,9 +15,10 @@ class PlatformTransactionsTable
     {
         return $table
             ->columns([
-                TextColumn::make('user.name'),
+                TextColumn::make('initiator.name'),
                 TextColumn::make('organizer.name'),
-                TextColumn::make('source')->badge(),
+                TextColumn::make('beneficiary.name'),
+                TextColumn::make('purpose')->badge(),
                 TextColumn::make('type')->badge(),
                 TextColumn::make('amount')->prefix('Rs. '),
 

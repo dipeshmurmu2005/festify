@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\URL;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
+use function Illuminate\Log\log;
+use function Laravel\Prompts\info;
+
 #[Layout('components.layouts.clean')]
 class RegisterWire extends Component
 {
