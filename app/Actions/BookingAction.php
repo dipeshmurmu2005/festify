@@ -50,7 +50,6 @@ class BookingAction
             'organizer_id' => $reservation->organizer_id,
             'reservation_id' => $reservation->id,
             'event_id' => $reservation->event_id,
-            'event_session_id' => $reservation->event_session_id,
             'amount' => $reservation->total_amount,
             'transaction_uuid' => $transaction_data['transaction_uuid'],
             'ref_id' => $transaction_data['ref_id'],
