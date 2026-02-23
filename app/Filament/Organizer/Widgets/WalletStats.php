@@ -10,7 +10,7 @@ class WalletStats extends StatsOverviewWidget
     protected function getStats(): array
     {
         return [
-            Stat::make('Balance', 3902)
+            Stat::make('Balance', 'Rs.' . 3902)
                 ->color('success'),
         ];
     }

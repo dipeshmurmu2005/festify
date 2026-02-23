@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('event_id');
             $table->unsignedBigInteger('reservation_id');
             $table->decimal('amount', 10, 2)->nullable();
-            $table->string('payment_method');
+            $table->string('payment_method')->nullable();
             $table->morphs('beneficiary');
             $table->string('transaction_uuid')->nullable();
             $table->string('ref_id')->nullable();

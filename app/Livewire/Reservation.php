@@ -8,6 +8,8 @@ use App\Enums\PaymentMethodEnum;
 use App\Enums\PaymentOriginTypeEnum;
 use App\Enums\PaymentStatusEnum;
 use App\Enums\TicketReservationStatusEnum;
+use App\Models\Organizer;
+use App\Models\TicketReservation;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
@@ -65,6 +67,10 @@ class Reservation extends Component
                     'user_id' => auth()->user()->id,
                     'event_id' => $this->reservation->event_id,
                     'amount' => $this->reservation->total_amount,
+                    'beneficiary_type' => Organizer::class,
+                    'beneficiary_id' => $this->reservation->organizer_id,
+                    'referenceable_type' => TicketReservation::class,
+                    'referenceable_id' => $this->reservation->id,
                     'origin' => PaymentOriginTypeEnum::System,
                     'status' => PaymentStatusEnum::Verified
                 ]);

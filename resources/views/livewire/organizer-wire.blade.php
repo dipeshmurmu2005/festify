@@ -14,7 +14,9 @@
                 white-labelled client
                 portal. <span class="text-white">5-min setup, ready to go this morning.</span></p>
             <div>
-                <button class="btn btn-info h-12 rounded-xl">Become an Organizer</button>
+                <a href="{{ route('register') }}">
+                    <button class="btn btn-info h-12 rounded-xl">Become an Organizer</button>
+                </a>
             </div>
         </div>
         <div class="mt-10 relative">
