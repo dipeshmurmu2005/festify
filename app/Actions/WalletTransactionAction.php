@@ -30,4 +30,22 @@ class WalletTransactionAction
             ]);
         }
     }
+
+    public function debit($data)
+    {
+        $wallet = Wallet::where('organizer_id', $data['organizer_id'])->first();
+        if ($wallet) {
+            $wallet->transactions()->create([
+                'organizer_id' => $data['organizer_id'],
+                'type' => WalletTransactionTypeEnum::Debit,
+                'source_type' => $data['source_type'],
+                'source' => $data['source'],
+                'destination_type' => $data['destination_type'],
+                'destination' => 'Wallet',
+                'transaction_uuid' => $data['transaction_uuid'],
+                'amount' => $data['amount'],
+                'description' => $data['notes']
+            ]);
+        }
+    }
 }
