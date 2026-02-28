@@ -25,4 +25,9 @@ class Expense extends Model
     {
         return $this->belongsTo(Organizer::class);
     }
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class, 'event_id');
+    }
 }

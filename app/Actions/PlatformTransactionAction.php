@@ -6,6 +6,7 @@ use App\Enums\PlatformTransactionStatusEnum;
 use App\Enums\PlatformTransactionTypeEnum;
 use App\Enums\TransactionPurposeEnum;
 use App\Models\Organizer;
+use App\Models\Payment;
 use App\Models\PlatformAccount;
 use App\Models\PlatformTransaction;
 use Filament\Support\Enums\Platform;
@@ -53,8 +54,11 @@ class PlatformTransactionAction
             'initiator_id' => PlatformAccount::first()->id,
             'organizer_id' => isset($data['organizer_id']) ? $data['organizer_id'] : null,
         ]);
-
+        $payment = null;
+        if ($data['payment_id']) {
+            $payment = Payment::find($data['payment_id']);
+        }
         $walletAction = new WalletTransactionAction();
-        $walletAction->credit($data['organizer_id'], $data['amount'], $data['purpose']);
+        $walletAction->credit($data['organizer_id'], $data['amount'], $payment, $data['purpose']);
     }
 }

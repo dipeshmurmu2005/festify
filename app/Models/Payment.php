@@ -39,6 +39,7 @@ class Payment extends Model
                     'initiator_type' => User::class,
                     'initiator_id' => $model->user_id,
                     'organizer_id' => $model->organizer_id,
+                    'payment_id' => $model->id,
                 ];
                 $platformTransaction->credit($platformTransactionData);
             }

@@ -15,4 +15,9 @@ class WithdrawalRequest extends Model
         'payment_method' => PaymentMethodEnum::class,
         'payment_details' => 'array'
     ];
+
+    public function organizer()
+    {
+        return $this->belongsTo(Organizer::class, 'organizer_id');
+    }
 }

@@ -15,6 +15,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('wallet_id');
             $table->unsignedBigInteger('organizer_id');
+            $table->string('transaction_uuid');
+            $table->string('source_type');
+            $table->string('source');
+            $table->string('destination_type');
+            $table->string('destination');
+            $table->nullableMorphs('referenceable');
             $table->string('type');
             $table->decimal('amount', 15, 2);
             $table->text('description')->nullable();

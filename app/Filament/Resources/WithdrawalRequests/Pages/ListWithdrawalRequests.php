@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\WithdrawalRequests\Pages;
 
 use App\Filament\Resources\WithdrawalRequests\WithdrawalRequestResource;
-use Filament\Actions\CreateAction;
+use Filament\Actions\Action;
 use Filament\Resources\Pages\ListRecords;
 
 class ListWithdrawalRequests extends ListRecords
@@ -12,8 +12,6 @@ class ListWithdrawalRequests extends ListRecords
 
     protected function getHeaderActions(): array
     {
-        return [
-            CreateAction::make(),
-        ];
+        return [];
     }
 }

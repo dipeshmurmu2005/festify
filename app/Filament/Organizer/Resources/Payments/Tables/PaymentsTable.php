@@ -37,31 +37,6 @@ class PaymentsTable
             ])
             ->recordActions([
                 ViewAction::make(),
-                Action::make('Change Status')
-                    ->fillForm(function ($record) {
-                        return [
-                            'status' => $record->status
-                        ];
-                    })
-                    ->button()
-                    ->schema([
-                        ToggleButtons::make('status')->options(PaymentStatusEnum::class)->inline()
-                    ])
-                    ->action(function ($data, $record) {
-                        $record->status = $data['status'];
-                        if ($record->status == PaymentStatusEnum::Verified) {
-                            $booking = Booking::create([
-                                'user_id' => $record->user_id,
-                                'event_id' => $record->event_id,
-                                'reservation_id' => $record->reservation_id
-                            ]);
-                            $booking->booking_code = $this->generateBookingCode($booking->id);
-                            $booking->save();
-                        }
-                        $record->save();
-                    })
-                    ->slideOver()
-                    ->modalWidth(Width::Large)
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

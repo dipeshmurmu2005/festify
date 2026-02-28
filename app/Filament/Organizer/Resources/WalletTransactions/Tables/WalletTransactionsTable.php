@@ -11,9 +11,44 @@ class WalletTransactionsTable
     {
         return $table
             ->columns([
-                TextColumn::make('id')->label('Transaction ID'),
-                TextColumn::make('type')->badge(),
-                TextColumn::make('amount')->prefix('Rs. '),
+                TextColumn::make('id')
+                    ->label('Txn ID')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('transaction_uuid')
+                    ->label('UUID')
+                    ->copyable()
+                    ->toggleable(),
+
+                TextColumn::make('type')
+                    ->badge()
+                    ->sortable(),
+
+                TextColumn::make('amount')
+                    ->label('Amount')
+                    ->formatStateUsing(fn($state) => 'Rs. ' . number_format($state, 2))
+                    ->weight('bold')
+                    ->color(fn($record) => match ($record->type) {
+                        'credit' => 'success',
+                        'debit' => 'danger',
+                        default => 'secondary',
+                    })
+                    ->sortable(),
+
+                TextColumn::make('source')
+                    ->label('From')
+                    ->description(fn($record) => $record->source_type->getLabel())
+                    ->toggleable(),
+
+                TextColumn::make('destination')
+                    ->label('To')
+                    ->description(fn($record) => $record->destination_type->getLabel())
+                    ->toggleable(),
+
+                TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable(),
             ])
             ->filters([
                 //

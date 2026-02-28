@@ -27,7 +27,7 @@ class WithdrawalRequestAction
                 'reference_no' => 'W-' . Str::uuid(),
                 'amount' => $data['amount'],
                 'net_amount' => $this->getNetAmount($data['amount']),
-                'available_balance_at_request' => $this->organizer->wallet->balance,
+                'available_balance_at_request' => $this->organizer->wallet->available_amount_for_withdrawal,
                 'currency' => "NPR",
                 'payment_method' => PaymentMethodEnum::Bank,
                 'payment_details' => $data['payment_details'],

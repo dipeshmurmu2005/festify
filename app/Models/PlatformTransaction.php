@@ -44,4 +44,9 @@ class PlatformTransaction extends Model
     {
         return $this->morphTo();
     }
+
+    public function payment()
+    {
+        return $this->belongsTo(Payment::class, 'payment_id');
+    }
 }

@@ -5,7 +5,9 @@ namespace App\Filament\Resources\WithdrawalRequests;
 use App\Filament\Resources\WithdrawalRequests\Pages\CreateWithdrawalRequest;
 use App\Filament\Resources\WithdrawalRequests\Pages\EditWithdrawalRequest;
 use App\Filament\Resources\WithdrawalRequests\Pages\ListWithdrawalRequests;
+use App\Filament\Resources\WithdrawalRequests\Pages\ViewWithdrawalRequest;
 use App\Filament\Resources\WithdrawalRequests\Schemas\WithdrawalRequestForm;
+use App\Filament\Resources\WithdrawalRequests\Schemas\WithdrawalRequestsInfolist;
 use App\Filament\Resources\WithdrawalRequests\Tables\WithdrawalRequestsTable;
 use App\Models\WithdrawalRequest;
 use BackedEnum;
@@ -25,6 +27,11 @@ class WithdrawalRequestResource extends Resource
         return WithdrawalRequestForm::configure($schema);
     }
 
+    public static function infolist(Schema $schema): Schema
+    {
+        return WithdrawalRequestsInfolist::configure($schema);
+    }
+
     public static function table(Table $table): Table
     {
         return WithdrawalRequestsTable::configure($table);
@@ -41,8 +48,7 @@ class WithdrawalRequestResource extends Resource
     {
         return [
             'index' => ListWithdrawalRequests::route('/'),
-            'create' => CreateWithdrawalRequest::route('/create'),
-            'edit' => EditWithdrawalRequest::route('/{record}/edit'),
+            'view' => ViewWithdrawalRequest::route('/view/{record}'),
         ];
     }
 }
