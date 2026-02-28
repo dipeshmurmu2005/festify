@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Enums\BookingStatusEnum;
 use App\Enums\EventSessionTypeEnum;
 use App\Enums\EventStatusEnum;
 use App\Enums\EventTypeEnum;
 use App\Enums\PaymentStatusEnum;
+use App\Enums\TicketCapacityTypeEnum;
 use App\Enums\TicketStatusEnum;
 use App\Enums\WithdrawalRequestEnum;
 use App\Traits\BelongsToOrganizer;
@@ -27,6 +29,9 @@ class Event extends Model
 
     protected $appends = [
         'gross_ticket_revenue',
+        'reservations_count',
+        'active_ticket_bookings',
+        'available_general_admission_capacity'
     ];
 
     public function organizer()
@@ -79,5 +84,32 @@ class Event extends Model
     public function getGrossTicketRevenueAttribute()
     {
         return $this->payments()->where('status', PaymentStatusEnum::Verified)->sum('amount');
+    }
+
+    public function reservations(): HasMany
+    {
+        return $this->hasMany(TicketReservation::class, 'event_id');
+    }
+
+    public function ticketBookings(): HasMany
+    {
+        return $this->hasMany(BookedTicket::class, 'event_id');
+    }
+
+    public function getActiveTicketBookingsAttribute()
+    {
+        return $this->ticketBookings()->where('status', BookingStatusEnum::COMPLETED)->count();
+    }
+
+    public function getReservationsCountAttribute()
+    {
+        return $this->reservations()->count();
+    }
+
+    public function getAvailableGeneralAdmissionCapacityAttribute()
+    {
+        return $this->venue_capacity_override - $this->ticketBookings()->whereHas('ticket', function ($query) {
+            $query->where('capacity_type', TicketCapacityTypeEnum::SHAREDWITHEVENT);
+        })->count();
     }
 }

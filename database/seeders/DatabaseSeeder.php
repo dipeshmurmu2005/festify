@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(FullBookingFlowSeeder::class);
         $this->call(ExpenseCategorySeeder::class);
         $this->call(ExpenseSeeder::class);
+        $this->call(WithdrawalBankSeeder::class);
     }
 }

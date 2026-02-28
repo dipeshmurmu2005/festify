@@ -5,7 +5,9 @@ namespace App\Filament\Organizer\Pages;
 use App\Actions\WithdrawalRequestAction;
 use App\Filament\Organizer\Widgets\WalletStats;
 use App\Models\WalletTransaction;
+use App\Models\WithdrawalBank;
 use Filament\Actions\Action;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
@@ -53,7 +55,10 @@ class Wallet extends Page implements HasTable
                         TextInput::make('account_number')
                             ->required()
                             ->label('Account Number'),
-                        TextInput::make('bank_name')
+                        Select::make('bank_name')
+                            ->options(WithdrawalBank::pluck('name', 'name'))
+                            ->native(false)
+                            ->searchable()
                             ->required()
                             ->label('Bank Name')
                     ])
@@ -81,6 +86,7 @@ class Wallet extends Page implements HasTable
 
                     return $wallet->available_amount_for_withdrawal == 0;
                 })
+                ->requiresConfirmation()
                 ->slideOver()
                 ->modalSubmitActionLabel('Confirm Withdrawl')
                 ->modalWidth(Width::Large)
