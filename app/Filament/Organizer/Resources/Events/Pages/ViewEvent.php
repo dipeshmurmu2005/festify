@@ -2,6 +2,7 @@
 
 namespace App\Filament\Organizer\Resources\Events\Pages;
 
+use App\Actions\WithdrawalRequestAction;
 use App\Enums\EventStatusEnum;
 use App\Enums\PaymentStatusEnum;
 use App\Enums\TicketCapacityTypeEnum;
@@ -162,7 +163,37 @@ class ViewEvent extends ViewRecord
                 Notification::make()
                     ->success()
                     ->title('Successfully Created Expense');
-            })->slideOver()->modalWidth(Width::Large)
+            })->slideOver()->modalWidth(Width::Large),
+            Action::make('Withdraw')->schema([
+                Section::make()
+                    ->heading(function ($record) {
+                        return 'Balance : ' . $record->gross_ticket_revenue;
+                    })
+                    ->schema([
+                        TextInput::make('amount')->label('Amount')->belowContent('Minimum Amount Rs. 5000'),
+                    ]),
+                Section::make('Bank Transfer')
+                    ->description('Ensure your bank details are correct. Incorrect information may result in failed transfers, for which the platform is not responsible.')->schema([
+                        TextInput::make('account_holder_name')->label('Account Holder Name'),
+                        TextInput::make('account_number')->label('Account Number'),
+                        TextInput::make('bank_name')->label('Bank Name')
+                    ])
+            ])
+                ->action(function ($record, $data) {
+                    $withdrawalRequestAction = new WithdrawalRequestAction($record);
+                    $withdrawalData = [
+                        'amount' => $data['amount'],
+                        'payment_details' => $data
+                    ];
+                    $withdrawalRequestAction->createRequest($withdrawalData);
+                    Notification::make()
+                        ->title('Withdrawal Request Successfull')
+                        ->success()
+                        ->send();
+                })
+                ->slideOver()
+                ->modalSubmitActionLabel('Confirm Withdrawl')
+                ->modalWidth(Width::Large)
         ];
     }
 }

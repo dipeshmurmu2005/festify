@@ -23,8 +23,9 @@ class EventInfolist
                     TextEntry::make('venue_name')->label('Venue'),
                     TextEntry::make('venue_address')->label('Venue Location'),
                     TextEntry::make('venue_capacity_override')->label('Venue Capacity'),
+                    TextEntry::make('gross_ticket_revenue')->label('Gross Ticket Revenue')->prefix('Rs ')->default('0.00')->label('Revenue'),
                     TextEntry::make('status')->badge()
-                ])->columns(6)->columnSpanFull(),
+                ])->columns(7)->columnSpanFull(),
                 Section::make('Event Sessions')->schema([
                     RepeatableEntry::make('eventSessions')->schema([
                         TextEntry::make('label'),

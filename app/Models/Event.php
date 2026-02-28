@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\EventSessionTypeEnum;
 use App\Enums\EventStatusEnum;
 use App\Enums\EventTypeEnum;
+use App\Enums\PaymentStatusEnum;
 use App\Enums\TicketStatusEnum;
 use App\Traits\BelongsToOrganizer;
 use Illuminate\Database\Eloquent\Builder;
@@ -21,6 +22,10 @@ class Event extends Model
         'schedule_type' => EventTypeEnum::class,
         'status' => EventStatusEnum::class,
         'session_type' => EventSessionTypeEnum::class,
+    ];
+
+    protected $appends = [
+        'gross_ticket_revenue'
     ];
 
     public function organizer()
@@ -63,5 +68,15 @@ class Event extends Model
         $query
             ->published()
             ->whereDate('event_date', '>=', now());
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class, 'event_id');
+    }
+
+    public function getGrossTicketRevenueAttribute()
+    {
+        return $this->payments()->where('status', PaymentStatusEnum::Verified)->sum('amount');
     }
 }

@@ -8,10 +8,12 @@ use Filament\Support\Contracts\HasLabel;
 enum PaymentMethodEnum: string implements HasLabel, HasColor
 {
     case Esewa = 'esewa';
+    case Bank = 'bank';
     public function getLabel(): string
     {
         return match ($this) {
             self::Esewa => 'eSewa',
+            self::Bank => 'Bank'
         };
     }
 
@@ -19,6 +21,7 @@ enum PaymentMethodEnum: string implements HasLabel, HasColor
     {
         return match ($this) {
             self::Esewa => 'success',
+            self::Bank => 'primary'
         };
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\WalletTransactionTypeEnum;
+use App\Enums\WithdrawalRequestEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,7 +15,8 @@ class Wallet extends Model
 
     protected $appends = [
         'balance',
-        'credit_amount'
+        'credit_amount',
+        'available_amount_for_withdrawal'
     ];
 
     public function organizer()
@@ -39,5 +41,15 @@ class Wallet extends Model
     {
         $totalCredit = $this->transactions()->where('type', WalletTransactionTypeEnum::Credit)->sum('amount');
         return $totalCredit;
+    }
+
+    private function totalWithdrawalRequestedAmount()
+    {
+        return $this->organizer->withdrawalRequests()->where('status', WithdrawalRequestEnum::Pending)->sum('amount');
+    }
+
+    public function getAvailableAmountForWithdrawalAttribute()
+    {
+        return $this->getBalanceAttribute() - $this->totalWithdrawalRequestedAmount();
     }
 }

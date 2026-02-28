@@ -31,4 +31,9 @@ class Organizer extends Authenticatable
     {
         return $this->hasOne(Wallet::class, 'organizer_id');
     }
+
+    public function withdrawalRequests()
+    {
+        return $this->hasMany(WithdrawalRequest::class, 'organizer_id');
+    }
 }

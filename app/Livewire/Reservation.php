@@ -60,7 +60,7 @@ class Reservation extends Component
                 $this->dispatch('redirect-to-payment');
             } else {
                 $bookingAction = new BookingAction();
-                $booking = $bookingAction->initiateBooking($this->reservation->id);
+                $bookingAction->initiateBooking($this->reservation->id);
                 $this->reservation = auth()->user()->reservations()->find($this->reservation_id);
                 $this->reservation->payments()->create([
                     'organizer_id' => $this->reservation->organizer_id,

@@ -24,10 +24,9 @@ class TicketsSoldChart extends ChartWidget
             ->pluck('total', 'month');
 
         $reservations = ReservedTicket::whereBetween('created_at', [$start, $end])
-            ->selectRaw('MONTH(created_at) as month, COUNT(*) as total')
+            ->selectRaw('MONTH(created_at) as month, SUM(quantity) as total')
             ->groupBy('month')
             ->pluck('total', 'month');
-
         return [
             'datasets' => [
                 [

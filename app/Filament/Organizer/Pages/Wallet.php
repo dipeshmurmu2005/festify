@@ -28,21 +28,7 @@ class Wallet extends Page implements HasTable
 
     protected function getHeaderActions(): array
     {
-        return [
-            Action::make('Withdraw')->schema([
-                TextInput::make('amount')->label('Amount')->belowContent('Minimum Amount Rs. 5000'),
-                Section::make('Bank Transfer')
-                    ->description('Ensure your bank details are correct. Incorrect information may result in failed transfers, for which the platform is not responsible.')->schema([
-                        TextInput::make('account_holder_name')->label('Account Holder Name'),
-                        TextInput::make('account_number')->label('Account Number'),
-                        TextInput::make('bank_name')->label('Bank Name')
-                    ])
-            ])
-                ->action(function () {})
-                ->slideOver()
-                ->modalSubmitActionLabel('Confirm Withdrawl')
-                ->modalWidth(Width::Large)
-        ];
+        return [];
     }
 
     public function getWallet()
