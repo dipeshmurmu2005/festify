@@ -7,6 +7,7 @@ use App\Enums\EventStatusEnum;
 use App\Enums\EventTypeEnum;
 use App\Enums\PaymentStatusEnum;
 use App\Enums\TicketStatusEnum;
+use App\Enums\WithdrawalRequestEnum;
 use App\Traits\BelongsToOrganizer;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -25,7 +26,7 @@ class Event extends Model
     ];
 
     protected $appends = [
-        'gross_ticket_revenue'
+        'gross_ticket_revenue',
     ];
 
     public function organizer()

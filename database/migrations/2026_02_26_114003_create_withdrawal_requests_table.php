@@ -15,7 +15,6 @@ return new class extends Migration
         Schema::create('withdrawal_requests', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('organizer_id');
-            $table->unsignedBigInteger('event_id')->nullable();
             $table->unsignedBigInteger('approved_by')->nullable();
 
             $table->string('reference_no')->unique();

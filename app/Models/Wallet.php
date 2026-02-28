@@ -45,11 +45,19 @@ class Wallet extends Model
 
     private function totalWithdrawalRequestedAmount()
     {
-        return $this->organizer->withdrawalRequests()->where('status', WithdrawalRequestEnum::Pending)->sum('amount');
+        return $this->organizer
+            ->withdrawalRequests()
+            ->whereNotIn('status', [WithdrawalRequestEnum::Failed, WithdrawalRequestEnum::Rejected, WithdrawalRequestEnum::Cancelled])
+            ->sum('amount');
     }
 
     public function getAvailableAmountForWithdrawalAttribute()
     {
-        return $this->getBalanceAttribute() - $this->totalWithdrawalRequestedAmount();
+        return $this->getBalanceAttribute() - $this->lockedBalance();
+    }
+
+    private function lockedBalance()
+    {
+        return $this->totalWithdrawalRequestedAmount();
     }
 }
