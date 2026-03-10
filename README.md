@@ -88,26 +88,52 @@ cp .env.example .env
 composer install
 ```
 
-4. **Generate application key**
+4. **Install Node.js dependencies**
+```bash
+npm install
+```
+
+5. **Build frontend assets**
+```bash
+npm run dev
+```
+
+6. **Generate application key**
 ```bash
 php artisan key:generate
 ```
 
-5. **Migrate tables and seed fake data**
+7. **Migrate tables and seed fake data**
 ```bash
 php artisan mi:fr --seed
 ```
 > This command will migrate the database tables and populate them with sample data for testing.
 
-6. **Start the development server**
+8. **Start the development server**
 ```bash
 php artisan serve
 ```
 
-7. **Access the application**  
+9. **Access the application**  
 Open your browser and visit `http://localhost:8000` to see Festify in action.
 
-> ⚡ **Note:** Make sure you have PHP, Composer, and a MySQL database configured before running these steps.
+---
+
+### 🔍 Testing Notes
+
+- Go to your **MySQL database**.
+- The first user in the `users` table is created as:
+  - **Admin**
+  - **Organizer**
+  - **Regular User**
+- You can use this account to test all features of the system (admin panel, event creation, wallet transactions, etc.).
+
+> ⚡ **Note:** Make sure you have **PHP, Composer, Node.js, npm, and MySQL** installed before running these steps.
+
+6. **Start the development server**
+```bash
+php artisan serve
+```
 
 ---
 
