@@ -74,7 +74,7 @@ Follow these steps to get Festify running locally:
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/your-username/festify.git
+git clone https://github.com/dipeshmurmu2005/festify.git
 cd festify
 ```
 
