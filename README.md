@@ -1,61 +1,137 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Festify 🎉
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Festify is a web-based **Event Management System** developed as a college project. It helps organizers create and manage events while allowing participants to discover, register, and pay for events easily.
 
-## About Laravel
+The platform also includes a **secure wallet-based payment system** where payments made by participants are temporarily held by the platform and released to the organizer after the successful completion of the event.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## ✨ Features
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Event Management
+- Create, edit, and manage events
+- Add event details, schedules, and participant limits
+- Manage event registrations
 
-## Learning Laravel
+### User Registration
+- Users can browse and join events
+- Simple and responsive event discovery interface
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### eSewa Payment Integration
+- Secure event payments using **eSewa**
+- Seamless digital payment experience for participants
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Wallet System
+- Built-in wallet for handling platform transactions
+- Organizers can receive funds in their wallet
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Payment Hold Mechanism
+- Event payments are **held by the platform wallet**
+- Ensures security and prevents misuse
 
-## Laravel Sponsors
+### Payment Release
+- After successful completion of the event
+- Funds are **released to the organizer’s wallet**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Transaction Tracking
+- Records of all wallet transactions
+- Transparent credit and debit history
 
-### Premium Partners
+### Organizer Dashboard
+- Manage events
+- View registrations
+- Track earnings
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Admin Controls
+- Manage users and events
+- Monitor transactions and platform activity
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 🛠 Tech Stack
 
-## Code of Conduct
+**Backend**
+- Laravel (PHP)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**Frontend**
+- Blade Templates
+- Tailwind CSS
 
-## Security Vulnerabilities
+**Database**
+- MySQL
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Payment Gateway**
+- eSewa
 
-## License
+**Build Tool**
+- Vite
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## 🛠 Setup Instructions
+
+Follow these steps to get Festify running locally:
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/your-username/festify.git
+cd festify
+```
+
+2. **Copy the environment file**
+```bash
+cp .env.example .env
+```
+
+3. **Install PHP dependencies**
+```bash
+composer install
+```
+
+4. **Generate application key**
+```bash
+php artisan key:generate
+```
+
+5. **Migrate tables and seed fake data**
+```bash
+php artisan mi:fr --seed
+```
+> This command will migrate the database tables and populate them with sample data for testing.
+
+6. **Start the development server**
+```bash
+php artisan serve
+```
+
+7. **Access the application**  
+Open your browser and visit `http://localhost:8000` to see Festify in action.
+
+> ⚡ **Note:** Make sure you have PHP, Composer, and a MySQL database configured before running these steps.
+
+---
+
+## 🎯 Project Objective
+
+The objective of Festify is to demonstrate the development of a full-stack web application with real-world features such as:
+
+- Event management systems
+- Secure digital payment integration
+- Wallet-based transaction handling
+- Admin and organizer dashboards
+
+---
+
+## 🚀 Future Improvements
+
+- QR Code based event tickets
+- Email and SMS notifications
+- Event analytics dashboard
+- Mobile application support
+- Multiple payment gateway integration
+
+---
+
+## 📚 License
+
+This project is developed for **educational purposes as a college project**.
